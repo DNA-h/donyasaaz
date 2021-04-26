@@ -46,7 +46,7 @@ class MusicItemListSerializer(serializers.ModelSerializer):
 class MusicItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'your_price', 'url', 'pk')
+        fields = ('name', 'image', 'url', 'pk')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -93,8 +93,7 @@ class PriceSerializer(serializers.ModelSerializer):
 def musicItemHandler(request):
     if request.data["method"] == 'create':
         MusicItem.objects.create(
-            name=request.data["name"], url=request.data["url"],
-            your_price=request.data["your_price"], image=request.data["image"])
+            name=request.data["name"], url=request.data["url"],image=request.data["image"])
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data["method"] == 'list':
         serializer = MusicItemListSerializer(MusicItem.objects.all(), many=True)
@@ -109,7 +108,7 @@ def musicItemHandler(request):
         item, created = MusicItem.objects. \
             update_or_create(pk=request.data['pk'],
                              defaults={'name': request.data["name"], 'url': request.data["url"],
-                                       'your_price': request.data["your_price"], 'image': request.data["image"]})
+                                       'image': request.data["image"]})
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'seen':
         links = Link.objects.filter(parent=request.data['pk'])

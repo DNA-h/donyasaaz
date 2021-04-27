@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from models.models import MusicItem, Link, Price
 from rest_framework import serializers
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 from json import JSONEncoder
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
@@ -125,3 +125,16 @@ def linkHandler(request):
         parent = MusicItem.objects.get(pk=request.data['parent'])
         Link.objects.create(url=request.data['url'], parent=parent, unseen=False)
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+
+@api_view(['GET'])
+def fonta27a579bdf3c579fb0287ad7eedf13f5(request):
+    return FileResponse(open('static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
+
+@api_view(['GET'])
+def fontf9ada7e5233f3a92347b7531c06f2336(request):
+    return FileResponse(open('static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
+
+@api_view(['GET'])
+def font655ba951f59a5b99d8627273e0883638(request):
+    return FileResponse(open('static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))

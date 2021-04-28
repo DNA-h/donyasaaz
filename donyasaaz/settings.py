@@ -179,3 +179,5 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 CELERY_IMPORTS = ['models']
+# celery -A donyasaaz worker -l info -P gevent
+# celery -A donyasaaz beat -l info -P

@@ -170,7 +170,7 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_BEAT_SCHEDULE = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': 30 * 60.0,  # refresh every 15 minutes
+        'schedule': 240 * 60.0,  # refresh every 15 minutes
     },
 }
 CELERY_IMPORTS = ['models']

@@ -19,6 +19,6 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': crontab(minute='*/30'),  # refresh every 15 minutes
+        'schedule': crontab(minute='*/240'),  # refresh every 15 minutes
     },
 }

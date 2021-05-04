@@ -189,7 +189,7 @@ LOGGING = {
         'default': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'C:\\Users\\DNA.h\\PycharmProjects\\donyasaaz\\logging.log',
+            'filename': '/home/donyasaaz/logging.log',
             'when': 'D',
             'interval': 7,
             'backupCount': 5,

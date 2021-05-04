@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -63,7 +63,6 @@ CORS_ALLOW_HEADERS = default_headers + (
 
 ROOT_URLCONF = 'donyasaaz.urls'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'donyasaaz.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -96,7 +94,6 @@ DATABASES = {
         'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -116,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -129,7 +125,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -175,9 +170,38 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_BEAT_SCHEDULE = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': 60.0,  # refresh every 15 minutes
+        'schedule': 30 * 60.0,  # refresh every 15 minutes
     },
 }
 CELERY_IMPORTS = ['models']
 # celery -A donyasaaz worker -l info -P gevent
 # celery -A donyasaaz beat -l info -P
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'C:\\Users\\DNA.h\\PycharmProjects\\donyasaaz\\logging.log',
+            'when': 'D',
+            'interval': 7,
+            'backupCount': 5,
+            'formatter': 'standard',
+            'encoding': 'utf8',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'INFO',
+            'propagate': True
+        },
+    }
+}

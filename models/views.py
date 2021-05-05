@@ -86,9 +86,9 @@ def musicItemHandler(request):
         return JsonResponse({
             'list': serializer.data,
             'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
-                if config.lastCrawlStarted != '' else '',
+                if config.lastCrawlStarted != 'None' else '',
             'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
-                if config.lastCrawlEnded != '' else '',
+                if config.lastCrawlEnded != 'None' else '',
             'lastCrawlChanges': config.lastCrawlChanges,
             'success': True
         }, encoder=JSONEncoder)

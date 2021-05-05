@@ -215,6 +215,10 @@ def get_prices():
             logger.info('%s :  %s,', str(i), site[0])
             continue
 
+        if product is None or product == 0:
+            logger.info('null :  %s,', str(i), site[0])
+            continue
+
         lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
         if lastPrice is None or lastPrice.value != product:
             try:

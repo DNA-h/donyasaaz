@@ -19,5 +19,5 @@ def malltina(link, headers, site):
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
-    else:
+    else:  # todo "0 تومان" https://malltina.com/product/mlt-76231
         return -1

@@ -170,7 +170,7 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_BEAT_SCHEDULE = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': 240 * 60.0,  # refresh every 15 minutes
+        'schedule': 30 * 60.0,  # refresh every 15 minutes
     },
 }
 CELERY_IMPORTS = ['models']
@@ -189,7 +189,7 @@ LOGGING = {
         'default': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': '/home/donyasaaz/logging.log',
+            'filename': 'C:\\Users\\DNA.h\\PycharmProjects\\donyasaaz\\logging.log',
             'when': 'D',
             'interval': 7,
             'backupCount': 5,

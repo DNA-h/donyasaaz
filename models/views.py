@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from celery import Celery
 import re
+from constance import config
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
@@ -82,7 +83,15 @@ def musicItemHandler(request):
         serializer = MusicItemListSerializer(
             MusicItem.objects.all().order_by('out_of_stock').order_by('in_stock')
                 .order_by('-decrease').order_by('-increase'), many=True)
-        return JsonResponse({'list': serializer.data, 'success': True}, encoder=JSONEncoder)
+        return JsonResponse({
+            'list': serializer.data,
+            'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
+                if coconfig.lastCrawlStarted is not None else '',
+            'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
+                if coconfig.lastCrawlEnded is not None else '',
+            'lastCrawlChanges': config.lastCrawlChanges,
+            'success': True
+        }, encoder=JSONEncoder)
     elif request.data['method'] == 'get':
         serializer = MusicItemSerializer(MusicItem.objects.get(pk=request.data['pk']))
         return JsonResponse({'item': serializer.data, 'success': True}, encoder=JSONEncoder)
@@ -201,14 +210,20 @@ def get_prices():
                 "torob.com": torob_com.torob}
     # for link in links:
     import logging
+    import datetime
+    import time
     logger = logging.getLogger(__name__)
+    config.lastCrawlStarted = datetime.datetime.now()
+    config.lastCrawlChanges = 0
+
     for i in range(0, len(links)):
+        time.sleep(5)
         link = links[i]
         site = re.findall("//(.*?)/", link.url)
         if not site:
             logger.info('empty url :  %s,', str(i))
             continue
-        product = 0
+
         try:
             product = crawlers[site[0]](link, headers, site[0])
         except:
@@ -237,6 +252,8 @@ def get_prices():
                 musicItem.save()
                 price.save()
                 link.save()
+                config.lastCrawlChanges += 1
             except Exception as e:
                 logger.info('%s', e)
+    config.lastCrawlEnded = datetime.datetime.now()
     logger.info('done')

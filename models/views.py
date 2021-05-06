@@ -217,7 +217,7 @@ def get_prices():
     config.lastCrawlChanges = 0
 
     for i in range(0, len(links)):
-        time.sleep(5)
+        time.sleep(0.5)
         link = links[i]
         site = re.findall("//(.*?)/", link.url)
         if not site:

@@ -149,6 +149,10 @@ def font655ba951f59a5b99d8627273e0883638(request):
     return FileResponse(open('static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
+def test_timezone(request):
+    import datetime
+    return JsonResponse({'success': datetime.datetime.now().__str__()}, encoder=JSONEncoder)
+
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)

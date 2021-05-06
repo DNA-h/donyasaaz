@@ -20,6 +20,7 @@ from models.views import *
 urlpatterns = [
     path('items/', musicItemHandler),
     path('links/', linkHandler),
+    path('test_timezone/', test_timezone),
     path('run_prices/', run_prices),
     path(r'a27a579bdf3c579fb0287ad7eedf13f5.woff', fonta27a579bdf3c579fb0287ad7eedf13f5),
     path(r'font655ba951f59a5b99d8627273e0883638.ttf', font655ba951f59a5b99d8627273e0883638),

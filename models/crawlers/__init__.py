@@ -16,4 +16,4 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "mahancamera_com", "avazac_com", "exif_ir", "diddovom_com", "classicshopper_ir", "golden8_ir",
            "logilook_com", "lioncomputer_com", "bobloseven_com","kingbrand_ir","jskala_com","asarayan_com",
            "tehranspeaker_com","technolife_ir","mahgoni_com","avazonline_ir","zanbil_ir","gilsara_com",
-           "esam_ir","bahartak_ir","baniband_com","mahor_net","torob_com"]
+           "esam_ir","bahartak_ir","baniband_com","mahor_net","torob_com","www_donyayesaaz_com","emalls_ir"]

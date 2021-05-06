@@ -11,6 +11,10 @@ from rest_framework.decorators import api_view
 from celery import Celery
 import re
 from constance import config
+import logging
+import datetime
+import pytz
+import time
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
@@ -30,7 +34,7 @@ class MusicItemListSerializer(serializers.ModelSerializer):
 class MusicItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'url', 'pk')
+        fields = ('name', 'image', 'url', 'price', 'pk')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -86,9 +90,9 @@ def musicItemHandler(request):
         return JsonResponse({
             'list': serializer.data,
             'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
-                if config.lastCrawlStarted != 'None' else '',
+            if config.lastCrawlStarted != 'None' else '',
             'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
-                if config.lastCrawlEnded != 'None' else '',
+            if type(config.lastCrawlEnded) is datetime.datetime else config.lastCrawlEnded,
             'lastCrawlChanges': config.lastCrawlChanges,
             'success': True
         }, encoder=JSONEncoder)
@@ -116,6 +120,14 @@ def musicItemHandler(request):
         musicItem.out_of_stock = 0
         musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+
+def reloadMusicItemPrice(pk):
+    item = MusicItem.objects.get(pk=pk)
+    price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
+    item.price = price
+    item.save()
+    return
 
 
 @csrf_exempt
@@ -150,9 +162,10 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    import datetime
-    import  pytz
+    emalls_ir.emalls("https://emalls.ir/%D9%85%D8%B4%D8%AE%D8%B5%D8%A7%D8%AA_Apple-MacBook-Air-MC969-Core-i5-4-GB-128-GB~id~1751",
+                     headers,'')
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
+
 
 def run_prices(request):
     Thread(target=get_prices).start()
@@ -161,6 +174,10 @@ def run_prices(request):
 
 @app.task
 def get_prices():
+    items = MusicItem.objects.all()
+    for item in items:
+        reloadMusicItemPrice(item.pk)
+
     links = Link.objects.all()
     crawlers = {"iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
                 "www.sazforoosh.com": www_sazforoosh_com.sazforoosh, "sazkala.com": sazkala_com.sazkala,
@@ -184,7 +201,7 @@ def get_prices():
                 "www.artemusic.ir": www_artemusic_ir.artemusic, "dgland.com": dgland_com.dgland,
                 "saaz24.com": saaz24_com.saaz24, "melodinng.com": melodinng_com.melodinng,
                 "www.afrangdigital.com": www_afrangdigital_com.afrangdigital,
-                "parsiansote.com": parsiansote_com.parsiansote,
+                "parsiansote.com": parsiansote_com.parsiansote, "emalls.ir": emalls_ir.emalls,
                 "technicav.com": technicav_com.technicav, "www.didnegar.com": www_didnegar_com.didnegar,
                 "www.alijavadzadeh.com": www_alijavadzadeh_com.alijavadzadeh, "bia2piano.ir": bia2piano_ir.bia2piano,
                 "sedamoon.com": sedamoon_com.sedamoon, "malltina.com": malltina_com.malltina,
@@ -214,15 +231,13 @@ def get_prices():
                 "esam.ir": esam_ir.esam, "bahartak.ir": bahartak_ir.bahartak, "mahor.net": mahor_net.mahor,
                 "torob.com": torob_com.torob}
     # for link in links:
-    import logging
-    import datetime
-    import time
     logger = logging.getLogger(__name__)
-    config.lastCrawlStarted = datetime.datetime.now()
+    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.lastCrawlChanges = 0
 
-    for i in range(0, len(links)):
+    for i in range(0, 100):
         time.sleep(0.5)
+        config.lastCrawlEnded = 'running ' + "{0:.2f}%".format(i * 100 / len(links))
         link = links[i]
         site = re.findall("//(.*?)/", link.url)
         if not site:
@@ -260,5 +275,5 @@ def get_prices():
                 config.lastCrawlChanges += 1
             except Exception as e:
                 logger.info('%s', e)
-    config.lastCrawlEnded = datetime.datetime.now()
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')

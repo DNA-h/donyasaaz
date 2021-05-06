@@ -162,8 +162,10 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    emalls_ir.emalls("https://emalls.ir/%D9%85%D8%B4%D8%AE%D8%B5%D8%A7%D8%AA_Apple-MacBook-Air-MC969-Core-i5-4-GB-128-GB~id~1751",
-                     headers,'')
+    print(
+        egerd_com.egerd(
+            "https://egerd.com/product/eg-B01AKSJUH0-US/%D9%87%D8%AF%D9%81%D9%88%D9%86+%D9%88%D8%B1%D8%B2%D8%B4%DB%8C+%D9%81%D8%B9%D8%A7%D9%84+%D9%87%D8%AF%D9%81%D9%88%D9%86+soundbot%C2%A8+sb221+hd+%D8%A8%DB%8C+%D8%B3%DB%8C%D9%85+%D8%A8%D9%84%D9%88%D8%AA%D9%88%D8%AB+4.0+%D8%A8%D8%B1%D8%A7%DB%8C+%D9%87%D8%AF%D8%B3%D8%AA+%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C+20+%D8%B3%D8%A7%D8%B9%D8%AA",
+            headers, ''))
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
 
@@ -194,7 +196,7 @@ def get_prices():
                 "fluteshop.org": fluteshop_org.fluteshop, "digitalbaran.com": digitalbaran_com.digitalbaran,
                 "turingsanat.com": turingsanat_com.turingsanat, "yerial.com": yerial_com.yerial,
                 "www.gostaresh-seda.com": www_gostaresh_seda_com.gostaresh,
-                "www.digikala.com": www_digikala_com.digikala,
+                "www.digikala.com": www_digikala_com.digikala, "beyerdynamic-iran.com": barbadgallery_com.barbadgallery,
                 "www.sazplaza.com": www_sazplaza_com.sazplaza, "www.kalaoma.com": www_kalaoma_com.kalaoma,
                 "jahanmelody.com": jahanmelody_com.jahanmelody, "echokowsar.com": echokowsar_com.echokowsar,
                 "sotplus.ir": sotplus_ir.sotplus, "noornegar.com": noornegar_com.noornegar,
@@ -229,7 +231,9 @@ def get_prices():
                 "tehranspeaker.com": tehranspeaker_com.tehranspeaker, "technolife.ir": technolife_ir.technolife,
                 "mahgoni.com": mahgoni_com.mahgoni, "zanbil.ir": zanbil_ir.zanbil, "gilsara.com": gilsara_com.gilsara,
                 "esam.ir": esam_ir.esam, "bahartak.ir": bahartak_ir.bahartak, "mahor.net": mahor_net.mahor,
-                "torob.com": torob_com.torob}
+                "torob.com": torob_com.torob, "arads.ir": arads_ir.arads, "www.dodoak.com": www_dodoak_com.dodoak,
+                "yamahakerman.ir":yamahakerman_ir.yamahakerman,"tehranseda.com":tehranseda_com.tehranseda,
+                "tehranseda.com":tehranseda_com.tehranseda}
     # for link in links:
     logger = logging.getLogger(__name__)
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

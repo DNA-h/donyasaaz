@@ -151,7 +151,8 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 def test_timezone(request):
     import datetime
-    return JsonResponse({'success': datetime.datetime.now().__str__()}, encoder=JSONEncoder)
+    import  pytz
+    return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
 def run_prices(request):
     Thread(target=get_prices).start()

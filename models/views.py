@@ -235,7 +235,7 @@ def get_prices():
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.lastCrawlChanges = 0
 
-    for i in range(0, 100):
+    for i in range(0, len(links)):
         time.sleep(0.5)
         config.lastCrawlEnded = 'running ' + "{0:.2f}%".format(i * 100 / len(links))
         link = links[i]

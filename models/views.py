@@ -40,7 +40,13 @@ class MusicItemSerializer(serializers.ModelSerializer):
         super_s = super().to_representation(instance)
         links = Link.objects.filter(parent=instance.pk).order_by('-unseen')
         serializer = LinkSerializer(links, many=True)
-        super_s['links'] = serializer.data
+        decreased = sorted([x for x in serializer.data if x['recent_change'] < -1], key=lambda k: k['recent_change'])
+        in_stock = sorted([x for x in serializer.data if x['recent_change'] == -1], key=lambda k: k['history'][1]['value'])
+        increased = sorted([x for x in serializer.data if x['recent_change'] > 0], key=lambda k: k['recent_change'])
+        out_of_stock = sorted([x for x in serializer.data if x['recent_change'] == -2],
+                              key=lambda k: k['history'][0]['value'])
+        rest = [x for x in serializer.data if x['recent_change'] == 0]
+        super_s['links'] = decreased + in_stock + increased + out_of_stock + rest
         return super_s
 
 
@@ -56,15 +62,18 @@ class LinkSerializer(serializers.ModelSerializer):
         super_s['history'] = serializer.data
         if not instance.unseen:
             super_s['recent_change'] = 0
-        elif not instance.unseen or history.count() == 0:
+        elif history.count() == 0:
             super_s['recent_change'] = 0
         elif history.count() == 1:
-            super_s['recent_change'] = history[0].value
+            if history[0].value != -1:
+                super_s['recent_change'] = history[0].value
+            else:
+                super_s['recent_change'] = -2
         else:
             if history[history.count() - 2].value == -1:
-                super_s['recent_change'] = -1
-            elif history[history.count() - 1].value == -1:
                 super_s['recent_change'] = -2
+            elif history[history.count() - 1].value == -1:
+                super_s['recent_change'] = -1
             else:
                 super_s['recent_change'] = history[history.count() - 2].value - history[history.count() - 1].value
         return super_s
@@ -85,8 +94,7 @@ def musicItemHandler(request):
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data["method"] == 'list':
         serializer = MusicItemListSerializer(
-            MusicItem.objects.all().order_by('out_of_stock').order_by('in_stock')
-                .order_by('-decrease').order_by('-increase'), many=True)
+            MusicItem.objects.all(), many=True)
         return JsonResponse({
             'list': serializer.data,
             'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
@@ -238,7 +246,7 @@ def get_prices():
                 "pianopars.ir/": pianopars_ir.pianopars, "www.kalands.ir": www_kalands_ir.kalands,
                 "www.brilliantsound.ir": www_brilliantsound_ir.brilliantsound, "seda.center": seda_center.seda_center,
                 "www.sedatasvir.com": www_sedatasvir_com.sedatasvir, "guitarcity.ir": guitarcity_ir.guitarcity,
-                "sazzbazz.com":sazzbazz_com.sazzbazz}
+                "sazzbazz.com": sazzbazz_com.sazzbazz}
     # for link in links:
     logger = logging.getLogger(__name__)
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

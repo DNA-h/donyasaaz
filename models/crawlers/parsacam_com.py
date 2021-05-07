@@ -13,16 +13,14 @@ def parsacam(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("p", attrs={"class": "price"})
-    if p is not None:
-        s = p.find("ins")
-        if s is None:
-            s = p.find("bdi")
-        if s is not None:  # todo possible bug
-            a = re.sub(r',', '', s.text).strip()
-            b = re.findall(r'\d+', a)
-            if a == 'تماس بگیرید':
-                return -1
+    if soup.find("div", attrs={"class": "add-to-cart-wrapper"}):
+        p = soup.find("span", attrs={"class": "price"})
+        if p.find("span"):
+            s = p.find("ins")
+        else:
+            s = p
+        a = re.sub(r',', '', s.text).strip()
+        b = re.findall(r'\d+', a)
         return int(b[0])
     else:
         return -1

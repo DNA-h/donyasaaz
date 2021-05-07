@@ -13,17 +13,17 @@ def baniband(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("p", attrs={"class": "price"})
-    if p is not None:
-        if p.find("strong") is None:
+    if soup.find("button", attrs={"name": "add-to-cart"}):
+        p = soup.find("p", attrs={"class": "price"})
+        if p.find("ins") is not None:
             s = p.find("ins")
-            if s is None:
-                s = p.find("bdi")
-            if s is not None:  # TODO added else
-                a = re.sub(r',', '', s.text).strip()
-                b = re.findall(r'\d+', a)
-                return int(b[0])
-            else:
-                return -1
         else:
+            s = p.find("bdi")
+        a = re.sub(r',', '', s.text).strip()
+        b = re.findall(r'\d+', a)
+        if int(b[0]) == 0:
             return -1
+        else:
+            return int(b[0])
+    else:
+        return -1

@@ -19,9 +19,8 @@ def gilsara(link, headers, site):
             s = p.find("ins")
             if s is None:
                 s = p.find("bdi")
-            if s is not None:  # todo possible bug
-                a = re.sub(r',', '', s.text).strip()
-                b = re.findall(r'\d+', a)
+            a = re.sub(r',', '', s.text).strip()
+            b = re.findall(r'\d+', a)
             return int(b[0])
         else:
             return -1

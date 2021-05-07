@@ -13,15 +13,11 @@ def classicshopper(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("div", attrs={"class": "item-newprice"})
-    if p is not None:
-        s = p.find("span")
-        if s is not None:
-            a = re.sub(r',', '', s.text).strip()
-            b = re.findall(r'\d+', a)
-        if a == "تومان":  # todo possible bug
-            return -1
-        else:  # todo possible bug
-            return int(b[0])
+    if soup.find("a" , attrs = {"class" : "add-to-cart"}):
+        p = soup.find("div", attrs={"class": "item-newprice"})
+        s = re.sub(r'\s+', ' ', p.text).strip()
+        a = re.sub(r',', '', s)
+        b = re.findall(r'\d+', a)
+        return int(b[0])
     else:
         return -1

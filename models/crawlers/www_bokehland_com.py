@@ -13,14 +13,14 @@ def bokehland(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("p", attrs={"class": "price"})
-    if p is None or p.text == "":
-        return -1
-    else:
-        s = p.find("span")
-        if s is not None:
-            a = re.sub(r',', '', s.text).strip()
-            b = re.split(r'\s', a)
-            return int(b[0])
-        else:  # todo possible bug
+    if soup.find("button" , attrs = {"name" : "add-to-cart"}):
+        p = soup.find("p", attrs={"class": "price"})
+        s = re.sub(r'\s+', ' ', p.text).strip()
+        a = re.sub(r',', '', s)
+        b = re.findall(r'\d+', a)
+        if int(b[0]) == 0:
             return -1
+        else:
+            return int(b[0])
+    else:
+        return -1

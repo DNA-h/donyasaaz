@@ -21,6 +21,9 @@ def bia2piano(link, headers, site):
             s = p.find("bdi")
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
-        return int(b[0])
-    else:  # todo "0 تومان" https://bia2piano.ir/product/microphone-studio-audio-technica-at2031/
+        if int(b[0]) == 0:
+            return -1
+        else:
+            return int(b[0])
+    else:
         return -1

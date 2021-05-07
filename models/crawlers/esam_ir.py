@@ -13,12 +13,18 @@ def esam(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("span", attrs={"id": "ctl00_ctl00_main_main_LBLpriceIfDiscount"})
-    if p.text != '':
-        a = re.sub(r',', '', p.text).strip()
-        b = re.findall(r'\d+', a)
+    if soup.find("input" , attrs = {"class" : "btn btn-primary btn-buy SpaceMargin addToBasket"}):
+        if soup.find("span" , attrs = {"class" : "text-danger DiscountLarge"}):
+            p = soup.find("span" , attrs = {"class" : "text-danger DiscountLarge"})
+            a = re.sub(r',', '', p.text).strip()
+            b = re.findall(r'\d+', a)
+        elif soup.find("span" , attrs = {"class" : "FixPrice DiscountLarge"}):
+            p = soup.find("span" , attrs = {"class" : "FixPrice DiscountLarge"})
+            a = re.sub(r',', '', p.text).strip()
+            b = re.findall(r'\d+', a)
+        if int(b[0]) == 0:
+            return -1
+        else:
+            return int(b[0])
     else:
-        s = soup.find("span", attrs={"id": "ctl00_ctl00_main_main_LBLprice"})
-        a = re.sub(r',', '', s.text).strip()
-        b = re.findall(r'\d+', a)
-    return int(b[0])  # todo where is None
+        return -1

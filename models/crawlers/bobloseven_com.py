@@ -13,14 +13,10 @@ def bobloseven(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("span", attrs={"class": "price"})
-    if p is not None:
+    if soup.find("a", attrs={"id": "add_to_basket"}):
+        p = soup.find("span", attrs={"class": "price"})
         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
-    if soup.find("div", attrs={"class": "status"}):
-        s = soup.find("div", attrs={"class": "status"})
-        a = re.sub(r'\s+', '', s.text)
-    if a == "ناموجود" or a == "بهزودی":  # todo possible bug
-        return -1
+        return int(b[0])
     else:
-        return int(b[0])  # todo possible bug
+        return -1

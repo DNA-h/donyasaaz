@@ -13,14 +13,17 @@ def digiseda(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("div", attrs={"id": "our_price_display", "class": "prd-price"})
-    if p is not None:  # TODO check else for this if
-        if soup.find("span", attrs={"id": "our_price_display", "class": "price"}) is None:
-            s = re.sub(r'\s+', ' ', p.text).strip()
-            a = re.sub(r',', '', s)
-            b = re.findall(r'\d+', a)
-            return int(b[0])
+    if soup.find("button", attrs={"class": "exclusive btn btn-success"}) or soup.find("div", attrs={"div": "call_to_buy no-print"}):
+        p = soup.find("div", attrs={"id": "our_price_display"})
+        s = re.sub(r'\s+', ' ', p.text).strip()
+        a = re.sub(r',', '', s)
+        b = re.findall(r'\d+', a)
+        if int(b[0]) == 0:
+            # return -1
+            print("0")
         else:
-            return -1
-    if soup.find("div", attrs={"class": "subpriceform"}):
-        return -1
+            # return int(b[0])
+            print("1")
+    else:
+        # return -1
+        print("0")

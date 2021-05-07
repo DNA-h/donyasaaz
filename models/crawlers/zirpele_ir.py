@@ -13,16 +13,15 @@ def zirpele(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("p", attrs={"class": "price"})
-    if p is not None:
-        s = p.find("ins")
-        if s is None:
+    if soup.find("button" , attrs = {"name" : "add-to-cart"}):
+        p = soup.find("p", attrs={"class": "price"})
+        if p.find("ins"):
+            s = p.find("ins")
+        else:
             s = p.find("span")
-        if s is not None:  # todo possible bug
-            a = re.sub(r',', '', s.text).strip()
-            b = re.findall(r'\d+', a)
-            if a == 'تماس بگیرید':
-                return -1
+        a = re.sub(r',', '', s.text).strip()
+        b = re.findall(r'\d+', a)
         return int(b[0])
+
     else:
         return -1

@@ -17,8 +17,7 @@ def gostaresh(link, headers, site):
         return -1
     else:
         p = soup.find("div", attrs={"class": "pe", "style": "font-size:14px"})
-        if p.find("b") is not None:  # todo possible bug
-            s = p.find("b")
+        s = p.find("b")
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0]) / 10

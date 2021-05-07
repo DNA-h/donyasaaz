@@ -13,18 +13,18 @@ def safirkala(link, headers, site):
         print(e)
         return None
 
-    p = soup.find("p", attrs={"class": "price"})
-    if p is not None:
-        if p.find("ins"):
-            p = soup.find("p", attrs={"class": "price"}).find("ins")
-            s = re.sub(r'\s+', ' ', p.text).strip()
-            a = re.sub(r',', '', s).strip()
-            b = re.split(r'\s', a)
-            return b[1]  # todo return int(b[0])
+    if soup.find("button", attrs={"name": "add-to-cart"}) or soup.find("button", attrs={
+        "class": "single_add_to_cart_button button alt"}):
+        p = soup.find("p", attrs={"class": "price"})
+        if p.find("ins") is not None:
+            s = p.find("ins")
         else:
-            s = re.sub(r'\s+', ' ', p.text).strip()
-            a = re.sub(r',', '', s).strip()
-            b = re.split(r'\s', a)
-        return int(b[0])
+            s = p.find("bdi")
+        a = re.sub(r',', '', s.text).strip()
+        b = re.findall(r'\d+', a)
+        if int(b[0]) == 0:
+            return -1
+        else:
+            return int(b[0])
     else:
         return -1

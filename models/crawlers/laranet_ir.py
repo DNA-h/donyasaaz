@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def laranet(link, headers, site):
     try:
         response = requests.get(link.url, headers=headers)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -13,9 +13,11 @@ def tehranseda(link, headers, site):
         print(e)
         return None
 
-    s = soup.find("button", attrs={"id": "button-cart"})
-    if s is not None:
-        p = soup.find("span", attrs={"class": "number", "itemprop": "price"})
+    if soup.find("a", attrs={"class": "add-to-shoppingcart"}):
+        div = soup.find("div", attrs={"class": "ProductShowPrice"})
+        if div is None:
+            return -1
+        p = div.find("span")
         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])

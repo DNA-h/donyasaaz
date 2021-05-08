@@ -14,7 +14,9 @@ def beyerdynamic(link, headers, site):
         return None
 
     p = soup.findAll("span", attrs={"class": "woocommerce-Price-amount amount"})
-    if p is not None:
+    if len(p) == 0:
+        p = soup.findAll("span", attrs={"class": "price"})
+    if len(p) != 0:
         if len(p) > 1:
             s = p[1]
         else:

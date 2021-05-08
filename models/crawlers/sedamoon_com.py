@@ -19,7 +19,7 @@ def sedamoon(link, headers, site):
         if s != None:
             a = re.sub(r',', '', s.text).strip()
         else:
-            a = re.sub(r',', '', p.text).strip()
+            a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

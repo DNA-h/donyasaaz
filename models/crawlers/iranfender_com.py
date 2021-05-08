@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def iranfender(link, headers, site):
     try:
         response = requests.get(link.url, headers=headers)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -13,9 +13,13 @@ def tehranseda(link, headers, site):
         print(e)
         return None
 
-    s = soup.find("button", attrs={"id": "button-cart"})
-    if s is not None:
-        p = soup.find("span", attrs={"class": "number", "itemprop": "price"})
+    if soup.find("button", attrs={"class": "btn btn-primary btn-lg btn-block"}):
+        div = soup.find("div", attrs={"class": "col-md-12 pull-right price-box"})
+        if div is None:
+            return -1
+        p = div.find("h2")
+        if p is None:
+            return -1
         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])

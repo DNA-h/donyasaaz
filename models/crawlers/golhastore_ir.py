@@ -1,12 +1,19 @@
 import re
 
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from bs4 import BeautifulSoup
 
 
 def golhastore(link, headers, site):
     try:
-        response = requests.get(link.url, headers=headers)
+        session = requests.session()
+        retry = Retry(connect=3, backoff_factor=1)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        response = session.get(link.url, headers=headers)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
         print(site)

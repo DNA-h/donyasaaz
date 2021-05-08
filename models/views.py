@@ -15,6 +15,8 @@ import logging
 import datetime
 import pytz
 import time
+import math
+import sys
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
@@ -40,13 +42,16 @@ class MusicItemSerializer(serializers.ModelSerializer):
         super_s = super().to_representation(instance)
         links = Link.objects.filter(parent=instance.pk).order_by('-unseen')
         serializer = LinkSerializer(links, many=True)
-        decreased = sorted([x for x in serializer.data if x['recent_change'] < -1], key=lambda k: k['recent_change'])
-        in_stock = sorted([x for x in serializer.data if x['recent_change'] == -1], key=lambda k: k['history'][1]['value'])
-        increased = sorted([x for x in serializer.data if x['recent_change'] > 0], key=lambda k: k['recent_change'])
+        decreased = sorted([x for x in serializer.data if x['recent_change'] < -2], key=lambda k: k['history'][0]['value'])
+        in_stock = sorted([x for x in serializer.data if x['recent_change'] == -1],
+                          key=lambda k: k['history'][1]['value'])
+        increased = sorted([x for x in serializer.data if x['recent_change'] > 0], key=lambda k: k['history'][0]['value'])
         out_of_stock = sorted([x for x in serializer.data if x['recent_change'] == -2],
                               key=lambda k: k['history'][0]['value'])
-        rest = [x for x in serializer.data if x['recent_change'] == 0]
-        super_s['links'] = decreased + in_stock + increased + out_of_stock + rest
+        rest = sorted([x for x in serializer.data if x['recent_change'] == 0],
+                      key=lambda k: math.inf if (len(k['history'])) == 0 else
+                      k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
+        super_s['links'] = decreased + in_stock + increased + rest + out_of_stock
         return super_s
 
 
@@ -70,12 +75,12 @@ class LinkSerializer(serializers.ModelSerializer):
             else:
                 super_s['recent_change'] = -2
         else:
-            if history[history.count() - 2].value == -1:
-                super_s['recent_change'] = -2
-            elif history[history.count() - 1].value == -1:
+            if history[1].value == -1:
                 super_s['recent_change'] = -1
+            elif history[0].value == -1:
+                super_s['recent_change'] = -2
             else:
-                super_s['recent_change'] = history[history.count() - 2].value - history[history.count() - 1].value
+                super_s['recent_change'] = history[0].value - history[1].value
         return super_s
 
 
@@ -171,8 +176,8 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 def test_timezone(request):
     print(
-        notehashtom_ir.notehashtom(
-            "https://notehashtom.ir/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%da%a9%d8%a7%d8%b3%db%8c%d9%88-%d9%85%d8%af%d9%84-px-s1000/",
+        sedamoon_com.sedamoon(
+            "https://sedamoon.com/product/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%B3%D9%86%D9%87%D8%A7%DB%8C%D8%B2%D8%B1-%D9%85%D8%AF%D9%84-sennheiser-hd280-pro/",
             headers, ''))
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
@@ -243,10 +248,13 @@ def get_prices():
                 "torob.com": torob_com.torob, "arads.ir": arads_ir.arads, "www.dodoak.com": www_dodoak_com.dodoak,
                 "yamahakerman.ir": yamahakerman_ir.yamahakerman, "tehranseda.com": tehranseda_com.tehranseda,
                 "www.ava-avl.com": www_ava_avl_com.ava_avl, "kalastudio": kalastudio_ir.kalastudio,
-                "pianopars.ir/": pianopars_ir.pianopars, "www.kalands.ir": www_kalands_ir.kalands,
+                "pianopars.ir": pianopars_ir.pianopars, "www.kalands.ir": www_kalands_ir.kalands,
                 "www.brilliantsound.ir": www_brilliantsound_ir.brilliantsound, "seda.center": seda_center.seda_center,
                 "www.sedatasvir.com": www_sedatasvir_com.sedatasvir, "guitarcity.ir": guitarcity_ir.guitarcity,
-                "sazzbazz.com": sazzbazz_com.sazzbazz}
+                "sazzbazz.com": sazzbazz_com.sazzbazz, "seda.market": seda_market.seda_market,
+                "laranet.ir": laranet_ir.laranet, "iranheadphone.com": iranheadphone_com.iranheadphone,
+                "iranfender.com": iranfender_com.iranfender, "www.solbemol.com": www_solbemol_com.solbemol,
+                "guitariran.com": guitariran_com.guitariran}
     # for link in links:
     logger = logging.getLogger(__name__)
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

@@ -42,10 +42,12 @@ class MusicItemSerializer(serializers.ModelSerializer):
         super_s = super().to_representation(instance)
         links = Link.objects.filter(parent=instance.pk).order_by('-unseen')
         serializer = LinkSerializer(links, many=True)
-        decreased = sorted([x for x in serializer.data if x['recent_change'] < -2], key=lambda k: k['history'][0]['value'])
+        decreased = sorted([x for x in serializer.data if x['recent_change'] < -2],
+                           key=lambda k: k['history'][0]['value'])
         in_stock = sorted([x for x in serializer.data if x['recent_change'] == -1],
                           key=lambda k: k['history'][1]['value'])
-        increased = sorted([x for x in serializer.data if x['recent_change'] > 0], key=lambda k: k['history'][0]['value'])
+        increased = sorted([x for x in serializer.data if x['recent_change'] > 0],
+                           key=lambda k: k['history'][0]['value'])
         out_of_stock = sorted([x for x in serializer.data if x['recent_change'] == -2],
                               key=lambda k: k['history'][0]['value'])
         rest = sorted([x for x in serializer.data if x['recent_change'] == 0],
@@ -135,8 +137,7 @@ def musicItemHandler(request):
         return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
-def reloadMusicItemPrice(pk):
-    item = MusicItem.objects.get(pk=pk)
+def reloadMusicItemPrice(item):
     price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
     item.price = price
     item.save()
@@ -175,6 +176,7 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     print(
         sedamoon_com.sedamoon(
             "https://sedamoon.com/product/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%B3%D9%86%D9%87%D8%A7%DB%8C%D8%B2%D8%B1-%D9%85%D8%AF%D9%84-sennheiser-hd280-pro/",
@@ -182,6 +184,8 @@ def test_timezone(request):
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
 
+@csrf_exempt
+@api_view(['POST'])
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
@@ -189,9 +193,13 @@ def run_prices(request):
 
 @app.task
 def get_prices():
+    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    config.lastCrawlChanges = 0
+    config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
-    for item in items:
-        reloadMusicItemPrice(item.pk)
+    for i in range(0, len(items)):
+        config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
+        reloadMusicItemPrice(items[i])
 
     links = Link.objects.all()
     crawlers = {"iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
@@ -257,8 +265,6 @@ def get_prices():
                 "guitariran.com": guitariran_com.guitariran}
     # for link in links:
     logger = logging.getLogger(__name__)
-    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    config.lastCrawlChanges = 0
 
     for i in range(0, len(links)):
         time.sleep(0.5)

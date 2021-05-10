@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#6y-d!$%wj1)a&5j4c0ie8q45h*&@%f+bxf*!gf&_8nh$mwzje'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '193.26.14.183']
 # Application definition
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
 ]
 
 CONSTANCE_CONFIG = {
-    'lastCrawlStarted': ('None',''),
-    'lastCrawlEnded': ('None',''),
-    'lastCrawlChanges': ('None',''),
+    'lastCrawlStarted': ('None', ''),
+    'lastCrawlEnded': ('None', ''),
+    'lastCrawlChanges': ('None', ''),
 }
 
 MIDDLEWARE = [
@@ -177,7 +177,7 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_BEAT_SCHEDULE = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': 240 * 60.0,
+        'schedule': 24 * 60 * 60.0,
     },
 }
 CELERY_IMPORTS = ['models']
@@ -196,7 +196,7 @@ LOGGING = {
         'default': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'C:\\Users\\DNA.h\\PycharmProjects\\donyasaaz\\logging.log',
+            'filename': '/home/donyasaaz/logging.log',
             'when': 'D',
             'interval': 7,
             'backupCount': 5,

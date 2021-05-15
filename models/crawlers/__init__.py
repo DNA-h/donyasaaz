@@ -20,4 +20,8 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "beyerdynamic_iran_com","arads_ir","www_dodoak_com","yamahakerman_ir","tehranseda_com",
            "www_ava_avl_com","egerd_com","kalastudio_ir","pianopars_ir","www_kalands_ir","www_brilliantsound_ir",
            "www_sedatasvir_com","seda_center","guitarcity_ir","sazzbazz_com","notehashtom_ir","seda_market",
-           "laranet_ir","iranheadphone_com","iranfender_com","www_solbemol_com","guitariran_com"]
+           "laranet_ir","iranheadphone_com","iranfender_com","www_solbemol_com","guitariran_com","sazclub_com",
+           "parseda_com","meghdadit_com","ecis_ir","top_headphone_com","sazkade_com","audionovin_com",
+           "audioment_com","www_pro_av_ir","www_guitar_center_ir","sazbazzar_com","studiopaya_com",
+           "musickala_com","soatiran_com","irofferr_ir","tehrandj_com","sowtazhang_ir","andalosmusic_com",
+           "barbadpiano_com"]

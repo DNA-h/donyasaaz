@@ -53,7 +53,7 @@ class MusicItemSerializer(serializers.ModelSerializer):
         rest = sorted([x for x in serializer.data if x['recent_change'] == 0],
                       key=lambda k: math.inf if (len(k['history'])) == 0 else
                       k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
-        super_s['links'] = decreased + in_stock + increased + rest + out_of_stock
+        super_s['links'] = decreased + out_of_stock + in_stock + increased + rest
         return super_s
 
 
@@ -178,8 +178,8 @@ def font655ba951f59a5b99d8627273e0883638(request):
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     print(
-        sedamoon_com.sedamoon(
-            "https://sedamoon.com/product/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%B3%D9%86%D9%87%D8%A7%DB%8C%D8%B2%D8%B1-%D9%85%D8%AF%D9%84-sennheiser-hd280-pro/",
+        barbadpiano_com.barbadpiano(
+            "https://barbadpiano.com/store/product/%d9%be%d8%af%d8%a7%d9%84-%d8%b3%d8%a7%d8%b3%d8%aa%db%8c%d9%86-flanger-%d9%85%d8%af%d9%84-ftb-004/",
             headers, ''))
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
@@ -248,9 +248,12 @@ def get_prices():
                 "avazac.com": avazac_com.avazac, "exif.ir": exif_ir.exif, "diddovom.com": diddovom_com.diddovom,
                 "classicshopper.ir": classicshopper_ir.classicshopper, "golden8.ir": golden8_ir.golden8,
                 "logilook.com": logilook_com.logilook, "lioncomputer.com": lioncomputer_com.lioncomputer,
+                "www.lioncomputer.com": lioncomputer_com.lioncomputer,
                 "bobloseven.com": bobloseven_com.bobloseven, "kingbrand.ir": kingbrand_ir.kingbrand,
                 "jskala.com": jskala_com.jskala, "asarayan.com": asarayan_com.asarayan,
-                "tehranspeaker.com": tehranspeaker_com.tehranspeaker, "technolife.ir": technolife_ir.technolife,
+                "tehranspeaker.com": tehranspeaker_com.tehranspeaker, "sazkade.com": sazkade_com.sazkade,
+                "www.tehranspeaker.com": tehranspeaker_com.tehranspeaker, "audionovin.com": audionovin_com.audionovin,
+                "technolife.ir": technolife_ir.technolife, "www.pro-av.ir": www_pro_av_ir.pro_av,
                 "mahgoni.com": mahgoni_com.mahgoni, "zanbil.ir": zanbil_ir.zanbil, "gilsara.com": gilsara_com.gilsara,
                 "esam.ir": esam_ir.esam, "bahartak.ir": bahartak_ir.bahartak, "mahor.net": mahor_net.mahor,
                 "torob.com": torob_com.torob, "arads.ir": arads_ir.arads, "www.dodoak.com": www_dodoak_com.dodoak,
@@ -262,7 +265,14 @@ def get_prices():
                 "sazzbazz.com": sazzbazz_com.sazzbazz, "seda.market": seda_market.seda_market,
                 "laranet.ir": laranet_ir.laranet, "iranheadphone.com": iranheadphone_com.iranheadphone,
                 "iranfender.com": iranfender_com.iranfender, "www.solbemol.com": www_solbemol_com.solbemol,
-                "guitariran.com": guitariran_com.guitariran}
+                "guitariran.com": guitariran_com.guitariran, "notehashtom.ir": notehashtom_ir.notehashtom,
+                "sazclub.com": sazclub_com.sazclub, "parseda.com": parseda_com.parseda,
+                "top-headphone.com": top_headphone_com.top_headphone, "sazbazzar.com": sazbazzar_com.sazbazzar,
+                "www.guitar-center.ir": www_guitar_center_ir.guitar_center, "studiopaya.com": studiopaya_com.studiopaya,
+                "musickala.com": musickala_com.musickala, "soatiran.com": soatiran_com.soatiran,
+                "irofferr.ir": irofferr_ir.irofferr, "tehrandj.com": tehrandj_com.tehrandj,
+                "sowtazhang.ir": sowtazhang_ir.sowtazhang, "andalosmusic.com": andalosmusic_com.andalosmusic,
+                "barbadpiano.com": barbadpiano_com.barbadpiano}
     # for link in links:
     logger = logging.getLogger(__name__)
 

@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from corsheaders.defaults import default_headers
 import os
-
+from celery.schedules import crontab
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -177,7 +177,7 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 CELERY_BEAT_SCHEDULE = {
     'check_prices': {
         'task': 'models.views.get_prices',
-        'schedule': 24 * 60 * 60.0,
+        'schedule': crontab(hour='2'),
     },
 }
 CELERY_IMPORTS = ['models']

@@ -6,7 +6,8 @@ from model_utils.models import TimeStampedModel
 
 class MusicItem(TimeStampedModel):
     class Meta:
-        ordering = ['-decrease','-in_stock', '-increase','-out_of_stock']
+        ordering = ['-decrease', '-out_of_stock', '-in_stock', '-increase']
+
     name = models.CharField(max_length=1024, null=True, blank=True)
     url = models.CharField(max_length=1024, null=True, blank=True)
     price = models.IntegerField(default=0, null=True, blank=True)

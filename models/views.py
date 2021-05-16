@@ -196,10 +196,10 @@ def test_timezone(request):
 
     a = Object()
     a.url = 'http://radek.ir/product/%d8%b3%d9%85%d8%a7%d9%88%d8%b1-%d8%a8%d8%b1%d9%82%db%8c-%d8%a8%d9%84%d8%a7%d9%86%d8%aa%d9%88%d9%86-%d9%85%d8%af%d9%84-es4001/'
-    print(
-        radek_ir.radek(a,
-            headers, ''))
-    return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
+
+    x=radek_ir.radek(a,
+            headers, '')
+    return JsonResponse({'success': str(x)}, encoder=JSONEncoder)
 
 
 @csrf_exempt

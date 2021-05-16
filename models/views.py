@@ -135,7 +135,7 @@ def musicItemHandler(request):
         musicItem.out_of_stock = 0
         musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
-    elif request.data['method'] =='seen_all':
+    elif request.data['method'] == 'seen_all':
         links = Link.objects.all()
         for link in links:
             link.unseen = False
@@ -148,6 +148,7 @@ def musicItemHandler(request):
             musicItem.out_of_stock = 0
             musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+
 
 def reloadMusicItemPrice(item):
     price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
@@ -189,10 +190,15 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    # print(
-    #     emalls_ir.emalls(
-    #         "",
-    #         headers, ''))
+
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = 'http://radek.ir/product/%d8%b3%d9%85%d8%a7%d9%88%d8%b1-%d8%a8%d8%b1%d9%82%db%8c-%d8%a8%d9%84%d8%a7%d9%86%d8%aa%d9%88%d9%86-%d9%85%d8%af%d9%84-es4001/'
+    print(
+        radek_ir.radek(a,
+            headers, ''))
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
 
@@ -209,12 +215,15 @@ def get_prices():
     config.lastCrawlChanges = 0
     config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
-    # for i in range(0, len(items)):
-    #     config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
-    #     reloadMusicItemPrice(items[i])
+    for i in range(0, len(items)):
+        config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
+        reloadMusicItemPrice(items[i])
 
     links = Link.objects.all()
-    crawlers = {"iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
+    crawlers = {"aref.ir": aref_ir.aref,
+                "radek.ir": radek_ir.radek, "sazkhune.com": sazkhune_com.sazkhune,
+                "musicsheida.com": musicsheida_com.musicsheida, "bavandpiano.com": bavandpiano_com.bavandpiano,
+                "iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
                 "www.sazforoosh.com": www_sazforoosh_com.sazforoosh, "sazkala.com": sazkala_com.sazkala,
                 "sedastore.com": sedastore_com.sedastore, "www.djcenter.net": www_djcenter_net.djcenter,
                 "digiseda.ir": www_djcenter_net.djcenter, "rayanseda.com": rayanseda_com.rayanseda,
@@ -285,7 +294,10 @@ def get_prices():
                 "irofferr.ir": irofferr_ir.irofferr, "tehrandj.com": tehrandj_com.tehrandj,
                 "sowtazhang.ir": sowtazhang_ir.sowtazhang, "andalosmusic.com": andalosmusic_com.andalosmusic,
                 "barbadpiano.com": barbadpiano_com.barbadpiano, "neynava-store.com": neynava_store_com.neynava_store,
-                "sotecenter.com": sotecenter_com.sotecenter}
+                "sotecenter.com": sotecenter_com.sotecenter, "avaparsian.com": avaparsian_com.avaparsian,
+                "shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven, "musicala.ir": musicala_ir.musicala,
+                "shabahang.shop": shabahang_shop.shabahang,
+                "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic}
     # for link in links:
     logger = logging.getLogger(__name__)
 

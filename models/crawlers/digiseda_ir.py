@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 
 def digiseda(link, headers, site):
     try:
-        response = requests.get(link.url, headers=headers)
+        response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print(site)
-        print(e)
+        logger.info('%s :  %s,', site, e)
+
         return None
 
     if soup.find("button", attrs={"class": "exclusive btn btn-success"}) or soup.find("div", attrs={"div": "call_to_buy no-print"}):

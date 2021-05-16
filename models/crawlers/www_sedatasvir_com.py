@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 
 def sedatasvir(link, headers, site):
     try:
-        response = requests.get(link.url, headers=headers)
+        response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print(site)
-        print(e)
+        logger.info('%s :  %s,', site, e)
+
         return None
 
     div = soup.find("div", attrs={"class": "product-price"})

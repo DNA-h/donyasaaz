@@ -10,7 +10,7 @@ def donyayesaaz(link, headers):
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
         print("donyayesaaz")
-        print(e)
+        
         return None
 
     p = soup.find("span", attrs={"id": "final-price"})

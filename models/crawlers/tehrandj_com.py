@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 
 def tehrandj(link, headers, site):
     try:
-        response = requests.get(link.url, headers=headers)
+        response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print(site)
-        print(e)
+        logger.info('%s :  %s,', site, e)
+        
         return None
 
     if soup.find("a", attrs={"class": "add-to-cart"}):

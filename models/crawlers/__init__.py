@@ -24,4 +24,4 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "parseda_com","meghdadit_com","ecis_ir","top_headphone_com","sazkade_com","audionovin_com",
            "audioment_com","www_pro_av_ir","www_guitar_center_ir","sazbazzar_com","studiopaya_com",
            "musickala_com","soatiran_com","irofferr_ir","tehrandj_com","sowtazhang_ir","andalosmusic_com",
-           "barbadpiano_com"]
+           "barbadpiano_com","neynava_store_com","sotecenter_com"]

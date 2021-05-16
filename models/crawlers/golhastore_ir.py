@@ -8,16 +8,11 @@ from bs4 import BeautifulSoup
 
 def golhastore(link, headers, site):
     try:
-        session = requests.session()
-        retry = Retry(connect=3, backoff_factor=1)
-        adapter = HTTPAdapter(max_retries=retry)
-        session.mount('http://', adapter)
-        session.mount('https://', adapter)
-        response = session.get(link.url, headers=headers)
+        response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print(site)
-        print(e)
+        logger.info('%s :  %s,', site, e)
+        
         return None
 
     p = soup.find("span", attrs={"class": "price", "itemprop": "price"})

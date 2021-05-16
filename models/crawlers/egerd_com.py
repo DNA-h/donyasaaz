@@ -6,12 +6,10 @@ from bs4 import BeautifulSoup
 
 def egerd(link, headers, site):
     try:
-        s= requests.Session()
-        response = s.get(link, headers=headers)
+        response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print(site)
-        print(e)
+        logger.info('%s :  %s,', site, e)
         return None
 
     s= soup.find("button", attrs={"class": "btn btn-secondary"})

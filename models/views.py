@@ -135,7 +135,19 @@ def musicItemHandler(request):
         musicItem.out_of_stock = 0
         musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
-
+    elif request.data['method'] =='seen_all':
+        links = Link.objects.all()
+        for link in links:
+            link.unseen = False
+            link.save()
+        musicItems = MusicItem.objects.all()
+        for musicItem in musicItems:
+            musicItem.increase = 0
+            musicItem.decrease = 0
+            musicItem.in_stock = 0
+            musicItem.out_of_stock = 0
+            musicItem.save()
+        return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 def reloadMusicItemPrice(item):
     price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
@@ -177,10 +189,10 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    print(
-        barbadpiano_com.barbadpiano(
-            "https://barbadpiano.com/store/product/%d9%be%d8%af%d8%a7%d9%84-%d8%b3%d8%a7%d8%b3%d8%aa%db%8c%d9%86-flanger-%d9%85%d8%af%d9%84-ftb-004/",
-            headers, ''))
+    # print(
+    #     emalls_ir.emalls(
+    #         "",
+    #         headers, ''))
     return JsonResponse({'success': datetime.datetime.now(pytz.timezone('Asia/Tehran')).__str__()}, encoder=JSONEncoder)
 
 
@@ -197,9 +209,9 @@ def get_prices():
     config.lastCrawlChanges = 0
     config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
-    for i in range(0, len(items)):
-        config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
-        reloadMusicItemPrice(items[i])
+    # for i in range(0, len(items)):
+    #     config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
+    #     reloadMusicItemPrice(items[i])
 
     links = Link.objects.all()
     crawlers = {"iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
@@ -272,12 +284,12 @@ def get_prices():
                 "musickala.com": musickala_com.musickala, "soatiran.com": soatiran_com.soatiran,
                 "irofferr.ir": irofferr_ir.irofferr, "tehrandj.com": tehrandj_com.tehrandj,
                 "sowtazhang.ir": sowtazhang_ir.sowtazhang, "andalosmusic.com": andalosmusic_com.andalosmusic,
-                "barbadpiano.com": barbadpiano_com.barbadpiano}
+                "barbadpiano.com": barbadpiano_com.barbadpiano, "neynava-store.com": neynava_store_com.neynava_store,
+                "sotecenter.com": sotecenter_com.sotecenter}
     # for link in links:
     logger = logging.getLogger(__name__)
 
     for i in range(0, len(links)):
-        time.sleep(0.5)
         config.lastCrawlEnded = 'running ' + "{0:.2f}%".format(i * 100 / len(links))
         link = links[i]
         site = re.findall("//(.*?)/", link.url)
@@ -291,9 +303,12 @@ def get_prices():
             logger.info('%s :  %s,', str(i), site[0])
             continue
 
-        if product is None or product == 0:
+        if product is None:
             logger.info('null :  %s,', site[0])
             continue
+
+        if product == 0:
+            product = -1
 
         lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
         if lastPrice is None or lastPrice.value != product:

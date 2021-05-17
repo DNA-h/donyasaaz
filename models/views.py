@@ -136,17 +136,17 @@ def musicItemHandler(request):
         musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'seen_all':
-        links = Link.objects.all()
-        for link in links:
-            link.unseen = False
-            link.save()
-        musicItems = MusicItem.objects.all()
-        for musicItem in musicItems:
-            musicItem.increase = 0
-            musicItem.decrease = 0
-            musicItem.in_stock = 0
-            musicItem.out_of_stock = 0
-            musicItem.save()
+        # links = Link.objects.all()
+        # for link in links:
+        #     link.unseen = False
+        #     link.save()
+        # musicItems = MusicItem.objects.all()
+        # for musicItem in musicItems:
+        #     musicItem.increase = 0
+        #     musicItem.decrease = 0
+        #     musicItem.in_stock = 0
+        #     musicItem.out_of_stock = 0
+        #     musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 

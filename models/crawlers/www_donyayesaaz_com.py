@@ -6,11 +6,10 @@ from bs4 import BeautifulSoup
 
 def donyayesaaz(link, headers):
     try:
-        response = requests.get(link, headers=headers)
+        response = requests.get(link, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
-        print("donyayesaaz")
-        
+        logger.info('donyayesaz :  %s, %s', e, link)
         return None
 
     p = soup.find("span", attrs={"id": "final-price"})

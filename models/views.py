@@ -19,6 +19,7 @@ import sys
 import time
 import threading
 from models.apis import callCrawlerThread, test_timezone2
+from models.crawlers import www_donyayesaaz_com
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 app = Celery('tar')
@@ -189,21 +190,21 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    #
-    # class Object(object):
-    #     pass
-    #
-    # a = Object()
-    # a.url = 'https://tasvirgostar.com/product/canon-750d-kit-18-135/'
-    # import time
-    # start_time = time.time()
-    # x = tasvirgostar_com.tasvirgostar(a, headers, '')
-    # print("{0:.2f} s".format((time.time() - start_time)))
-    import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
-        while True:
-            pool.submit(test_timezone2)
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = 'https://tasvirgostar.com/product/canon-750d-kit-18-135/'
+    import time
+    start_time = time.time()
+    x = tasvirgostar_com.tasvirgostar(a, headers, '')
+    print("{0:.2f} s".format((time.time() - start_time)))
+    # import concurrent.futures
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    #     while True:
+    #         pool.submit(test_timezone2)
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt

@@ -1,5 +1,6 @@
 import re
 import requests
+from urllib3.exceptions import InsecureRequestWarning
 import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -14,6 +15,7 @@ def musicala(link, headers, site):
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 

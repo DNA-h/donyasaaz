@@ -1,6 +1,7 @@
 import re
 
 import requests
+from urllib3.exceptions import InsecureRequestWarning
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 from bs4 import BeautifulSoup
@@ -8,9 +9,11 @@ from bs4 import BeautifulSoup
 
 def golhastore(link, headers, site):
     try:
+        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         
         return None

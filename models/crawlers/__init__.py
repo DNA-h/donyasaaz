@@ -26,4 +26,13 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "musickala_com","soatiran_com","irofferr_ir","tehrandj_com","sowtazhang_ir","andalosmusic_com",
            "barbadpiano_com","neynava_store_com","sotecenter_com","shiraz_beethoven_ir","avaparsian_com",
            "musicala_ir","shabahang_shop","www_shabahangmusic_com","musicsheida_com","bavandpiano_com",
-           "radek_ir","sazkhune_com","aref_ir"]
+           "radek_ir","sazkhune_com","aref_ir","sedayenovin_ir","inket_ir","toprayan_com","bamakharid_com",
+           "saazland_com","www_erteash_ir","guitarhead_ir","sazcenter_com","esfahanmelody_ir","shabakehstore_com",
+           "arzoonyab_com","gheimatnama_ir","electricomde_ir","www_cckala_com","dk99_ir","parsiancredit_com",
+           "irankurzweil_com","alphy_music_com","ertebat_sg_com","avazgar_com","toptarin_net","www_tasvirancam_ir",
+           "hbartarshop_com","parsiankala_com","www_tienda_ir","yademanshop_ir","iraanbaba_com","www_rsa_co_com",
+           "malihshop_ir","guitarbaz_com","vizmarket_ir","canonpersia_com","kalafox_ir","solgallery_ir",
+           "tehran_sote_com","www_uzmandigital_com","royalvocal_com","aykalaa_ir","sazamooz_com","ir_3710",
+           "didoshot_com","persiantopsound_com","qeshmkharid_ir","cafekhareed_com","pianoforte_ir",
+           "rabid_ir","four_sooo_com","npdigi_com","alootop_com","doorbin_store","hitkala_ir",
+           "tasvirgostar_com"]

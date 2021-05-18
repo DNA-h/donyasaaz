@@ -1,5 +1,6 @@
 import re
 import requests
+from urllib3.exceptions import InsecureRequestWarning
 import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -16,7 +17,9 @@ def radek(link, headers, site):
         driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
+        driver.close()
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 

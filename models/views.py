@@ -171,6 +171,7 @@ def musicItemHandler(request):
 
 
 def reloadMusicItemPrice(item):
+    time.sleep(1 + random.randint(0, 1))
     price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
     item.price = price
     item.save()
@@ -240,9 +241,10 @@ def get_prices():
     config.lastCrawlChanges = 0
     config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
-    for i in range(0, len(items)):
-        config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
-        reloadMusicItemPrice(items[i])
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+        for i in range(0, len(items)):
+            config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
+            pool.submit(reloadMusicItemPrice, items[i])
 
     links = Link.objects.all()
 

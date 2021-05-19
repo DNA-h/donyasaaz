@@ -20,9 +20,11 @@ import time
 import threading
 from models.apis import callCrawlerThread, test_timezone2
 from models.crawlers import www_donyayesaaz_com
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 app = Celery('tar')
+
 
 def index(request):
     return render(request, './web_app.html')
@@ -54,7 +56,7 @@ class MusicItemSerializer(serializers.ModelSerializer):
         rest = sorted([x for x in serializer.data if x['recent_change'] == 0],
                       key=lambda k: math.inf if (len(k['history'])) == 0 else
                       k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
-        super_s['links'] = decreased + out_of_stock + in_stock + increased + rest
+        super_s['links'] = decreased  + in_stock + increased + out_of_stock + rest
         return super_s
 
 
@@ -101,10 +103,27 @@ def musicItemHandler(request):
             name=request.data["name"], url=request.data["url"], image=request.data["image"])
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data["method"] == 'list':
-        serializer = MusicItemListSerializer(
-            MusicItem.objects.all(), many=True)
+        from django.db.models import Q
+        q = None
+        if request.data['increase']:
+            q = Q(increase__gt=0)
+        if request.data['decrease']:
+            q = q | Q(decrease__gt=0) if q is not None else Q(decrease__gt=0)
+        if request.data['out_of_stock']:
+            q = q | Q(out_of_stock__gt=0) if q is not None else Q(out_of_stock__gt=0)
+        if request.data['in_stock']:
+            q = q | Q(in_stock__gt=0) if q is not None else Q(in_stock__gt=0)
+        page = request.data['page']
+        pageSize = request.data['pageSize']
+        if q is not None:
+            queryset = MusicItem.objects.filter(q)
+        else:
+            queryset = MusicItem.objects.all()
+        if request.data['sort_type'] == 1:
+            queryset = queryset.order_by('-created')
+        serializer = MusicItemListSerializer(queryset[page * pageSize : (page + 1) * pageSize], many=True)
         return JsonResponse({
-            'list': serializer.data,
+            'list': serializer.data, 'total': queryset.count(),
             'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
             if config.lastCrawlStarted != 'None' else '',
             'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
@@ -207,12 +226,12 @@ def test_timezone(request):
     #         pool.submit(test_timezone2)
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+
 @csrf_exempt
 @api_view(['POST'])
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
-
 
 
 @app.task
@@ -229,7 +248,7 @@ def get_prices():
 
     logger = logging.getLogger(__name__)
     import concurrent.futures
-    statistic = {"TOTAL":0}
+    statistic = {"TOTAL": 0}
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
         for i in range(0, len(links)):
             link = links[i]

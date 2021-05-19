@@ -170,11 +170,12 @@ def musicItemHandler(request):
         return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
-def reloadMusicItemPrice(item):
+def reloadMusicItemPrice(item, i):
     time.sleep(1 + random.randint(0, 1))
     price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
     item.price = price
     item.save()
+    config.lastCrawlEnded = 'loading ' + str(i)
     return
 
 
@@ -241,15 +242,14 @@ def get_prices():
     config.lastCrawlChanges = 0
     config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
+    import concurrent.futures
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(items)):
-            config.lastCrawlEnded = 'loading ' + "{0:.2f}%".format(i * 100 / len(items))
-            pool.submit(reloadMusicItemPrice, items[i])
+            pool.submit(reloadMusicItemPrice, items[i], i)
 
     links = Link.objects.all()
 
     logger = logging.getLogger(__name__)
-    import concurrent.futures
     statistic = {"TOTAL": 0}
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
         for i in range(0, len(links)):

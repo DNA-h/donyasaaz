@@ -7,9 +7,11 @@ from bs4 import BeautifulSoup
 
 def donyayesaaz(link, headers):
     try:
+        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.info('donyayesaz :  %s, %s', e, link)
         return None
 

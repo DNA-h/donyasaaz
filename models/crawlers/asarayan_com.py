@@ -13,7 +13,6 @@ def asarayan(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
 
     p = soup.find("p", attrs={"class": "our_price_display"})

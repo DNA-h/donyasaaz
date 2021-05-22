@@ -18,7 +18,7 @@ import math
 import sys
 import time
 import threading
-from models.apis import callCrawlerThread, test_timezone2
+from models.apis import callCrawlerThread, reloadMusicItemPrice
 from models.crawlers import www_donyayesaaz_com
 
 headers = {
@@ -156,27 +156,18 @@ def musicItemHandler(request):
         musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'seen_all':
-        # links = Link.objects.all()
-        # for link in links:
-        #     link.unseen = False
-        #     link.save()
-        # musicItems = MusicItem.objects.all()
-        # for musicItem in musicItems:
-        #     musicItem.increase = 0
-        #     musicItem.decrease = 0
-        #     musicItem.in_stock = 0
-        #     musicItem.out_of_stock = 0
-        #     musicItem.save()
+        links = Link.objects.all()
+        for link in links:
+            link.unseen = False
+            link.save()
+        musicItems = MusicItem.objects.all()
+        for musicItem in musicItems:
+            musicItem.increase = 0
+            musicItem.decrease = 0
+            musicItem.in_stock = 0
+            musicItem.out_of_stock = 0
+            musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
-
-
-def reloadMusicItemPrice(item, i):
-    time.sleep(1 + random.randint(0, 1))
-    price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
-    item.price = price
-    item.save()
-    config.lastCrawlEnded = 'loading ' + str(i)
-    return
 
 
 @csrf_exempt
@@ -222,12 +213,7 @@ def test_timezone(request):
     start_time = time.time()
     x = tasvirgostar_com.tasvirgostar(a, headers, '')
     print("{0:.2f} s".format((time.time() - start_time)))
-    # import concurrent.futures
-    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
-    #     while True:
-    #         pool.submit(test_timezone2)
     return JsonResponse({'success': True}, encoder=JSONEncoder)
-
 
 @csrf_exempt
 @api_view(['POST'])
@@ -243,9 +229,9 @@ def get_prices():
     config.lastCrawlEnded = 'loading 0.00%'
     items = MusicItem.objects.all()
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
         for i in range(0, len(items)):
-            pool.submit(reloadMusicItemPrice, items[i], i)
+            donyayesazz.submit(reloadMusicItemPrice, items[i], i)
 
     links = Link.objects.all()
 

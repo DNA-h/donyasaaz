@@ -168,10 +168,10 @@ def updateLink(link, product):
             logger.info('%s', e)
 
 
-def test_timezone2():
-    class Object(object):
-        pass
-
-    a = Object()
-    a.url = 'http://radek.ir/product/%d8%b3%d9%85%d8%a7%d9%88%d8%b1-%d8%a8%d8%b1%d9%82%db%8c-%d8%a8%d9%84%d8%a7%d9%86%d8%aa%d9%88%d9%86-%d9%85%d8%af%d9%84-es4001/'
-    radek_ir.radek(a, headers, '')
+def reloadMusicItemPrice(item, i):
+    time.sleep(1 + random.randint(0, 1))
+    price = www_donyayesaaz_com.donyayesaaz(item.url, headers)
+    item.price = price
+    item.save()
+    config.lastCrawlEnded = 'loading ' + str(i)
+    return

@@ -3,10 +3,11 @@ import re
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
-
+import time
 
 def torob(link, headers, site):
     try:
+        time.sleep(5)
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
         soup = BeautifulSoup(response.text, "html.parser")

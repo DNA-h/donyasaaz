@@ -4,6 +4,12 @@ from models.models import Price, Link, MusicItem
 from constance import config
 from models.crawlers import *
 import random
+from urllib3.exceptions import InsecureRequestWarning
+import os
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 crawlers = {"hitkala.ir": hitkala_ir.hitkala, "tasvirgostar.com": tasvirgostar_com.tasvirgostar,
             "alootop.com": alootop_com.alootop, "doorbin.store": doorbin_store.doorbin_store,
@@ -175,3 +181,27 @@ def reloadMusicItemPrice(item, i):
     item.save()
     config.lastCrawlEnded = 'loading ' + str(i)
     return
+
+
+def manualBrowse():
+    links = Link.objects.all()
+    for i in range(0, len(links)):
+        link = links[i]
+        lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
+        try:
+            if lastPrice is None:
+                print(str(i), " None ", link.url)
+            else:
+                print(str(i), " ", str(lastPrice.value), " ", link.url)
+            chrome_options = Options()
+            chrome_options.add_argument('log-level=3')
+            prefs = {"profile.managed_default_content_settings.images": 2}
+            chrome_options.add_experimental_option("prefs", prefs)
+            driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
+            driver.get(link.url)
+            while True:
+                driver.title
+                time.sleep(1)
+        except:
+            continue
+

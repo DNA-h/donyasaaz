@@ -1,4 +1,5 @@
 import re
+import logging
 import math
 import requests
 from urllib3.exceptions import InsecureRequestWarning

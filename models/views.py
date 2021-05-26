@@ -18,7 +18,7 @@ import math
 import sys
 import time
 import threading
-from models.apis import callCrawlerThread, reloadMusicItemPrice
+from models.apis import callCrawlerThread, reloadMusicItemPrice, manualBrowse
 from models.crawlers import www_donyayesaaz_com
 
 headers = {
@@ -56,7 +56,7 @@ class MusicItemSerializer(serializers.ModelSerializer):
         rest = sorted([x for x in serializer.data if x['recent_change'] == 0],
                       key=lambda k: math.inf if (len(k['history'])) == 0 else
                       k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
-        super_s['links'] = decreased  + in_stock + increased + out_of_stock + rest
+        super_s['links'] = decreased + in_stock + increased + out_of_stock + rest
         return super_s
 
 
@@ -121,7 +121,7 @@ def musicItemHandler(request):
             queryset = MusicItem.objects.all()
         if request.data['sort_type'] == 1:
             queryset = queryset.order_by('-created')
-        serializer = MusicItemListSerializer(queryset[page * pageSize : (page + 1) * pageSize], many=True)
+        serializer = MusicItemListSerializer(queryset[page * pageSize: (page + 1) * pageSize], many=True)
         return JsonResponse({
             'list': serializer.data, 'total': queryset.count(),
             'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
@@ -202,18 +202,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-
-    class Object(object):
-        pass
-
-    a = Object()
-    a.url = 'https://tasvirgostar.com/product/canon-750d-kit-18-135/'
-    import time
-    start_time = time.time()
-    x = tasvirgostar_com.tasvirgostar(a, headers, '')
-    print("{0:.2f} s".format((time.time() - start_time)))
+    import concurrent.futures
+    from models.crawlers import beyerdynamic_iran_com
+    print(beyerdynamic_iran_com.beyerdynamic("https://beyerdynamic-iran.com/product/tg-v70-s/"
+                                 ,headers,""))
+    # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
+
 
 @csrf_exempt
 @api_view(['POST'])

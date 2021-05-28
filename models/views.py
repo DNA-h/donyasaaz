@@ -18,7 +18,7 @@ import math
 import sys
 import time
 import threading
-from models.apis import callCrawlerThread, reloadMusicItemPrice, manualBrowse
+from models.apis import callCrawlerThread,callCrawlerThreadFast, reloadMusicItemPrice, manualBrowse
 from models.crawlers import www_donyayesaaz_com
 
 headers = {
@@ -203,12 +203,17 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 def test_timezone(request):
     import concurrent.futures
-    from models.crawlers import beyerdynamic_iran_com
-    print(beyerdynamic_iran_com.beyerdynamic("https://beyerdynamic-iran.com/product/tg-v70-s/"
+    from models.crawlers import www_pixel_ir
+    print(www_pixel_ir.pixel("https://www.pixel.ir/Video-tripod/12568-weifeng-wt-3560.html"
                                  ,headers,""))
     # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+@csrf_exempt
+@api_view(['GET'])
+def run_tests(request):
+    unitTest()
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -216,6 +221,11 @@ def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+@csrf_exempt
+@api_view(['POST'])
+def run_prices_fast(request):
+    Thread(target=get_prices_fast).start()
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @app.task
 def get_prices():
@@ -245,3 +255,19 @@ def get_prices():
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')
+
+def get_prices_fast():
+    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    config.lastCrawlChanges = 0
+
+    links = Link.objects.all()
+    import concurrent.futures
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+        for i in range(0, len(links)):
+            link = links[i]
+            site = re.findall("//(.*?)/", link.url)
+            if not site:
+                continue
+            pool.submit(callCrawlerThreadFast, link, site, i)
+
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

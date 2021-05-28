@@ -150,6 +150,28 @@ def callCrawlerThread(link, site, i, statistic):
     updateLink(link, product)
 
 
+crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
+                }
+
+
+def callCrawlerThreadFast(link, site, i):
+    config.lastCrawlEnded = 'running ' + str(i)
+    try:
+        product = crawlersFast[site[0]](link, headers, site[0])
+    except Exception as e:
+        print(e)
+        return
+
+    if product is None:
+        print("None")
+        return
+
+    if product == 0:
+        product = -1
+    print("product ", product)
+    updateLink(link, product)
+
+
 def updateLink(link, product):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
     if lastPrice is None or lastPrice.value != product:
@@ -205,3 +227,68 @@ def manualBrowse():
         except:
             continue
 
+# testData = [
+#     {"name": "alikmusic.org", "links": [
+#         {"value": 45600000,
+#          "url": "https://alikmusic.org/newalik/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%da%a9%d8%a7%d8%b3%db%8c%d9%88-px770-bk/"},
+#         {"value": 15000000,
+#          "url": "https://alikmusic.org/newalik/product/%d9%87%d9%86%da%af-%d8%af%d8%b1%d8%a7%d9%85-%da%a9%db%8c%d8%aa%d8%a7-9-%d9%86%d8%aa/"},
+#         {"value": -1,
+#          "url": "https://alikmusic.org/newalik/product/%da%af%db%8c%d8%aa%d8%a7%d8%b1-%d9%be%d8%a7%d8%b1%d8%b3%db%8c-m1/"},
+#         {"value": -1, "url": "https://alikmusic.org/newalik/product/alhambra-3c/"}
+#     ]},
+#     {"name": "alootop.com", "links": [
+#         {"value": 409000,
+#          "url": "https://alootop.com/product/%d8%a7%d8%b3%d9%be%db%8c%da%a9%d8%b1-awei-y336-%d8%b6%d8%af-%d8%a2%d8%a8/"},
+#         {"value": 449000,
+#          "url": "https://alootop.com/product/%d9%87%d8%af%d8%b3%d8%aa-%d8%a7%da%a9%d8%b3%d9%88%d9%86-gh-11-%da%af%db%8c%d9%85%db%8c%d9%86%da%af/"},
+#         {"value": -1,
+#          "url": "https://alootop.com/product/%da%a9%db%8c%d8%a8%d9%88%d8%b1%d8%af-%d8%aa%d8%b3%da%a9%d9%88-tk-8011/"}
+#     ]},
+#     {"name": "alphy-music.com", "links": [
+#         {"value": 22000000, "url": "https://alphy-music.com/shop/product/10-porsche-carrera-4964.html"},
+#         {"value": 1660000,
+#          "url": "https://alphy-music.com/shop/product/233-%D9%85%DB%8C%D8%AF%DB%8C-%DA%A9%D9%86%D8%AA%D8%B1%D9%84%D8%B1-m-audio-oxygen-25-vi.html"}
+#     ]},
+#     {"name": "arads.ie", "links": [
+#         {"value": 29000,
+#          "url": "https://arads.ir/product/5819228/%D9%BE%DB%8C%DA%A9-%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%AF%D8%A7%D8%AF%D8%A7%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-nylpro14"},
+#         {"value": -1,
+#          "url": "https://arads.ir/product/12432/%D8%A7%D8%AA%D9%88-%D9%85%D8%AE%D8%B2%D9%86-%D8%AF%D8%A7%D8%B1-%D9%81%DB%8C%D9%84%DB%8C%D9%BE%D8%B3-%D9%85%D8%AF%D9%84-gc6802"}
+#     ]},
+#     {"name": "aref.ir", "links": [
+#         {"value": 2050000,
+#          "url": "https://aref.ir/product/%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%d9%81%d8%b1%d9%87%d8%a7%d8%af-%d8%af%d8%b1%d8%ac%d9%87-1/"},
+#         {"value": -1,
+#          "url": "https://aref.ir/product/%da%af%db%8c%d8%aa%d8%a7%d8%b1-%d8%b1%d9%88%d9%85%d8%a8%d8%a7-rhumba/"}
+#     ]},
+#     {"name":"arzoonyab.com","links":[
+#         {"value":86900000,"url":"https://arzoonyab.com/item/?iid=6725_5124"},
+#         {"value":}
+#     ]}
+# ]
+#
+#
+# def unitTest():
+#     import re
+#     for test in testData:
+#         problem = False
+#         for link in test["links"]:
+#             site = re.findall("//(.*?)/", link["url"])
+#             try:
+#                 class Object(object):
+#                     pass
+#
+#                 a = Object()
+#                 a.url = link["url"]
+#                 product = crawlers[site[0]](a, headers, site[0])
+#                 if product != link["value"]:
+#                     problem = True
+#                     break
+#             except Exception as e:
+#                 problem = True
+#                 break
+#         if problem:
+#             print(test["name"], "failed")
+#         else:
+#             print(test["name"], "pass")

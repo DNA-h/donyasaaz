@@ -1,21 +1,27 @@
 import re
 import logging
-
 import requests
 from urllib3.exceptions import InsecureRequestWarning
+import os
 from bs4 import BeautifulSoup
-import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 def torob(link, headers, site):
     try:
-        time.sleep(5)
-        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-        response = requests.get(link.url, headers=headers, verify=False)
-        soup = BeautifulSoup(response.text, "html.parser")
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('log-level=3')
+        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
+        driver.get(link.url)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        driver.close()
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
 
     p = soup.find("h2", attrs={"class": "jsx-1813026706"})

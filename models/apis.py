@@ -151,7 +151,8 @@ def callCrawlerThread(link, site, i, statistic):
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
-                }
+                "iranloop.ir":iranloop_ir,"golhastore.ir":golhastore_ir,
+                "www.sazforoosh.com":www_sazforoosh_com}
 
 
 def callCrawlerThreadFast(link, site, i):

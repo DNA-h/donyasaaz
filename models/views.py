@@ -242,7 +242,7 @@ def get_prices():
 
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
         for i in range(0, len(links)):
             link = links[i]
             site = re.findall("//(.*?)/", link.url)
@@ -262,7 +262,7 @@ def get_prices_fast():
 
     links = Link.objects.all()
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
         for i in range(0, len(links)):
             link = links[i]
             site = re.findall("//(.*?)/", link.url)

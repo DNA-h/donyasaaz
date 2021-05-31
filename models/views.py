@@ -202,10 +202,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    import concurrent.futures
-    from models.crawlers import www_pixel_ir
-    print(www_pixel_ir.pixel("https://www.pixel.ir/Video-tripod/12568-weifeng-wt-3560.html"
-                                 ,headers,""))
+    from models.crawlers import timcheh_com
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = "https://timcheh.com/product/tpi-33438"
+    print(timcheh_com.timcheh(a,headers,""))
     # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 

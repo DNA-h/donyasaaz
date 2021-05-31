@@ -1,12 +1,11 @@
 import re
 import logging
-import math
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def yamahairan(link, headers, site):
+def noahang(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,13 +13,11 @@ def yamahairan(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
 
-    p = soup.find("span", attrs={"class": "amount"})
-    a = re.sub(r',', '', p.text).strip()
-    b = re.split(r'\s', a)
-    if b[0] == '۰':
+    div = soup.find("li", attrs={"class": "product-price"})
+    if div is None:
         return -1
-    else:
-        return math.floor(int(b[0]) /10)
+    a = re.sub(r',', '', div.text).strip()
+    b = re.findall(r'\d+', a)
+    return int(b[0])

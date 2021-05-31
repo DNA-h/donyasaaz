@@ -35,4 +35,7 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "tehran_sote_com","www_uzmandigital_com","royalvocal_com","aykalaa_ir","sazamooz_com","ir_3710",
            "didoshot_com","persiantopsound_com","qeshmkharid_ir","cafekhareed_com","pianoforte_ir",
            "rabid_ir","four_sooo_com","npdigi_com","alootop_com","doorbin_store","hitkala_ir",
-           "tasvirgostar_com"]
+           "tasvirgostar_com","sonystar_ir","rabi_ir","elmond_ir","noahang_ir","www_parsian_sound_com",
+           "digibroadcast_ir","digionline_ir","persikav_com","headroom_ir","troly_ir","irandjstore_com",
+           "cinemakala_com","kharidazma_com","shahab_store_com","twosanie_com","ofoghstore_ir","www_vafaiemusic_com",
+           "timcheh_com"]

@@ -11,7 +11,15 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"hitkala.ir": hitkala_ir.hitkala, "tasvirgostar.com": tasvirgostar_com.tasvirgostar,
+crawlers = {"www.vafaiemusic.com": www_vafaiemusic_com.vafaiemusic, "timcheh.com": timcheh_com.timcheh,
+            "shahab-store.com": shahab_store_com.shahab_store, "ofoghstore.ir": ofoghstore_ir.ofoghstore,
+            "cinemakala.com": cinemakala_com.cinemakala, "kharidazma.com": kharidazma_com.kharidazma,
+            "troly.ir": troly_ir.troly, "irandjstore.com": irandjstore_com.irandjstore,
+            "www.parsian-sound.com": www_parsian_sound_com.parsian_sound, "persikav.com": persikav_com.persikav,
+            "digibroadcast.ir": digibroadcast_ir.digibroadcast, "digionline.ir": digionline_ir.digionline,
+            "elmond.ir": elmond_ir.elmond, "noahang.ir": noahang_ir.noahang,
+            "sonystar.ir": sonystar_ir.sonystar, "rabi.ir": rabi_ir.rabi,
+            "hitkala.ir": hitkala_ir.hitkala, "tasvirgostar.com": tasvirgostar_com.tasvirgostar,
             "alootop.com": alootop_com.alootop, "doorbin.store": doorbin_store.doorbin_store,
             "4sooo.com": four_sooo_com.four_sooo, "npdigi.com": npdigi_com.npdigi_com,
             "persiantopsound.com": persiantopsound_com.persiantopsound, "pianoforte.ir": pianoforte_ir.pianoforte,
@@ -53,7 +61,7 @@ crawlers = {"hitkala.ir": hitkala_ir.hitkala, "tasvirgostar.com": tasvirgostar_c
             "sedabazar.com": sedabazar_com.sedabazar, "www.hezarsoo.com": www_hezarsoo_com.hezarsoo,
             "fluteshop.org": fluteshop_org.fluteshop, "digitalbaran.com": digitalbaran_com.digitalbaran,
             "turingsanat.com": turingsanat_com.turingsanat, "yerial.com": yerial_com.yerial,
-            "www.gostaresh-seda.com": www_gostaresh_seda_com.gostaresh,
+            "www.gostaresh-seda.com": www_gostaresh_seda_com.gostaresh, "headroom.ir": headroom_ir.headroom,
             "www.digikala.com": www_digikala_com.digikala, "malihshop.ir": malihshop_ir.malihshop,
             "beyerdynamic-iran.com": beyerdynamic_iran_com.beyerdynamic,
             "www.sazplaza.com": www_sazplaza_com.sazplaza, "www.kalaoma.com": www_kalaoma_com.kalaoma,
@@ -151,8 +159,8 @@ def callCrawlerThread(link, site, i, statistic):
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
-                "iranloop.ir":iranloop_ir,"golhastore.ir":golhastore_ir,
-                "www.sazforoosh.com":www_sazforoosh_com}
+                "iranloop.ir": iranloop_ir, "golhastore.ir": golhastore_ir,
+                "www.sazforoosh.com": www_sazforoosh_com}
 
 
 def callCrawlerThreadFast(link, site, i):

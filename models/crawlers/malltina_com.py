@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 
 def malltina(link, headers, site):
-    return None
+    return -1
     # try:
     #     requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
     #     response = requests.get(link.url, headers=headers, verify=False)

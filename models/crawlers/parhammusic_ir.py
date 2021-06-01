@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 
-def sazcenter(link, headers, site):
+def parhammusic(link, headers, site):
     try:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -23,18 +23,9 @@ def sazcenter(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
-        div = soup.find("p", attrs={"class": "price"})
-        if div is None:
-            return -1
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
-        if len(p) == 0:
-            return -1
-        elif len(p) == 1:
-            a = re.sub(r',', '', p[0].text).strip()
-        else:
-            a = re.sub(r',', '', p[1].text).strip()
-        b = re.findall(r'\d+', a)
-        return int(b[0])
-    else:
+    p = soup.find("div", attrs={"class": "gheimat_kala"})
+    if p is None:
         return -1
+    a = re.sub(r',', '', p.text).strip()
+    b = re.findall(r'\d+', a)
+    return int(b[0])

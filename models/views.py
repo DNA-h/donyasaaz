@@ -202,13 +202,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 def test_timezone(request):
-    from models.crawlers import timcheh_com
+    from models.crawlers import sazzbazz_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://timcheh.com/product/tpi-33438"
-    print(timcheh_com.timcheh(a,headers,""))
+    a.url = "https://sazzbazz.com/product/%d8%a8%d8%b3%d8%aa%d9%87-%d9%88%db%8c%da%98%d9%87-%d8%aa%d8%a7%d8%b1-%d8%b1%d8%b3%d8%aa%d9%85%db%8c/"
+    print(sazzbazz_com.sazzbazz(a,headers,""))
     # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 

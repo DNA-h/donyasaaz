@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def saz_bazar(link, headers, site):
+def tasvirkala(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -17,17 +17,13 @@ def saz_bazar(link, headers, site):
 
         return None
 
-    div =  soup.find("div",attrs={"id":"product-availability"})
-    if div is None or "ناموجود" in div.text:
-        return -1
-
-    p = soup.find("div", attrs={"class": "current-price"})
-    if p is not None:
-        s = p.find("span", attrs={"itemprop": "price"})
-        a = re.sub(r',', '', s.text).strip()
-        b = re.findall(r'\d+', a)
-        if a == 'تماس بگیرید':
+    s = soup.find("div", attrs={"class": "button__btn-normal-success___1JY6- button__btn-normal___299V7 button__btn___3Wejk button__success___2V0M8 styles__buy-button___11qld"})
+    if s is not None:
+        p = soup.find("span",attrs={"class":"styles__final-price___1L1AM"})
+        if p is None:
             return -1
-        else:
-            return int(b[0])
-    return -1
+        a = re.sub(r'٫', '', p.text).strip()
+        b = re.findall(r'\d+', a)
+        return int(b[0])
+    else:
+        return -1

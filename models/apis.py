@@ -183,13 +183,13 @@ def callCrawlerThread(link, site, i, statistic):
         product = crawlers[site[0]](link, headers, site[0])
     except Exception as e:
         logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(i), e)
-        link.last_run = -2
+        # link.last_run = -2
         link.save()
         return
 
     if product is None:
         logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
-        link.last_run = -1
+        # link.last_run = -1
         link.save()
         return
     duration = time.time() - start_time
@@ -203,7 +203,7 @@ def callCrawlerThread(link, site, i, statistic):
         }
     if product == 0:
         product = -1
-    link.last_run = math.ceil(time.time() - start_time)
+    # link.last_run = math.ceil(time.time() - start_time)
     link.save()
     updateLink(link, product)
 

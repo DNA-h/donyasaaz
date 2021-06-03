@@ -18,7 +18,7 @@ import math
 import sys
 import time
 import threading
-from models.apis import callCrawlerThread,callCrawlerThreadFast, reloadMusicItemPrice, manualBrowse
+from models.apis import callCrawlerThread, callCrawlerThreadFast, reloadMusicItemPrice, manualBrowse
 from models.crawlers import www_donyayesaaz_com
 
 headers = {
@@ -201,16 +201,19 @@ def font655ba951f59a5b99d8627273e0883638(request):
     return FileResponse(open('static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
+@csrf_exempt
+@api_view(['GET'])
 def test_timezone(request):
-    from models.crawlers import sazzbazz_com
+    from models.crawlers import www_yamahairan_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://sazzbazz.com/product/%d8%a8%d8%b3%d8%aa%d9%87-%d9%88%db%8c%da%98%d9%87-%d8%aa%d8%a7%d8%b1-%d8%b1%d8%b3%d8%aa%d9%85%db%8c/"
-    print(sazzbazz_com.sazzbazz(a,headers,""))
+    a.url = "https://www.yamahairan.ir/product/detail/694-YDP-144"
+    print(www_yamahairan_ir.yamahairan(a, headers, ""))
     # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
+
 
 @csrf_exempt
 @api_view(['GET'])
@@ -218,11 +221,12 @@ def run_tests(request):
     unitTest()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
-@csrf_exempt
-@api_view(['POST'])
+
+
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -230,16 +234,17 @@ def run_prices_fast(request):
     Thread(target=get_prices_fast).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+
 @app.task
 def get_prices():
-    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    config.lastCrawlChanges = 0
-    config.lastCrawlEnded = 'loading 0.00%'
-    items = MusicItem.objects.all()
+    # config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    # config.lastCrawlChanges = 0
+    # config.lastCrawlEnded = 'loading 0.00%'
+    # items = MusicItem.objects.all()
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
-        for i in range(0, len(items)):
-            donyayesazz.submit(reloadMusicItemPrice, items[i], i)
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
+    #     for i in range(0, len(items)):
+    #         donyayesazz.submit(reloadMusicItemPrice, items[i], i)
 
     links = Link.objects.all()
 
@@ -258,6 +263,7 @@ def get_prices():
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')
+
 
 def get_prices_fast():
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

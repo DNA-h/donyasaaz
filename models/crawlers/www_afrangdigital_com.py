@@ -1,6 +1,6 @@
 import re
 import logging
-
+import math
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
@@ -22,6 +22,6 @@ def afrangdigital(link, headers, site):
         s = p.find("price")
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
-        return int(b[0])
+        return math.floor(int(b[0]))
     else:
         return -1

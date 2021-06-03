@@ -11,27 +11,30 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-def parsiansote(link, headers, site):
+def royzkala(link, headers, site):
     try:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--disable-gpu")
         driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
         driver.get(link.url)
-        soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
+    try:
+        WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
+    except:
+        return -1
+    soup = BeautifulSoup(driver.page_source, "html.parser")
     if soup.find("button", attrs={"class": "single_add_to_cart_button button dk-button"}):
         div = soup.find(attrs={"class": "price"})
         if div is None:
-           WebDriverWait(driver,100).until(EC.presence_of_element_located((By.CLASS_NAME,"price")))
-           soup = BeautifulSoup(driver.page_source, "html.parser")
-           div = soup.find( attrs={"class": "price"})
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+            return -1
+        p = div.find_all(attrs={"class":"woocommerce-Price-amount amount"})
         if len(p) == 0:
             return -1
         elif len(p) == 1:

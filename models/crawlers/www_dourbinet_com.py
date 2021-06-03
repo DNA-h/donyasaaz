@@ -14,7 +14,7 @@ def dourbinet(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
+
         return None
 
     p = soup.find("span", attrs={"class": "price"})
@@ -22,6 +22,8 @@ def dourbinet(link, headers, site):
         p = soup.find("span", attrs={"class": "price"})
         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
+        if len(b) == 0:
+            return -1
         return int(b[0])
     else:
         return -1

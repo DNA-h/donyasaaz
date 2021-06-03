@@ -1,5 +1,6 @@
 import logging
 import time
+import math
 from models.models import Price, Link, MusicItem
 from constance import config
 from models.crawlers import *
@@ -11,8 +12,34 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"www.hamitak.com": www_hamitak_com.hamitak, "www.dingoland.ir": www_dingoland_ir.dingoland,
+crawlers = {"2sanie.com": twosanie_com.twosanie,
+            "www.mediaresan.com": www_mediaresan_com.mediaresan, "berimkharid.com": berimkharid_com.berimkharid,
+            "camerashop.ir": camerashop_ir.camerashop, "miniatorcam.com": miniatorcam_com.miniatorcam,
+            "sfone.ir": sfone_ir.sfone, "www.jibistore.com": www_jibistore_com.jibistore,
+            "fav-co.com": fav_co_com.fav_co, "www.atramart.com": www_atramart_com.atramart,
+            "ziadmiad.ir": ziadmiad_ir.ziadmiad, "phoneemdad.com": phoneemdad_com.phoneemdad,
+            "www.modiseh.com": www_modiseh_com.modiseh, "rotbe1.ir": rotbe1_ir.rotbe1,
+            "negahshot.com": negahshot_com.negahshot, "www.makanha.com": www_makanha_com.makanha,
+            "audiox.ir": audiox_ir.audiox, "sazbox.com": sazbox_com.sazbox,
+            "pst-iranian.ir": pst_iranian_ir.pst_iranian, "bodomarket.ir": bodomarket_ir.bodomarket,
+            "tehranpioneer.com": tehranpioneer_com.tehranpioneer, "picenter.ir": picenter_ir.picenter,
+            "alibababozorg.ir": alibababozorg_ir.alibababozorg, "www.dorbino.org": www_dorbino_org.dorbino,
+            "shop.canon1.ir": shop_canon1_ir.shop_canon1, "www.irandeliver.com": www_irandeliver_com.irandeliver,
+            "www.lensium.com": www_lensium_com.lensium, "focusnegar.com": focusnegar_com.focusnegar,
+            "taktasvir.ir": taktasvir_ir.taktasvir, "digicenter.ir": digicenter_ir.digicenter,
+            "rozanehshop.ir": rozanehshop_ir.rozanehshop, "miladcam.com": miladcam_com.miladcam,
+            "falude.com": falude_com.falude, "arvandfm.com": arvandfm_com.arvandfm,
+            "gariche.ir": gariche_ir.gariche, "mediastor.ir": mediastor_ir.mediastor,
+            "k1land.com": k1land_com.k1land, "saazmarket.com": saazmarket_com.saazmarket,
+            "www.pelazio.com": www_pelazio_com.pelazio, "abadimusic.com": abadimusic_com.abadimusic,
+            "www.camshop.ir": www_camshop_ir.camshop, "paymishe.com": paymishe_com.paymishe,
+            "royzkala.com": royzkala_com.royzkala, "basalam.com": basalam_com.basalam,
+            "cameramarkazi.com": cameramarkazi_com.cameramarkazi, "www.edarikala.com": www_edarikala_com.edarikala,
+            "pianomarket.ir": pianomarket_ir.pianomarket, "xn--ghbeb.com": xn__ghbeb_com.ghbeb,
+            "melotiroj.academy": melotiroj_academy.melotiroj, "www.itbazar.com": www_itbazar_com.itbazar,
+            "www.hamitak.com": www_hamitak_com.hamitak, "www.dingoland.ir": www_dingoland_ir.dingoland,
             "lenzocam.com": lenzocam_com.lenzocam, "tasvirkala.net": tasvirkala_net.tasvirkala,
+            "sazhouse.com": www_sazhouse_com.sazhouse, "www.darvishkhan.net": www_darvishkhan_net.darvishkhan,
             "www.sazhouse.com": www_sazhouse_com.sazhouse, "sonorite.ir": sonorite_ir.sonorite,
             "hiapple.ir": hiapple_ir.hiapple, "gabri.ir": gabri_ir.gabri,
             "www.mobit.ir": www_mobit_ir.mobit, "filmkala.com": filmkala_com.filmkala,
@@ -49,6 +76,7 @@ crawlers = {"www.hamitak.com": www_hamitak_com.hamitak, "www.dingoland.ir": www_
             "www.rsa-co.com": www_rsa_co_com.rsa_co, "vizmarket.ir": vizmarket_ir.vizmarket,
             "yademanshop.ir": yademanshop_ir.yademanshop, "iraanbaba.com": iraanbaba_com.iraanbaba,
             "parsiankala.com": parsiankala_com.parsiankala_com, "www.tienda.ir": www_tienda_ir.tienda,
+            "tasvirancam.ir": www_tasvirancam_ir.tasvirancam,
             "www.tasvirancam.ir": www_tasvirancam_ir.tasvirancam, "hbartarshop.com": hbartarshop_com.hbartarshop,
             "avazgar.com": avazgar_com.avazgar, "toptarin.net": toptarin_net.toptarin,
             "alphy-music.com": alphy_music_com.alphy_music, "ertebat-sg.com": ertebat_sg_com.ertebat_sg,
@@ -69,6 +97,7 @@ crawlers = {"www.hamitak.com": www_hamitak_com.hamitak, "www.dingoland.ir": www_
             "www.sornashop.com": www_sornashop_com.sornashop, "davarmelody.com": davarmelody_com.davarmelody,
             "www.tehranmelody.com": www_tehranmelody_com.tehranmelody, "guitarbaz.com": guitarbaz_com.guitarbaz_com,
             "tehranmelody.software": www_tehranmelody_com.tehranmelody,
+            "www.golhastore.ir": golhastore_ir.golhastore,
             "navamarket.ir": navamarket_ir.navamarket, "golhastore.ir": golhastore_ir.golhastore,
             "ertebat.co": ertebat_co.ertebat, "delshadmusic.com": delshadmusic_com.delshadmusic,
             "delarammusic.com": delarammusic_com.delarammusic, "alikmusic.org": alikmusic_org.alikmusic,
@@ -153,11 +182,15 @@ def callCrawlerThread(link, site, i, statistic):
     try:
         product = crawlers[site[0]](link, headers, site[0])
     except Exception as e:
-        logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(i), site[0])
+        logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(i), e)
+        link.last_run = -2
+        link.save()
         return
 
     if product is None:
         logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
+        link.last_run = -1
+        link.save()
         return
     duration = time.time() - start_time
 
@@ -170,6 +203,8 @@ def callCrawlerThread(link, site, i, statistic):
         }
     if product == 0:
         product = -1
+    link.last_run = math.ceil(time.time() - start_time)
+    link.save()
     updateLink(link, product)
 
 

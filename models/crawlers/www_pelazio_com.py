@@ -8,8 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
-
-def arzoonyab(link, headers, site):
+def pelazio(link, headers, site):
     try:
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -24,9 +23,12 @@ def arzoonyab(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    p = soup.find("span", attrs={"id": "popup_name_price"})
-    if p is None:
+    if soup.find("button", attrs={"class": "MuiButtonBase-root MuiButton-root MuiButton-text Plz-productDetails__vendor--btn__addCart btn-addToCart"}):
+        p = soup.find("span", attrs={"class": "Plz-productDetails__vendor--price__count--main"})
+        if p is None:
+            return -1
+        a = re.sub(r',', '', p.text).strip()
+        b = re.findall(r'\d+', a)
+        return int(b[0])
+    else:
         return -1
-    a = re.sub(r',', '', p.text).strip()
-    b = re.findall(r'\d+', a)
-    return int(b[0])

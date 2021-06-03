@@ -18,8 +18,10 @@ def yamahairan(link, headers, site):
         return None
 
     p = soup.find("span", attrs={"class": "amount"})
+    if p is None:
+        return -1
     a = re.sub(r',', '', p.text).strip()
-    b = re.split(r'\s', a)
+    b = re.findall(r'\d+', a)
     if b[0] == '۰':
         return -1
     else:

@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def sedamoon(link, headers, site):
+def lensium(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -17,17 +17,9 @@ def sedamoon(link, headers, site):
 
         return None
 
-    if soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button*")}):
-        div = soup.find("p", attrs={"class": "price"})
-        if div is None:
-            return -1
-        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
-        if len(p) == 0:
-            return -1
-        elif len(p) == 1:
-            a = re.sub(r',', '', p[0].text).strip()
-        else:
-            a = re.sub(r',', '', p[1].text).strip()
+    if soup.find("button", attrs={"class": "btn btn-default btn-large add-to-cart btn-full-width btn-spin"}):
+        p = soup.find("span", attrs={"itemprop": "price"})
+        a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

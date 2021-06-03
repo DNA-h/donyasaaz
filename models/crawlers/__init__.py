@@ -44,4 +44,13 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "www_kalajibi_ir", "pubgdooni_com", "kandidshop_ir", "technosun_ir", "www_iliyacomputer_com",
            "senfishop_com", "www_mobit_ir", "filmkala_com", "hiapple_ir", "www_apple_nic_com", "gabri_ir",
            "www_sazhouse_com", "sonorite_ir", "lenzocam_com", "tasvirkala_net", "www_hamitak_com",
-           "www_dingoland_ir"]
+           "www_dingoland_ir", "melotiroj_academy", "www_itbazar_com", "pianomarket_ir", "xn__ghbeb_com",
+           "www_darvishkhan_net", "cameramarkazi_com", "www_edarikala_com", "royzkala_com", "basalam_com",
+           "www_camshop_ir", "paymishe_com", "www_pelazio_com", "abadimusic_com", "k1land_com", "saazmarket_com",
+           "gariche_ir", "mediastor_ir", "falude_com", "arvandfm_com", "rozanehshop_ir", "miladcam_com",
+           "taktasvir_ir", "digicenter_ir", "www_lensium_com", "focusnegar_com", "shop_canon1_ir",
+           "www_irandeliver_com",
+           "alibababozorg_ir", "www_dorbino_org", "tehranpioneer_com", "picenter_ir", "audiox_ir", "sazbox_com",
+           "negahshot_com", "www_makanha_com", "pst_iranian_ir", "bodomarket_ir", "www_modiseh_com", "rotbe1_ir",
+           "ziadmiad_ir", "phoneemdad_com", "fav_co_com", "www_atramart_com", "sfone_ir", "www_jibistore_com",
+           "camerashop_ir", "miniatorcam_com", "www_mediaresan_com", "berimkharid_com"]

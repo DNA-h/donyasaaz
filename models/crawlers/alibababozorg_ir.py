@@ -6,5 +6,5 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def dk99(link, headers, site):
-    return -1 # دقیقا دیجیکالا است
+def alibababozorg(link, headers, site):
+    return -1 # کلا همون دیجی کالا

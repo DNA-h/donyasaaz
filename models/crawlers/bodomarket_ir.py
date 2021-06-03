@@ -1,12 +1,12 @@
 import re
 import logging
-import math
+
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def gostaresh(link, headers, site):
+def bodomarket(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,15 +14,19 @@ def gostaresh(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-
         return None
 
-    if soup.find("span", attrs={"class": "btn disabled btn-green"}):
+    div = soup.find("p", attrs={"class": "price"})
+    if div is None:
         return -1
-    p = soup.find("div", attrs={"class": "pe"})
-    if p is None:
+    p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+    if len(p) == 0:
         return -1
-    s = p.find("b")
-    a = re.sub(r',', '', s.text).strip()
+    elif len(p) == 1:
+        a = re.sub(r',', '', p[0].text).strip()
+    else:
+        a = re.sub(r',', '', p[1].text).strip()
     b = re.findall(r'\d+', a)
-    return math.floor(int(b[0]) / 10)
+    if len(b) == 0:
+        return -1
+    return int(b[0])

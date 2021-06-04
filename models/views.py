@@ -236,14 +236,14 @@ def run_prices_fast(request):
 
 @app.task
 def get_prices():
-    # config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    # config.lastCrawlChanges = 0
-    # config.lastCrawlEnded = 'loading 0.00%'
-    # items = MusicItem.objects.all()
+    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    config.lastCrawlChanges = 0
+    config.lastCrawlEnded = 'loading 0.00%'
+    items = MusicItem.objects.all()
     import concurrent.futures
-    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
-    #     for i in range(0, len(items)):
-    #         donyayesazz.submit(reloadMusicItemPrice, items[i], i)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
+        for i in range(0, len(items)):
+            donyayesazz.submit(reloadMusicItemPrice, items[i], i)
 
     links = Link.objects.all()
 

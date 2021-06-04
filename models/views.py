@@ -221,7 +221,7 @@ def run_tests(request):
 
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['POST'])
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)

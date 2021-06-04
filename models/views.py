@@ -204,25 +204,24 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
-    from models.crawlers import www_yamahairan_ir
+    from models.crawlers import www_alijavadzadeh_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.yamahairan.ir/product/detail/694-YDP-144"
-    print(www_yamahairan_ir.yamahairan(a, headers, ""))
+    a.url = "https://www.alijavadzadeh.com/shop/musical-instrument/guitar/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%DA%A9%D9%84%D8%A7%D8%B3%DB%8C%DA%A9-%D9%85%D8%AA-%D9%85%D8%AF%D9%84-001-%DA%A9%D9%BE%DB%8C/"
+    print(www_alijavadzadeh_com.alijavadzadeh(a, headers, ""))
     # manualBrowse()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
-@csrf_exempt
-@api_view(['GET'])
 def run_tests(request):
     unitTest()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
-
+@csrf_exempt
+@api_view(['GET'])
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)

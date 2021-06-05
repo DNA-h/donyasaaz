@@ -9,16 +9,17 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from celery import Celery
 import re
-from constance import config
 import logging
 import datetime
 import pytz
+from constance import config
 import time
 import math
 import sys
 import time
 import threading
-from models.apis import callCrawlerThread, callCrawlerThreadFast, reloadMusicItemPrice, manualBrowse
+import concurrent.futures
+from models.apis import callCrawlerThread, callCrawlerThreadFast, reloadMusicItemPrice, test_link
 from models.crawlers import www_donyayesaaz_com
 
 headers = {
@@ -57,13 +58,20 @@ class MusicItemSerializer(serializers.ModelSerializer):
                       key=lambda k: math.inf if (len(k['history'])) == 0 else
                       k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
         super_s['links'] = decreased + in_stock + increased + out_of_stock + rest
+        super_s['links'] = sorted(super_s['links'], key=lambda k: 0 if k['is_active'] else 1)
         return super_s
+
+
+class LinkListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Link
+        fields = ('url', 'parent')
 
 
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ('url', 'unseen', 'pk')
+        fields = ('url', 'unseen', 'pk', 'reported', 'is_active')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -168,6 +176,25 @@ def musicItemHandler(request):
             musicItem.out_of_stock = 0
             musicItem.save()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+    elif request.data['method'] == 'errors':
+        from django.db.models import Q
+        queryset = None
+        if request.data['mode'] == 'error':
+            queryset = Link.objects.filter(last_run=-2)
+        elif request.data['mode'] == 'none':
+            queryset = Link.objects.filter(Q(last_run=-1) | Q(last_run=None))
+        elif request.data['mode'] == 'null':
+            queryset1 = Link.objects.exclude(id__in=Price.objects.all().values_list('parent_id', flat=True))
+            from datetime import datetime, timedelta
+            last21Day = datetime.today() - timedelta(days=30)
+            Q1 = Price.objects.filter(created__gte=last21Day).values_list('id', flat=True).distinct()
+            Q2 = Price.objects.exclude(id__in=Q1).values_list('id', flat=True).distinct()
+            queryset2 = Link.objects.exclude(~Q(id__in=Q2))
+            queryset = (queryset1 | queryset2).distinct()
+        serializer = LinkListSerializer(queryset, many=True)
+        return JsonResponse({
+            'list': serializer.data, 'total': queryset.count(), 'success': True
+        }, encoder=JSONEncoder)
 
 
 @csrf_exempt
@@ -178,8 +205,15 @@ def linkHandler(request):
         Link.objects.create(url=request.data['url'], parent=parent, unseen=False)
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'update':
-        Link.objects. \
-            update_or_create(pk=request.data['pk'], defaults={'url': request.data['url']})
+        if 'url' in request.data:
+            Link.objects. \
+                update_or_create(pk=request.data['pk'], defaults={'url': request.data['url']})
+        elif 'reported' in request.data:
+            Link.objects. \
+                update_or_create(pk=request.data['pk'], defaults={'reported': request.data['reported']})
+        elif 'is_active' in request.data:
+            Link.objects. \
+                update_or_create(pk=request.data['pk'], defaults={'is_active': request.data['is_active']})
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'delete':
         Link.objects.get(pk=request.data['pk']).delete()
@@ -204,15 +238,22 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
-    from models.crawlers import www_alijavadzadeh_com
-    class Object(object):
-        pass
-
-    a = Object()
-    a.url = "https://www.alijavadzadeh.com/shop/musical-instrument/guitar/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%DA%A9%D9%84%D8%A7%D8%B3%DB%8C%DA%A9-%D9%85%D8%AA-%D9%85%D8%AF%D9%84-001-%DA%A9%D9%BE%DB%8C/"
-    print(www_alijavadzadeh_com.alijavadzadeh(a, headers, ""))
-    # manualBrowse()
+    # from models.crawlers import www_alijavadzadeh_com
+    # class Object(object):
+    #     pass
+    #
+    # a = Object()
+    # a.url = "https://www.alijavadzadeh.com/shop/musical-instrument/guitar/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%DA%A9%D9%84%D8%A7%D8%B3%DB%8C%DA%A9-%D9%85%D8%AA-%D9%85%D8%AF%D9%84-001-%DA%A9%D9%BE%DB%8C/"
+    # print(www_alijavadzadeh_com.alijavadzadeh(a, headers, ""))
+    Link.objects.all().update(last_run=None)
     return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def run_test_link(request):
+    price = test_link(request.data['link'])
+    return JsonResponse({'success': True, 'price': price}, encoder=JSONEncoder)
 
 
 def run_tests(request):
@@ -234,22 +275,30 @@ def run_prices_fast(request):
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
+@csrf_exempt
+@api_view(['POST'])
+def run_reload_music_item_prices(request):
+    Thread(target=reload_music_item_prices).start()
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+
 @app.task
-def get_prices():
-    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    config.lastCrawlChanges = 0
-    config.lastCrawlEnded = 'loading 0.00%'
+def reload_music_item_prices():
     items = MusicItem.objects.all()
-    import concurrent.futures
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
         for i in range(0, len(items)):
             donyayesazz.submit(reloadMusicItemPrice, items[i], i)
 
-    links = Link.objects.all()
 
+@app.task
+def get_prices():
+    config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    config.lastCrawlChanges = 0
+    Link.objects.all().update(last_run=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
+    links = Link.objects.all()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
         for i in range(0, len(links)):
             link = links[i]
             site = re.findall("//(.*?)/", link.url)

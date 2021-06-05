@@ -24,10 +24,15 @@ class MusicItem(TimeStampedModel):
 # delete item(id)
 
 class Link(TimeStampedModel):
+    class Meta:
+        ordering = ['is_active',]
+
     url = models.CharField(max_length=1024, null=True, blank=True)
     parent = models.ForeignKey(MusicItem, null=True, blank=True, on_delete=models.CASCADE)
     unseen = models.BooleanField(default=False, null=True, blank=True)
-    # last_run = models.IntegerField(default=None, null=True, blank=True)
+    last_run = models.IntegerField(default=None, null=True, blank=True)
+    reported = models.BooleanField(default=False, null=True, blank=True)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
 
 
 # create_update new Link(url, parent_id)

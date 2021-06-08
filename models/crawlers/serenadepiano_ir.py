@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def diddovom(link, headers, site):
+def serenadepiano(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,7 +14,7 @@ def diddovom(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
+
         return None
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
@@ -27,7 +27,10 @@ def diddovom(link, headers, site):
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         else:
-            a = re.sub(r',', '', p[1].text).strip()
+            if len(div.find_all("ins")) == 0:
+                a = re.sub(r',', '', p[0].text).strip()
+            else:
+                a = re.sub(r',', '', p[1].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

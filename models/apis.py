@@ -13,8 +13,15 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"honarahang.ir": honarahang_ir.honarahang, "shop.citymusic.ir": shop_citymusic_ir.shop_citymusic,
-            "padanamusic.ir": apadanamusic_ir.apadanamusic, "www.janasaz.com": www_janasaz_com.janasaz,
+crawlers = {"armin-bethooven.com": armin_bethooven_com.armin_bethooven, "mehmoonivip.ir": mehmoonivip_ir.mehmoonivip,
+            "iraniansound.com": iraniansound_com.iraniansound, "serenadepiano.ir": serenadepiano_ir.serenadepiano,
+            "nimafereidooni.com": nimafereidooni_com.nimafereidooni, "navapiano.com": navapiano_com.navapiano,
+            "gallery-chang.ir": gallery_chang_ir.gallery_chang, "rahavico.com": rahavico_com.rahavico,
+            "mifado.ir": mifado_ir.mifado, "penzad.ir": penzad_ir.penzad,
+            "www.sornagallery.com": www_sornagallery_com.sornagallery, "www.chare.ir": www_chare_ir.chare,
+            "sornagallery.com": www_sornagallery_com.sornagallery, "www.onebazar.ir": www_onebazar_ir.onebazar,
+            "honarahang.ir": honarahang_ir.honarahang, "shop.citymusic.ir": shop_citymusic_ir.shop_citymusic,
+            "apadanamusic.ir": apadanamusic_ir.apadanamusic, "www.janasaz.com": www_janasaz_com.janasaz,
             "sedayemehr.com": sedayemehr_com.sedayemehr, "sazabzar.ir": sazabzar_ir.sazabzar,
             "www.avatatgostar.com": www_avatatgostar_com.avatatgostar, "itech.ir": itech_ir.itech,
             "solshop.ir": solshop_ir.solshop, "applecenter.ir": applecenter_ir.applecenter,
@@ -84,10 +91,10 @@ crawlers = {"honarahang.ir": honarahang_ir.honarahang, "shop.citymusic.ir": shop
             "www.rsa-co.com": www_rsa_co_com.rsa_co, "vizmarket.ir": vizmarket_ir.vizmarket,
             "yademanshop.ir": yademanshop_ir.yademanshop, "iraanbaba.com": iraanbaba_com.iraanbaba,
             "parsiankala.com": parsiankala_com.parsiankala_com, "www.tienda.ir": www_tienda_ir.tienda,
-            "tasvirancam.ir": www_tasvirancam_ir.tasvirancam, "saazonline.ir": saazonline_ir,
+            "tasvirancam.ir": www_tasvirancam_ir.tasvirancam, "saazonline.ir": saazonline_ir.saazonline,
             "www.tasvirancam.ir": www_tasvirancam_ir.tasvirancam, "hbartarshop.com": hbartarshop_com.hbartarshop,
             "avazgar.com": avazgar_com.avazgar, "toptarin.net": toptarin_net.toptarin,
-            "www.alphy-music.com": alphy_music_com.alphy_music,
+            "www.alphy-music.com": alphy_music_com.alphy_music, "torbatmelody.ir": torbatmelody_ir.torbatmelody,
             "alphy-music.com": alphy_music_com.alphy_music, "ertebat-sg.com": ertebat_sg_com.ertebat_sg,
             "parsiancredit.com": parsiancredit_com.parsiancredit, "irankurzweil.com": irankurzweil_com.irankurzweil,
             "electricomde.ir": electricomde_ir.electricomde, "www.cckala.com": www_cckala_com.cckala,
@@ -219,8 +226,8 @@ def callCrawlerThread(link, site, i, statistic):
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
-                "iranloop.ir": iranloop_ir, "golhastore.ir": golhastore_ir,
-                "www.sazforoosh.com": www_sazforoosh_com}
+                "iranloop.ir": iranloop_ir.iranloop, "golhastore.ir": golhastore_ir.golhastore,
+                "www.sazforoosh.com": www_sazforoosh_com.sazforoosh}
 
 
 def callCrawlerThreadFast(link, site, i):

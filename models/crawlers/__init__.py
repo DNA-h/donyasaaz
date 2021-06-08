@@ -49,11 +49,13 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "www_camshop_ir", "paymishe_com", "www_pelazio_com", "abadimusic_com", "k1land_com", "saazmarket_com",
            "gariche_ir", "mediastor_ir", "falude_com", "arvandfm_com", "rozanehshop_ir", "miladcam_com",
            "taktasvir_ir", "digicenter_ir", "www_lensium_com", "focusnegar_com", "shop_canon1_ir",
-           "www_irandeliver_com", "www_abarbazar_com", "saazonline_ir", "peskco_com",
+           "www_irandeliver_com", "www_abarbazar_com", "saazonline_ir", "peskco_com", "www_onebazar_ir",
            "alibababozorg_ir", "www_dorbino_org", "tehranpioneer_com", "picenter_ir", "audiox_ir", "sazbox_com",
            "negahshot_com", "www_makanha_com", "pst_iranian_ir", "bodomarket_ir", "www_modiseh_com", "rotbe1_ir",
            "ziadmiad_ir", "phoneemdad_com", "fav_co_com", "www_atramart_com", "sfone_ir", "www_jibistore_com",
            "camerashop_ir", "miniatorcam_com", "www_mediaresan_com", "berimkharid_com", "parsanme_com",
            "iranflute_com", "shahravamusic_ir", "gadjets_ir", "solshop_ir", "applecenter_ir", "www_avatatgostar_com",
            "itech_ir", "torbatmelody_ir", "sedayemehr_com", "mifado_ir", "santoorsadeghi_com", "sazabzar_ir",
-           "apadanamusic_ir", "www_janasaz_com", "honarahang_ir", "shop_citymusic_ir"]
+           "apadanamusic_ir", "www_janasaz_com", "honarahang_ir", "shop_citymusic_ir", "www_sornagallery_com",
+           "www_chare_ir", "penzad_ir", "gallery_chang_ir", "rahavico_com", "nimafereidooni_com", "navapiano_com",
+           "iraniansound_com", "serenadepiano_ir", "armin_bethooven_com", "mehmoonivip_ir"]

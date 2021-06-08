@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def diddovom(link, headers, site):
+def iraniansound(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,14 +14,13 @@ def diddovom(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
-        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
+        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
         if len(p) == 0:
             return -1
         elif len(p) == 1:

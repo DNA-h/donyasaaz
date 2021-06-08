@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def head_phone(link, headers, site):
+def shahravamusic(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,15 +14,20 @@ def head_phone(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
-    if soup.find("a",attrs={"class":"btn btn-danger btn-cart addToCart"}):
-        div = soup.find("div", attrs={"class":"price-box text-right"})
+
+    if soup.find("button", attrs={"class": "dk-btn dk-btn-info"}):
+        div = soup.find("div", attrs={"class": "price-value"})
         if div is None:
             return -1
-        p = div.find("span", attrs={"class": "price"})
-        if p:
-            a = re.sub(r',', '', p.text).strip()
-            b = re.findall(r'\d+', a)
-            return int(b[0])
-    return -1
+        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub(r',', '', p[0].text).strip()
+        else:
+            a = re.sub(r',', '', p[1].text).strip()
+        b = re.findall(r'\d+', a)
+        return int(b[0])
+    else:
+        return -1

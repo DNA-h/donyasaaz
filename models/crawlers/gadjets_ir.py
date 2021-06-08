@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def head_phone(link, headers, site):
+def gadjets(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -16,13 +16,15 @@ def head_phone(link, headers, site):
         logger.info('%s :  %s,', site, e)
         
         return None
-    if soup.find("a",attrs={"class":"btn btn-danger btn-cart addToCart"}):
-        div = soup.find("div", attrs={"class":"price-box text-right"})
-        if div is None:
+
+    if soup.find("a", attrs={"class": "btn-primary-cm btn-with-icon product-add-pill"}):
+        p = soup.find("span", attrs={"class": "price discountprice"})
+        if p is None:
+            p = soup.find("span", attrs={"class": "price endprice"})
+        if p is None:
             return -1
-        p = div.find("span", attrs={"class": "price"})
-        if p:
-            a = re.sub(r',', '', p.text).strip()
-            b = re.findall(r'\d+', a)
-            return int(b[0])
-    return -1
+        a = re.sub(r',', '', p.text).strip()
+        b = re.findall(r'\d+', a)
+        return int(b[0])
+    else:
+        return -1

@@ -13,7 +13,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"armin-bethooven.com": armin_bethooven_com.armin_bethooven, "mehmoonivip.ir": mehmoonivip_ir.mehmoonivip,
+crawlers = {"www.apple-nic.com": www_apple_nic_com.apple_nic,
+            "armin-bethooven.com": armin_bethooven_com.armin_bethooven, "mehmoonivip.ir": mehmoonivip_ir.mehmoonivip,
             "iraniansound.com": iraniansound_com.iraniansound, "serenadepiano.ir": serenadepiano_ir.serenadepiano,
             "nimafereidooni.com": nimafereidooni_com.nimafereidooni, "navapiano.com": navapiano_com.navapiano,
             "gallery-chang.ir": gallery_chang_ir.gallery_chang, "rahavico.com": rahavico_com.rahavico,

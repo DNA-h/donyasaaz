@@ -239,13 +239,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
-    from models.crawlers import mehmoonivip_ir
+    from models.crawlers import bazarchehsonati_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "http://mehmoonivip.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-sm57"
-    print(mehmoonivip_ir.mehmoonivip(a, headers, ""))
+    a.url = "https://bazarchehsonati.com/product/%d9%87%d8%a7%d8%b1%d8%af-%da%a9%db%8c%d8%b3-%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%da%a9%d8%af-5010/"
+    print(bazarchehsonati_com.bazarchehsonati(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 

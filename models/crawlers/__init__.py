@@ -58,4 +58,14 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "itech_ir", "torbatmelody_ir", "sedayemehr_com", "mifado_ir", "santoorsadeghi_com", "sazabzar_ir",
            "apadanamusic_ir", "www_janasaz_com", "honarahang_ir", "shop_citymusic_ir", "www_sornagallery_com",
            "www_chare_ir", "penzad_ir", "gallery_chang_ir", "rahavico_com", "nimafereidooni_com", "navapiano_com",
-           "iraniansound_com", "serenadepiano_ir", "armin_bethooven_com", "mehmoonivip_ir"]
+           "iraniansound_com", "serenadepiano_ir", "armin_bethooven_com", "mehmoonivip_ir", "echista_ir",
+           "bangino_ir", "payam_art_com", "www_yasertebat_com", "pexkala_com", "kookgallery_com", "sazgah_com",
+           "sazdahani_net", "pianotanin_com", "harmonicatools_com", "harmonicand_ir", "makeapurchase_ir", "kemex_one",
+           "sazmarket_com", "melodydj_ir", "www_noteahang_com", "www_tkadak_com", "gemamart_com", "ejanebi_com",
+           "iran_canon_com", "narix_ir", "irtoshiba8_com", "saziha_ir", "hoseinshop_ir", "www_irofferr_cclip_ir",
+           "delnavazgallery_ir", "pickmusic_ir", "www_kalavard_com", "www_iranvachar_ir", "thisone_ir",
+           "dpcomusic_com", "guitarstore_ir", "pianonava_com", "honaryab_com", "musicalshop_ir", "glorytar_com",
+           "pianocenter_ir", "faryadariyaei_com", "www_baya_ir", "www_kalasabad_com", "www_itgheymat_com",
+           "vgkala_com", "chechilas_com", "echochi_ir", "cafekaala_ir", "www_sazotar_com", "irandrum_com",
+           "tehrecorder_net","www_gatekala_ir","kadoyee_com", "remido_ir","matapoor_com","tehrankorg_com",
+           "bazarchehsonati_com"]

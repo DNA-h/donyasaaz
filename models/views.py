@@ -97,6 +97,18 @@ class LinkSerializer(serializers.ModelSerializer):
         return super_s
 
 
+class LinkHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Link
+        fields = ('url', 'parent')
+
+    def to_representation(self, instance):
+        super_s = super().to_representation(instance)
+        history = Price.objects.filter(parent=instance.pk).order_by('-created')
+        serializer = PriceSerializer(history, many=True)
+        super_s['history'] = serializer.data
+        return super_s
+
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
@@ -219,6 +231,9 @@ def linkHandler(request):
     elif request.data['method'] == 'delete':
         Link.objects.get(pk=request.data['pk']).delete()
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+    elif request.data['method'] == 'history':
+        link = Link.objects.get(pk=request.data['pk'])
+        return JsonResponse({'item': LinkHistorySerializer(link).data, 'success': True}, encoder=JSONEncoder)
 
 
 @api_view(['GET'])

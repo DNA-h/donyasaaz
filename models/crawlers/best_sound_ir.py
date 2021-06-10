@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def delarammusic(link, headers, site):
+def best_sound(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,16 +14,20 @@ def delarammusic(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-
         return None
 
-    p = soup.find("span", attrs={"class": "text-success"})
-    if p is not None:
-        s = re.sub(r'\s+', ' ', p.text).strip()
-        a = re.sub(r',', '', s)
-        b = re.findall(r'\d+', a)
-        if len(b) == 0:
+    if soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt")}):
+        div = soup.find("p", attrs={"class": "price"})
+        if div is None:
             return -1
+        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub(r',', '', p[0].text).strip()
+        else:
+            a = re.sub(r',', '', p[1].text).strip()
+        b = re.findall(r'\d+', a)
         return int(b[0])
     else:
         return -1

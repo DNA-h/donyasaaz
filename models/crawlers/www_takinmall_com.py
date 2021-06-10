@@ -1,12 +1,12 @@
 import re
 import logging
-import math
+
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def gostaresh(link, headers, site):
+def takinmall(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -17,13 +17,14 @@ def gostaresh(link, headers, site):
 
         return None
 
-    if soup.find("span", attrs={"class": "btn disabled btn-green"}):
+    if soup.find("input", attrs={"id": re.compile("add-to-cart-button*")}):
+        p = soup.find("span", attrs={"itemprop": "price"})
+        if p is None:
+            return -1
+        a = re.sub(r',', '', p.text).strip()
+        b = re.findall(r'\d+', a)
+        if len(b) == 0:
+            return -1
+        return int(b[0])
+    else:
         return -1
-    div = soup.find("a", attrs={"class": re.compile("add-to-cart btn*")}).parent
-    p = div.find("div", attrs={"class": "pe"})
-    if p is None:
-        return -1
-    s = p.find("b")
-    a = re.sub(r',', '', s.text).strip()
-    b = re.findall(r'\d+', a)
-    return math.floor(int(b[0]) / 10)

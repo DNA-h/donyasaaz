@@ -22,6 +22,10 @@ def sazforoosh(link, headers, site):
         return -1
     else:
         s = p.find("h3")
+        if s is None:
+            s = soup.find("label", attrs={"class": "stock-type"})
+        if s is None:
+            return -1
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])

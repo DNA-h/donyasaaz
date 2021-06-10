@@ -239,13 +239,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
-    from models.crawlers import bazarchehsonati_com
+    from models.crawlers import best_sound_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://bazarchehsonati.com/product/%d9%87%d8%a7%d8%b1%d8%af-%da%a9%db%8c%d8%b3-%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%da%a9%d8%af-5010/"
-    print(bazarchehsonati_com.bazarchehsonati(a, headers, ""))
+    a.url = "https://best-sound.ir/product/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%AD%D8%B1%D9%81%D9%87-%D8%A7%DB%8C-sennheiser-hd-200-pro/"
+    print(best_sound_ir.best_sound(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 

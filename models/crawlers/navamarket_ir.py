@@ -17,11 +17,13 @@ def navamarket(link, headers, site):
 
         return None
 
-    p = soup.find("span", attrs={"class": "price", "itemprop": "price"})
-    if p.attrs['content'] == '1' or p.attrs['content'] == '4':
+    div = soup.find("p", attrs={"id": "add_to_cart"})
+    if 'class' in div.parent.attrs and 'unvisible' in div.parent.attrs['class']:
         return -1
-    else:
-        s = re.sub(r'\s+', ' ', p.text).strip()
-        a = re.sub(r',', '', s)
+    s = soup.find("span", attrs={"id": "our_price_display"})
+    if s is not None:
+        a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
+    else:
+        return -1

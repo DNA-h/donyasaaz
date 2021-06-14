@@ -254,6 +254,7 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     from models.crawlers import best_sound_ir
     class Object(object):
         pass

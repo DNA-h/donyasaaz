@@ -13,7 +13,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"www.takinmall.com": www_takinmall_com.takinmall, "best-sound.ir": best_sound_ir.best_sound,
+crawlers = {"navapercussion.ir": navapercussion_ir.navapercussion, "www.pianodorsa.com": www_pianodorsa_com.pianodorsa,
+            "zoomlook.ir": zoomlook_ir.zoomlook, "www.saio.ir": www_saio_ir.saio,
+            "zooya.ir": zooya_ir.zooya, "isfahanguitar.ir": isfahanguitar_ir.isfahanguitar,
+            "yekharid.com": yekharid_com.yekharid, "rashnookala.com": rashnookala_com.rashnookala,
+            "kalapage.ir": kalapage_ir.kalapage, "www.pianopars.com": www_pianopars_com.pianopars,
+            "berozkala.com": berozkala_com.berozkala, "mashadkala.com": mashadkala_com.mashadkala,
+            "msi-iran.com": msi_iran_com.msi_iran, "narestan.com": narestan_com.narestan,
+            "harpmusical.com": harpmusical_com.harpmusical, "gooshidan.com": gooshidan_com.gooshidan,
+            "www.iranaliexpress.ir": www_iranaliexpress_ir.iranaliexpress, "maralkish.ir": maralkish_ir.maralkish,
+            "www.takinmall.com": www_takinmall_com.takinmall, "best-sound.ir": best_sound_ir.best_sound,
             "tehrankorg.com": tehrankorg_com.tehrankorg, "bazarchehsonati.com": bazarchehsonati_com.bazarchehsonati,
             "www.gatekala.ir": www_gatekala_ir.gatekala, "kadoyee.com": kadoyee_com.kadoyee,
             "irandrum.com": irandrum_com.irandrum, "tehrecorder.net": tehrecorder_net.tehrecorder,
@@ -187,6 +196,7 @@ crawlers = {"www.takinmall.com": www_takinmall_com.takinmall, "best-sound.ir": b
             "jskala.com": jskala_com.jskala, "asarayan.com": asarayan_com.asarayan,
             "tehranspeaker.com": tehranspeaker_com.tehranspeaker, "sazkade.com": sazkade_com.sazkade,
             "www.tehranspeaker.com": tehranspeaker_com.tehranspeaker, "audionovin.com": audionovin_com.audionovin,
+            "www.technolife.ir": technolife_ir.technolife, "digiarki.com": digiarki_com.digiarki,
             "technolife.ir": technolife_ir.technolife, "www.pro-av.ir": www_pro_av_ir.pro_av,
             "www.zanbil.ir": zanbil_ir.zanbil, "musicalshop.ir": musicalshop_ir.musicalshop,
             "mahgoni.com": mahgoni_com.mahgoni, "zanbil.ir": zanbil_ir.zanbil, "gilsara.com": gilsara_com.gilsara,

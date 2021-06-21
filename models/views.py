@@ -255,13 +255,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @api_view(['GET'])
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import best_sound_ir
+    from models.crawlers import navapercussion_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://best-sound.ir/product/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%AD%D8%B1%D9%81%D9%87-%D8%A7%DB%8C-sennheiser-hd-200-pro/"
-    print(best_sound_ir.best_sound(a, headers, ""))
+    a.url = "https://navapercussion.ir/product/%DA%A9%D8%A7%D8%AE%D9%86-%D9%84%D9%88%D8%AA%D9%88%D8%B3-%D9%85%D8%AF%D9%84-practice"
+    print(navapercussion_ir.navapercussion(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 

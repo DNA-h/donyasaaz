@@ -68,4 +68,7 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "pianocenter_ir", "faryadariyaei_com", "www_baya_ir", "www_kalasabad_com", "www_itgheymat_com",
            "vgkala_com", "chechilas_com", "echochi_ir", "cafekaala_ir", "www_sazotar_com", "irandrum_com",
            "tehrecorder_net", "www_gatekala_ir", "kadoyee_com", "remido_ir", "matapoor_com", "tehrankorg_com",
-           "bazarchehsonati_com", "www_takinmall_com", "best_sound_ir"]
+           "bazarchehsonati_com", "www_takinmall_com", "best_sound_ir", "www_iranaliexpress_ir", "maralkish_ir",
+           "harpmusical_com", "gooshidan_com", "msi_iran_com", "narestan_com", "berozkala_com", "mashadkala_com",
+           "kalapage_ir","www_pianopars_com", "yekharid_com", "rashnookala_com", "zooya_ir", "isfahanguitar_ir",
+           "zoomlook_ir", "www_saio_ir", "digiarki_com", "navapercussion_ir", "www_pianodorsa_com"]

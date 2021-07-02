@@ -70,5 +70,8 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "tehrecorder_net", "www_gatekala_ir", "kadoyee_com", "remido_ir", "matapoor_com", "tehrankorg_com",
            "bazarchehsonati_com", "www_takinmall_com", "best_sound_ir", "www_iranaliexpress_ir", "maralkish_ir",
            "harpmusical_com", "gooshidan_com", "msi_iran_com", "narestan_com", "berozkala_com", "mashadkala_com",
-           "kalapage_ir","www_pianopars_com", "yekharid_com", "rashnookala_com", "zooya_ir", "isfahanguitar_ir",
-           "zoomlook_ir", "www_saio_ir", "digiarki_com", "navapercussion_ir", "www_pianodorsa_com"]
+           "kalapage_ir", "www_pianopars_com", "yekharid_com", "rashnookala_com", "zooya_ir", "isfahanguitar_ir",
+           "zoomlook_ir", "www_saio_ir", "digiarki_com", "navapercussion_ir", "www_pianodorsa_com",
+           "divar_ir", "mlodica_ir", "danakadeh_ir", "solalestore_com", "melodux_com", "amirdada_ir",
+           "naxhome_com", "guitaro_ir", "www_gamingtools_ir", "www_cids_ir", "persiansaz_com", "simasot_com",
+           "www_namayeshgah_ir", "www_avazeto_com", "www_audiobashiryan_com"]

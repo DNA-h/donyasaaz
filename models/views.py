@@ -255,13 +255,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @api_view(['GET'])
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import navapercussion_ir
+    from models.crawlers import www_audiobashiryan_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://navapercussion.ir/product/%DA%A9%D8%A7%D8%AE%D9%86-%D9%84%D9%88%D8%AA%D9%88%D8%B3-%D9%85%D8%AF%D9%84-practice"
-    print(navapercussion_ir.navapercussion(a, headers, ""))
+    a.url = "https://www.audiobashiryan.com/pe/product/%d8%a8%d8%a7%d9%86%d8%af-%d9%be%d8%b3%db%8c%d9%88-%da%86%db%8c%d8%b1%d9%85%d9%86-lx15/"
+    print(www_audiobashiryan_com.audiobashiryan(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -321,7 +321,7 @@ def get_prices():
             if not site:
                 logger.info('empty url :  %s,', str(i))
                 continue
-            pool.submit(callCrawlerThread, link, site, i, statistic)
+            pool.submit(callCrawlerThread, link, site, i, statistic, len(links))
 
     logger.info(statistic)
 

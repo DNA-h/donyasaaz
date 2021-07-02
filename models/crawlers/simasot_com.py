@@ -6,5 +6,5 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def neynava_store(link, headers, site):
-    return -1 # site is down
+def simasot(link, headers, site):
+    return -1 # صفحه کالا قیمت و دکمه خرید نداره

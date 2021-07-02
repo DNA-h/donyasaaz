@@ -13,7 +13,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"navapercussion.ir": navapercussion_ir.navapercussion, "www.pianodorsa.com": www_pianodorsa_com.pianodorsa,
+crawlers = {"www.audiobashiryan.com": www_audiobashiryan_com.audiobashiryan,
+            "www.namayeshgah.ir": www_namayeshgah_ir.namayeshgah, "www.avazeto.com": www_avazeto_com.avazeto,
+            "www.cids.ir": www_cids_ir.cids, "simasot.com": simasot_com.simasot,
+            "guitaro.ir": guitaro_ir.guitaro, "www.gamingtools.ir": www_gamingtools_ir.gamingtools,
+            "amirdada.ir": amirdada_ir.amirdada, "naxhome.com": naxhome_com.naxhome,
+            "solalestore.com": solalestore_com.solalestore, "melodux.com": melodux_com.melodux,
+            "divar.ir": divar_ir.divar, "mlodica.ir": mlodica_ir.mlodica, "danakadeh.ir": danakadeh_ir.danakadeh,
+            "navapercussion.ir": navapercussion_ir.navapercussion, "www.pianodorsa.com": www_pianodorsa_com.pianodorsa,
             "zoomlook.ir": zoomlook_ir.zoomlook, "www.saio.ir": www_saio_ir.saio,
             "zooya.ir": zooya_ir.zooya, "isfahanguitar.ir": isfahanguitar_ir.isfahanguitar,
             "yekharid.com": yekharid_com.yekharid, "rashnookala.com": rashnookala_com.rashnookala,
@@ -220,6 +227,7 @@ crawlers = {"navapercussion.ir": navapercussion_ir.navapercussion, "www.pianodor
             "sowtazhang.ir": sowtazhang_ir.sowtazhang, "andalosmusic.com": andalosmusic_com.andalosmusic,
             "barbadpiano.com": barbadpiano_com.barbadpiano, "neynava-store.com": neynava_store_com.neynava_store,
             "sotecenter.com": sotecenter_com.sotecenter, "avaparsian.com": avaparsian_com.avaparsian,
+            "www.shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven,
             "shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven, "musicala.ir": musicala_ir.musicala,
             "shabahang.shop": shabahang_shop.shabahang,
             "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic}
@@ -227,8 +235,8 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 
 
-def callCrawlerThread(link, site, i, statistic):
-    statistic['TOTAL'] = statistic['TOTAL'] + 1
+def callCrawlerThread(link, site, i, statistic, total):
+    statistic['TOTAL'] = statistic['TOTAL'] + 1 / total
     config.lastCrawlEnded = 'running ' + str(statistic['TOTAL'])
     print('running ', statistic['TOTAL'])
     logger = logging.getLogger(__name__)

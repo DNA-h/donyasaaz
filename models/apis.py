@@ -236,9 +236,9 @@ headers = {
 
 
 def callCrawlerThread(link, site, i, statistic, total):
-    statistic['TOTAL'] = (statistic['TOTAL'] + 1) / total
+    statistic['TOTAL'] = statistic['TOTAL'] + 1
     # config.lastCrawlEnded = 'running ' + str(statistic['TOTAL'])
-    config.lastCrawlEnded = 'running ' + "{0:.3f}%".format(statistic['TOTAL']*100)
+    config.lastCrawlEnded = 'running ' + "{0:.3f}%".format((statistic['TOTAL']*100)/total)
     print('running ', statistic['TOTAL'])
     logger = logging.getLogger(__name__)
     time.sleep(2 + random.randint(1, 5))

@@ -16,18 +16,18 @@ def beyerdynamic(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    p = soup.findAll("span", attrs={"class": "woocommerce-Price-amount amount"})
-    if len(p) == 0:
-        p = soup.findAll("span", attrs={"class": "price"})
-    if len(p) != 0:
-        if len(p) >= 1:
-            s = p[0]
-        else:
+    if soup.find("button", attrs={"id": "simple-add-to-cart"}):
+        div = soup.find("span", attrs={"class": "price"})
+        if div is None:
             return -1
-        if s is not None:
-            a = re.sub(r',', '', s.text).strip()
-            b = re.findall(r'\d+', a)
-            return int(b[0])
-        return -1
+        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub(r',', '', p[0].text).strip()
+        else:
+            a = re.sub(r',', '', p[1].text).strip()
+        b = re.findall(r'\d+', a)
+        return int(b[0])
     else:
         return -1

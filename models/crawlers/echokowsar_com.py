@@ -17,7 +17,8 @@ def echokowsar(link, headers, site):
 
         return None
 
-    if soup.find("button", attrs={"class": "btn btn-primary flex-grow-1 flex-md-grow-0"}):
+    if soup.find("button", attrs={"class": "btn btn-primary flex-grow-1 flex-md-grow-0"}) or\
+        soup.find("button", attrs={"class":"btn btn-success product-addtocart flex-grow-1 flex-md-grow-0"}):
         p = soup.find("h5", attrs={"itemprop": "offers"})
         s = p.find("span")
         a = re.sub(r',', '', s.text).strip()

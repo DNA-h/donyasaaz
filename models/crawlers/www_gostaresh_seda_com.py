@@ -1,25 +1,36 @@
 import re
 import logging
-import math
 import requests
 from urllib3.exceptions import InsecureRequestWarning
+import os
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+import math
 
 
 def gostaresh(link, headers, site):
     try:
-        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-        response = requests.get(link.url, headers=headers, verify=False)
-        soup = BeautifulSoup(response.text, "html.parser")
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
+        driver.get(link.url)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-
         return None
 
-    if soup.find("span", attrs={"class": "btn disabled btn-green"}):
+    disabled = soup.find("span", attrs={"class": "btn disabled btn-green"})
+    if disabled and 'disabled' not in disabled.attrs:
         return -1
-    div = soup.find("a", attrs={"class": re.compile("add-to-cart btn*")}).parent
+    div = soup.find("a", attrs={"class": re.compile("add-to-cart btn*")})
+    if div is None:
+        return -1
+    div = div.parent
     p = div.find("div", attrs={"class": "pe"})
     if p is None:
         return -1

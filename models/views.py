@@ -255,13 +255,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 @api_view(['GET'])
 def test_timezone(request):
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_audiobashiryan_com
+    from models.crawlers import www_gostaresh_seda_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.audiobashiryan.com/pe/product/%d8%a8%d8%a7%d9%86%d8%af-%d9%be%d8%b3%db%8c%d9%88-%da%86%db%8c%d8%b1%d9%85%d9%86-lx15/"
-    print(www_audiobashiryan_com.audiobashiryan(a, headers, ""))
+    a.url = "https://www.gostaresh-seda.com/product/683/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86akg-p-220/?utm_medium=PPC&utm_source=Torob"
+    print(www_gostaresh_seda_com.gostaresh(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 

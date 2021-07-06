@@ -13,7 +13,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-crawlers = {"www.audiobashiryan.com": www_audiobashiryan_com.audiobashiryan,
+crawlers = {"www.audiobashiryan.com": www_audiobashiryan_com.audiobashiryan, "www.charge-e.ir": www_charge_e_ir.charge,
             "www.namayeshgah.ir": www_namayeshgah_ir.namayeshgah, "www.avazeto.com": www_avazeto_com.avazeto,
             "www.cids.ir": www_cids_ir.cids, "simasot.com": simasot_com.simasot,
             "guitaro.ir": guitaro_ir.guitaro, "www.gamingtools.ir": www_gamingtools_ir.gamingtools,
@@ -238,7 +238,7 @@ headers = {
 def callCrawlerThread(link, site, i, statistic, total):
     statistic['TOTAL'] = statistic['TOTAL'] + 1
     # config.lastCrawlEnded = 'running ' + str(statistic['TOTAL'])
-    config.lastCrawlEnded = 'running ' + "{0:.3f}%".format((statistic['TOTAL']*100)/total)
+    config.lastCrawlEnded = 'running ' + "{0:.3f}%".format((statistic['TOTAL'] * 100) / total)
     print('running ', statistic['TOTAL'])
     logger = logging.getLogger(__name__)
     time.sleep(2 + random.randint(1, 5))
@@ -269,7 +269,7 @@ def callCrawlerThread(link, site, i, statistic, total):
         product = -1
     link.last_run = math.ceil(time.time() - start_time)
     link.save()
-    updateLink(link, product)
+    updateLink(link, product, site[0])
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
@@ -295,26 +295,27 @@ def callCrawlerThreadFast(link, site, i):
     updateLink(link, product)
 
 
-def updateLink(link, product):
+def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
     if lastPrice is None or lastPrice.value != product:
         try:
             price = Price.objects.create(parent=link)
             price.value = product
-            link.unseen = True
-            musicItem = MusicItem.objects.get(pk=link.parent_id)
-            if price.value == -1:
-                musicItem.out_of_stock += 1
-            elif lastPrice is None or (lastPrice.value != -1 and lastPrice.value < price.value):
-                musicItem.increase += 1
-            elif lastPrice.value == -1:
-                musicItem.in_stock += 1
-            else:
-                musicItem.decrease += 1
-            musicItem.save()
+            if site != 'divar.ir':
+                link.unseen = True
+                musicItem = MusicItem.objects.get(pk=link.parent_id)
+                if price.value == -1:
+                    musicItem.out_of_stock += 1
+                elif lastPrice is None or (lastPrice.value != -1 and lastPrice.value < price.value):
+                    musicItem.increase += 1
+                elif lastPrice.value == -1:
+                    musicItem.in_stock += 1
+                else:
+                    musicItem.decrease += 1
+                musicItem.save()
+                config.lastCrawlChanges += 1
             price.save()
             link.save()
-            config.lastCrawlChanges += 1
         except Exception as e:
             logger.info('%s', e)
 

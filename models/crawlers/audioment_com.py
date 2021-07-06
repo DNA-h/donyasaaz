@@ -23,7 +23,7 @@ def audioment(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
+    if soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")}):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
@@ -33,7 +33,7 @@ def audioment(link, headers, site):
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         else:
-            a = re.sub(r',', '', p[1].text).strip()
+            a = re.sub(r',', '', p[0].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

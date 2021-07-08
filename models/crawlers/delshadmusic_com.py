@@ -17,10 +17,17 @@ def delshadmusic(link, headers, site):
 
         return None
 
-    if soup.find("button", attrs={"name": "add-to-cart"}):
-        p = soup.find("span", attrs={"class": "woocommerce-Price-amount amount"})
-        s = re.sub(r'\s+', ' ', p.text).strip()
-        a = re.sub(r',', '', s)
+    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
+        div = soup.find("p", attrs={"class": re.compile("price*")})
+        if div is None:
+            return -1
+        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub(r',', '', p[0].text).strip()
+        else:
+            a = re.sub(r',', '', p[1].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

@@ -1,22 +1,31 @@
 import re
 import logging
-
 import requests
 from urllib3.exceptions import InsecureRequestWarning
+import os
 from bs4 import BeautifulSoup
-
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+import time
 
 def sazkala(link, headers, site):
     try:
-        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-        response = requests.get(link.url, headers=headers, verify=False)
-        soup = BeautifulSoup(response.text, "html.parser")
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
+        driver.get(link.url)
+        time.sleep(3)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")}):
+    button = soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")})
+    if button and 'wc-variation-is-unavailable' not in button.attrs['class']:
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
@@ -26,7 +35,10 @@ def sazkala(link, headers, site):
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         else:
-            a = re.sub(r',', '', p[1].text).strip()
+            if p[0].parent.name == 'del':
+                a = re.sub(r',', '', p[1].text).strip()
+            else:
+                a = re.sub(r',', '', p[0].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

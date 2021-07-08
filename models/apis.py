@@ -246,7 +246,7 @@ def callCrawlerThread(link, site, i, statistic, total):
     try:
         product = crawlers[site[0]](link, headers, site[0])
     except Exception as e:
-        logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(i), e)
+        logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
         link.last_run = -2
         link.save()
         return

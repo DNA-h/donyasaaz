@@ -263,16 +263,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    # from models.crawlers import sazkala_com
-    # class Object(object):
-    #     pass
-    #
-    # a = Object()
-    # a.url = "https://sazkala.com/product/yamaha-psr-a350-%da%a9%db%8c%d8%a8%d9%88%d8%b1%d8%af/"
-    # print(sazkala_com.sazkala(a, headers, ""))
-    from datetime import datetime, timedelta
-    result = app.debug_task.apply_async(countdown=10)
-    result.get()
+    from models.crawlers import golhastore_ir
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = "https://golhastore.ir/home/1093-%D9%87%D8%AF%D9%81%D9%88%D9%86-aiaiai-tma-2-dj.html"
+    print(golhastore_ir.golhastore(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt
@@ -335,7 +332,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id','url').order_by('id')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[i]['url'])
             if not site:

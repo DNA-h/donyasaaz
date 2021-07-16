@@ -1,6 +1,6 @@
 import re
 import logging
-
+import math
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
@@ -24,6 +24,6 @@ def dourbinet(link, headers, site):
         b = re.findall(r'\d+', a)
         if len(b) == 0:
             return -1
-        return int(b[0])
+        return math.floor(int(b[0])/10)
     else:
         return -1

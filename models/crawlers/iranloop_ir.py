@@ -17,7 +17,8 @@ def iranloop(link, headers, site):
         
         return None
 
-    if soup.find("p", attrs={"id": "availability_statut"}).text == ' در انبار موجود نیست':
+    availability = soup.find("p", attrs={"id": "availability_statut"})
+    if not availability or availability.text == ' در انبار موجود نیست':
         return -1
     else:
         p = soup.find("p", attrs={"class": "our_price_display"})

@@ -22,6 +22,10 @@ def beyerdynamic(link, headers, site):
             return -1
         p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
         if len(p) == 0:
+            a = re.sub(r',', '', div.text).strip()
+            b = re.findall(r'\d+', a)
+            if(len(b) !=0):
+                return int(b[0])
             return -1
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()

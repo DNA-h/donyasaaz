@@ -15,6 +15,7 @@ def divar(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--disable-gpu")
         driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")

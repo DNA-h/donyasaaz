@@ -17,7 +17,7 @@ def basalam(link, headers, site):
         
         return None
 
-    if soup.find("button", attrs={"class": "product-btn btn btn-tprimary rounded-pill font-size1-5 py-3 ev-add-to-cart"}):
+    if soup.find("button", attrs={"class": re.compile("product-btn btn btn-tprimary rounded-pill font-size1-5 ev-add-to-cart*")}):
         p = soup.find("div", attrs={"class": "d-inline-block price text-tprimary font-size1-7 ml-2 font-weight-bold"})
         if p is None:
             return -1

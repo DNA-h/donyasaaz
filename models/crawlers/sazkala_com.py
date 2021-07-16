@@ -25,7 +25,8 @@ def sazkala(link, headers, site):
         return None
 
     button = soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")})
-    if button and 'wc-variation-is-unavailable' not in button.attrs['class']:
+    not_found = soup.find_all("div", attrs={"class":"absolute-label-product outofstock-product"})
+    if button and not not_found and 'wc-variation-is-unavailable' not in button.attrs['class']:
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1

@@ -277,7 +277,7 @@ def test_timezone(request):
 
 @csrf_exempt
 @api_view(['GET'])
-def create_and_download_backup():
+def create_and_download_backup(request):
     import subprocess
     from django.http.response import HttpResponse, HttpResponseRedirect
 

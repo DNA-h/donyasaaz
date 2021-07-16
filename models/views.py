@@ -275,13 +275,13 @@ def test_timezone(request):
     result.get()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
-# @csrf_exempt
-# @api_view(['GET'])
+@csrf_exempt
+@api_view(['GET'])
 def create_and_download_backup():
     import subprocess
     from django.http.response import HttpResponse, HttpResponseRedirect
 
-    subprocess.call(['sh', '../../mysqldump.sh'])
+    subprocess.call(['sh', './mysqldump.sh'])
     response = HttpResponseRedirect('http://185.204.197.114/static/dump.sql')
     return response
 

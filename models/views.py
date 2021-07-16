@@ -277,7 +277,7 @@ def test_timezone(request):
 
 @csrf_exempt
 @api_view(['GET'])
-def create_and_download_backup(request):
+def create_and_download_backup():
     import subprocess
     from django.http.response import HttpResponse, HttpResponseRedirect
 
@@ -336,7 +336,7 @@ def get_prices():
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id','url').order_by('id')
     with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
-        for i in range(0, len(link)):
+        for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[i]['url'])
             if not site:
                 logger.info('empty url :  %s,', str(links[i]['id']))

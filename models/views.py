@@ -281,7 +281,7 @@ def create_and_download_backup(request):
     import subprocess
     from django.http.response import HttpResponse, HttpResponseRedirect
 
-    subprocess.call(['sh', '../../mysqldump.bat'])
+    subprocess.call(['sh', '../../mysqldump.sh'])
     response = HttpResponseRedirect('http://185.204.197.114/static/dump.sql')
     return response
 

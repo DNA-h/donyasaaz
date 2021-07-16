@@ -235,25 +235,30 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 
 
-def callCrawlerThread(link, site, i, statistic, total):
+def callCrawlerThread(link, site, statistic, total):
+    import datetime
     statistic['TOTAL'] = statistic['TOTAL'] + 1
     # config.lastCrawlEnded = 'running ' + str(statistic['TOTAL'])
     config.lastCrawlEnded = 'running ' + "{0:.3f}%".format((statistic['TOTAL'] * 100) / total)
-    print('running ', statistic['TOTAL'])
+    # print('running ', statistic['TOTAL'])
     logger = logging.getLogger(__name__)
     time.sleep(2 + random.randint(1, 5))
+    link = Link.objects.get(id=link['id'])
     start_time = time.time()
+    link.last_run_started = datetime.datetime.now()
     try:
         product = crawlers[site[0]](link, headers, site[0])
     except Exception as e:
         logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
         link.last_run = -2
+        link.last_run_ended = datetime.datetime.now()
         link.save()
         return
 
     if product is None:
         logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
         link.last_run = -1
+        link.last_run_ended = datetime.datetime.now()
         link.save()
         return
     duration = time.time() - start_time
@@ -268,6 +273,7 @@ def callCrawlerThread(link, site, i, statistic, total):
     if product == 0:
         product = -1
     link.last_run = math.ceil(time.time() - start_time)
+    link.last_run_ended = datetime.datetime.now()
     link.save()
     updateLink(link, product, site[0])
 

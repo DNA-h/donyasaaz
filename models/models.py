@@ -31,6 +31,8 @@ class Link(TimeStampedModel):
     parent = models.ForeignKey(MusicItem, null=True, blank=True, on_delete=models.CASCADE)
     unseen = models.BooleanField(default=False, null=True, blank=True)
     last_run = models.IntegerField(default=None, null=True, blank=True)
+    last_run_started = models.DateTimeField(default=None, null=True, blank=True)
+    last_run_ended = models.DateTimeField(default=None, null=True, blank=True)
     reported = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
 

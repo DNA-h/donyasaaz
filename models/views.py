@@ -24,7 +24,7 @@ from models.crawlers import www_donyayesaaz_com
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
-app = Celery('tar')
+app = Celery('donyasaaz')
 
 
 def index(request):
@@ -108,6 +108,7 @@ class LinkHistorySerializer(serializers.ModelSerializer):
         serializer = PriceSerializer(history, many=True)
         super_s['history'] = serializer.data
         return super_s
+
 
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -251,18 +252,38 @@ def font655ba951f59a5b99d8627273e0883638(request):
     return FileResponse(open('static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
+@app.task
+def test():
+    print('just a test')
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+
 @csrf_exempt
 @api_view(['GET'])
 def test_timezone(request):
+    import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_gostaresh_seda_com
-    class Object(object):
-        pass
-
-    a = Object()
-    a.url = "https://www.gostaresh-seda.com/product/683/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86akg-p-220/?utm_medium=PPC&utm_source=Torob"
-    print(www_gostaresh_seda_com.gostaresh(a, headers, ""))
+    # from models.crawlers import sazkala_com
+    # class Object(object):
+    #     pass
+    #
+    # a = Object()
+    # a.url = "https://sazkala.com/product/yamaha-psr-a350-%da%a9%db%8c%d8%a8%d9%88%d8%b1%d8%af/"
+    # print(sazkala_com.sazkala(a, headers, ""))
+    from datetime import datetime, timedelta
+    result = app.debug_task.apply_async(countdown=10)
+    result.get()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+@csrf_exempt
+@api_view(['GET'])
+def create_and_download_backup(request):
+    import subprocess
+    from django.http.response import HttpResponse, HttpResponseRedirect
+
+    subprocess.call(['sh', '../../mysqldump.bat'])
+    response = HttpResponseRedirect('http://127.0.0.1:8000/static/dump.sql')
+    return response
 
 
 @csrf_exempt
@@ -310,18 +331,17 @@ def reload_music_item_prices():
 def get_prices():
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.lastCrawlChanges = 0
-    Link.objects.all().update(last_run=None)
+    Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    links = Link.objects.all()
+    links = Link.objects.all().values('id','url').order_by('id')
     with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
-        for i in range(0, len(links)):
-            link = links[i]
-            site = re.findall("//(.*?)/", link.url)
+        for i in range(0, 150):
+            site = re.findall("//(.*?)/", links[i]['url'])
             if not site:
-                logger.info('empty url :  %s,', str(i))
+                logger.info('empty url :  %s,', str(links[i]['id']))
                 continue
-            pool.submit(callCrawlerThread, link, site, i, statistic, len(links))
+            pool.submit(callCrawlerThread, links[i], site, statistic, len(links))
 
     logger.info(statistic)
 

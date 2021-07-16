@@ -282,7 +282,7 @@ def create_and_download_backup(request):
     from django.http.response import HttpResponse, HttpResponseRedirect
 
     subprocess.call(['sh', '../../mysqldump.bat'])
-    response = HttpResponseRedirect('http://127.0.0.1:8000/static/dump.sql')
+    response = HttpResponseRedirect('http://185.204.197.114/static/dump.sql')
     return response
 
 
@@ -336,7 +336,7 @@ def get_prices():
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id','url').order_by('id')
     with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
-        for i in range(0, 150):
+        for i in range(0, len(link)):
             site = re.findall("//(.*?)/", links[i]['url'])
             if not site:
                 logger.info('empty url :  %s,', str(links[i]['id']))

@@ -1,1 +1,1 @@
-"C:\Program Files\MariaDB 10.5\bin\mysqldump" -u root -pHolyDance2015 donyasaaz > ./static/dump.sql
+mysqldump -u root -pHolyDance2015 donyasaaz > ./static/dump.sql

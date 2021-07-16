@@ -332,7 +332,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id','url').order_by('id')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[i]['url'])
             if not site:

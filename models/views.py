@@ -272,6 +272,7 @@ def test_timezone(request):
     print(golhastore_ir.golhastore(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+
 @csrf_exempt
 @api_view(['GET'])
 def create_and_download_backup(request):
@@ -331,14 +332,14 @@ def get_prices():
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    links = Link.objects.all().values('id','url').order_by('id')
+    links = Link.objects.all().values('id', 'url').order_by('id')
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
         for i in range(0, len(links)):
-            site = re.findall("//(.*?)/", links[i]['url'])
+            site = re.findall("//(.*?)/", links[(i + 10615) % len(links)]['url'])
             if not site:
-                logger.info('empty url :  %s,', str(links[i]['id']))
+                logger.info('empty url :  %s,', str(links[(i + 10615) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[i], site, statistic, len(links))
+            pool.submit(callCrawlerThread, links[(i + 10615) % len(links)], site, statistic, len(links))
 
     logger.info(statistic)
 

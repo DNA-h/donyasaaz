@@ -263,13 +263,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import golhastore_ir
+    from models.crawlers import divar_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://golhastore.ir/home/1093-%D9%87%D8%AF%D9%81%D9%88%D9%86-aiaiai-tma-2-dj.html"
-    print(golhastore_ir.golhastore(a, headers, ""))
+    a.url = "https://divar.ir/v/%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B5%D8%AF%D8%A7-ik-multimedia-irig-pre-hd_%D8%A2%D9%84%D8%A7%D8%AA-%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C_%D8%AA%D9%87%D8%B1%D8%A7%D9%86_%D9%BE%D9%88%D9%86%DA%A9_%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/AY4BSZiM"
+    print(divar_ir.divar(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -333,7 +333,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id', 'url').order_by('id')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 10615) % len(links)]['url'])
             if not site:

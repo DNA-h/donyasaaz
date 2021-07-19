@@ -333,13 +333,15 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id', 'url').order_by('id')
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    import random
+    random.shuffle(links)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
-            site = re.findall("//(.*?)/", links[(i + 10615) % len(links)]['url'])
+            site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
             if not site:
-                logger.info('empty url :  %s,', str(links[(i + 10615) % len(links)]['id']))
+                logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[(i + 10615) % len(links)], site, statistic, len(links))
+            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
 
     logger.info(statistic)
 

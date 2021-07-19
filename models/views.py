@@ -296,8 +296,7 @@ def run_tests(request):
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
-@csrf_exempt
-@api_view(['POST'])
+
 def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
@@ -333,6 +332,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id', 'url').order_by('id')
+    links = list(links)
     import random
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:

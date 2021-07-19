@@ -25,7 +25,7 @@ def divar(link, headers, site):
         return None
 
     p = soup.find_all("p", string="قیمت")
-    if len(p) ==0:
+    if len(p) == 0:
         return -1
     a = re.sub(r'٫', '', p[0].parent.parent.text).strip()
     b = re.findall(r'\d+', a)

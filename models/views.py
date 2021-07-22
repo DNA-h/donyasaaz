@@ -356,7 +356,7 @@ def get_prices_fast():
 
     links = Link.objects.all()
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for i in range(0, len(links)):
             link = links[i]
             site = re.findall("//(.*?)/", link.url)

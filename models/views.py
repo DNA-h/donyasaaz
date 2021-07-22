@@ -335,7 +335,7 @@ def get_prices():
     links = Link.objects.all().values('id', 'url').order_by('id')
     links = list(links)
     import random
-    random.shuffle(links)
+    # random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])

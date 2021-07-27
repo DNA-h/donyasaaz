@@ -338,11 +338,11 @@ def get_prices():
     # random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
         for i in range(0, len(links)):
-            site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
+            site = re.findall("//(.*?)/", links[(i + 2958) % len(links)]['url'])
             if not site:
-                logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
+                logger.info('empty url :  %s,', str(links[(i + 2958) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+            pool.submit(callCrawlerThread, links[(i + 2958) % len(links)], site, statistic, len(links))
 
     logger.info(statistic)
 

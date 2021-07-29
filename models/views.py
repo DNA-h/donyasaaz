@@ -249,7 +249,7 @@ def fontf9ada7e5233f3a92347b7531c06f2336(request):
 
 @api_view(['GET'])
 def font655ba951f59a5b99d8627273e0883638(request):
-    return FileResponse(open('static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
+    return FileResponse(open('../../static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
 @app.task

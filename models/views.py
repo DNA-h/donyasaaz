@@ -331,7 +331,7 @@ def get_prices():
     config.lastCrawlChanges = 0
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
-    statistic = {"TOTAL": 4200}
+    statistic = {"TOTAL": 4400}
     links = Link.objects.all().values('id', 'url').order_by('id')
     links = list(links)
     import random

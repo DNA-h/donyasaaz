@@ -331,18 +331,18 @@ def get_prices():
     config.lastCrawlChanges = 0
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
-    statistic = {"TOTAL": 0}
+    statistic = {"TOTAL": 4000}
     links = Link.objects.all().values('id', 'url').order_by('id')
     links = list(links)
     import random
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
         for i in range(0, len(links)):
-            site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
+            site = re.findall("//(.*?)/", links[(i + 4000) % len(links)]['url'])
             if not site:
-                logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
+                logger.info('empty url :  %s,', str(links[(i + 4000) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+            pool.submit(callCrawlerThread, links[(i + 4000) % len(links)], site, statistic, len(links))
 
     logger.info(statistic)
 

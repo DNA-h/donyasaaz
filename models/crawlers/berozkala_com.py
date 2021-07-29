@@ -19,7 +19,7 @@ def berozkala(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--ignore-certificate-errors-spki-list')
-        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", options=chrome_options)
         driver.get(link.url)
 
     except Exception as e:

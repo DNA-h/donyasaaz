@@ -259,17 +259,17 @@ def test():
 
 
 @csrf_exempt
-@api_view(['GET'])
+@api_view(['GET', 'POSt'])
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import divar_ir
+    from models.crawlers import www_sazforoosh_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://divar.ir/v/%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B5%D8%AF%D8%A7-ik-multimedia-irig-pre-hd_%D8%A2%D9%84%D8%A7%D8%AA-%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C_%D8%AA%D9%87%D8%B1%D8%A7%D9%86_%D9%BE%D9%88%D9%86%DA%A9_%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/AY4BSZiM"
-    print(divar_ir.divar(a, headers, ""))
+    a.url = "https://www.sazforoosh.com/audio-technica-at2035"
+    print(www_sazforoosh_com.sazforoosh(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -278,11 +278,76 @@ def test_timezone(request):
 def create_and_download_backup(request):
     import subprocess
     from django.http.response import HttpResponse, HttpResponseRedirect
+    import os
+    import ctypes
 
-    subprocess.call(['sh', './mysqldump.sh'])
-    response = HttpResponseRedirect('http://185.204.197.114/static/dump.sql')
+    from pathlib import Path
+    def rmdir(directory):
+        directory = Path(directory)
+        for item in directory.iterdir():
+            if item.is_dir():
+                try:
+                    rmdir(item)
+                except Exception as e:
+                    print(e)
+            else:
+                try:
+                    item.unlink()
+                except Exception as e:
+                    print(e)
+        directory.rmdir()
+
+    rmdir(Path("C:\\Windows\\Temp"))
+
+    os.system('mysqldump -u root -pHolyDance2015 donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
+    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
+    response = HttpResponseRedirect('http://127.0.0.1:8000/static/dump.sql')
     return response
 
+@csrf_exempt
+@api_view(['GET'])
+def delete_temp(request):
+    import subprocess
+    from django.http.response import HttpResponse, HttpResponseRedirect
+    import os
+    import ctypes
+
+    from pathlib import Path
+    def rmdir(directory):
+        directory = Path(directory)
+        for item in directory.iterdir():
+            if item.is_dir():
+                try:
+                    rmdir(item)
+                except Exception as e:
+                    print(e)
+            else:
+                try:
+                    item.unlink()
+                except Exception as e:
+                    print(e)
+        directory.rmdir()
+
+    rmdir(Path("C:\\Windows\\Temp"))
+
+    import os
+    import ctypes
+
+    free_bytes = ctypes.c_ulonglong(0)
+    ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(u'c:\\'), None, None, ctypes.pointer(free_bytes))
+
+    return JsonResponse({'success': True, 'space':free_bytes.value/(1024*1024*1024)}, encoder=JSONEncoder)
+
+@csrf_exempt
+@api_view(['GET'])
+def free_space_left(request):
+    import os
+    import ctypes
+
+    free_bytes = ctypes.c_ulonglong(0)
+    ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(u'c:\\'), None, None, ctypes.pointer(free_bytes))
+
+    return JsonResponse({'space':free_bytes.value/(1024*1024*1024)}, encoder=JSONEncoder)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -331,12 +396,12 @@ def get_prices():
     config.lastCrawlChanges = 0
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
-    statistic = {"TOTAL": 4500}
+    statistic = {"TOTAL": 0}
     links = Link.objects.all().values('id', 'url').order_by('id')
     links = list(links)
     import random
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
             if not site:

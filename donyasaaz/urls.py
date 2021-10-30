@@ -10,6 +10,8 @@ urlpatterns = [
     path('run_prices/', run_prices),
     path('run_prices_fast/', run_prices_fast),
     path('create_and_download_backup/', create_and_download_backup),
+    path('free_space_left/', free_space_left),
+    path('delete_temp/', delete_temp),
     path('run_reload_music_item_prices/', run_reload_music_item_prices),
     path('run_test_link/', run_test_link),
     path('run_tests/', run_tests),

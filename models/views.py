@@ -281,24 +281,6 @@ def create_and_download_backup(request):
     import os
     import ctypes
 
-    from pathlib import Path
-    def rmdir(directory):
-        directory = Path(directory)
-        for item in directory.iterdir():
-            if item.is_dir():
-                try:
-                    rmdir(item)
-                except Exception as e:
-                    print(e)
-            else:
-                try:
-                    item.unlink()
-                except Exception as e:
-                    print(e)
-        directory.rmdir()
-
-    rmdir(Path("C:\\Windows\\Temp"))
-
     os.system('mysqldump -u root -pHolyDance2015 donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
     response = HttpResponseRedirect('http://45.149.77.125/static/dump.sql')

@@ -25,7 +25,7 @@ def emalls(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    p = soup.find("h3", attrs={"class": "itemprice mb10"})
+    p = soup.find( attrs={"class": "itemprice mb10"})
     if p is not None:
         s = re.sub(r'٫', '', p.text).strip()
         a = re.sub(r'\s+', ' ', s).replace(",","")

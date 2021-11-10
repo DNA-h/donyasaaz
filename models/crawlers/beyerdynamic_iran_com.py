@@ -16,7 +16,7 @@ def beyerdynamic(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"id": "simple-add-to-cart"}):
+    if soup.find("button", attrs={"id": "simple-add-to-cart"}) or soup.find("button", attrs={"id":"variation-add-to-cart"}):
         div = soup.find("span", attrs={"class": "price"})
         if div is None:
             return -1

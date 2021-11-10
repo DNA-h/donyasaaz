@@ -26,7 +26,10 @@ def glorytar(link, headers, site):
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         else:
-            a = re.sub(r',', '', p[1].text).strip()
+            if p[0].parent.name == 'del':
+                a = re.sub(r',', '', p[1].text).strip()
+            else:
+                a = re.sub(r',', '', p[0].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

@@ -20,6 +20,8 @@ def pianoforte(link, headers, site):
     s= soup.find("div", attrs={"class": "amount text-max f-25 yekanr"})
     if s is not None:
         a = re.sub(r',', '', s.text).strip()
+        if(a.__contains__('تماس بگیرید')):
+            return -1
         b = re.findall(r'\d+', a)
         if len(b) == 0:
             return -1

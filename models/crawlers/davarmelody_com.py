@@ -17,7 +17,7 @@ def davarmelody(link, headers, site):
         
         return None
 
-    if soup.find("div", attrs={"id": "product"}).find("p") is None:
+    if soup.find("div", attrs={"id": "product"}).find("p") is not None:
         p = soup.find("span", attrs={"itemprop": "price"})
         s = re.sub(r'\s+', ' ', p.text).strip()
         a = re.sub(r',', '', s)

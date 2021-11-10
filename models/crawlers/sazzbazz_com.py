@@ -25,7 +25,7 @@ def sazzbazz(link, headers, site):
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         elif p[0].sourceline == p[1].sourceline:
-            a = re.sub(r',', '', p[0].text).strip()
+            a = re.sub(r',', '', p[1].text).strip()
         else:
             a = re.sub(r',', '', p[0].text).strip()
         b = re.findall(r'\d+', a)

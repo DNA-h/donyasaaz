@@ -21,6 +21,8 @@ def arads(link, headers, site):
     if s is not None:
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
+        if len(b) == 0:
+            return -1
         return int(b[0])
     else:
         return -1

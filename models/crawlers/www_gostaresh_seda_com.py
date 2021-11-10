@@ -28,13 +28,15 @@ def gostaresh(link, headers, site):
     if disabled and 'disabled' not in disabled.attrs:
         return -1
     div = soup.find("a", attrs={"class": re.compile("add-to-cart btn*")})
-    if div is None:
+    if div is None and 'disabled' not in disabled.attrs:
         return -1
-    div = div.parent
+    div = div.parent if div is not None else disabled.parent
     p = div.find("div", attrs={"class": "pe"})
     if p is None:
         return -1
     s = p.find("b")
     a = re.sub(r',', '', s.text).strip()
     b = re.findall(r'\d+', a)
+    if len(b) ==0:
+        return -1
     return math.floor(int(b[0]) / 10)

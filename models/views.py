@@ -263,13 +263,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_sazforoosh_com
+    from models.crawlers import parseda_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.sazforoosh.com/audio-technica-at2035"
-    print(www_sazforoosh_com.sazforoosh(a, headers, ""))
+    a.url = "https://iranloop.ir/%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B5%D8%AF%D8%A7-universalaudio-apollo-x4"
+    print(parseda_com.parseda(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -281,7 +281,7 @@ def create_and_download_backup(request):
     import os
     import ctypes
 
-    os.system('mysqldump -u root -pHolyDance2015 donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
+    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
     response = HttpResponseRedirect('http://45.149.77.125/static/dump.sql')
     return response

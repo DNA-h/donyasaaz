@@ -25,4 +25,6 @@ def iranloop(link, headers, site):
         s = soup.find("span", attrs={"id": "our_price_display"})
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
+        if len(b) == 0 :
+            return -1
         return int(b[0])

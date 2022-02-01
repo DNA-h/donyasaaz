@@ -16,9 +16,10 @@ def djcenter(link, headers, site):
         logger.info('%s :  %s,', site, e)
         
         return None
-
+    #add-to-cart-button-1441
     p = soup.find("span", attrs={"itemprop": "price"})
-    if p is not None:
+    button = soup.find("input", attrs={"id": re.compile("add-to-cart-button*")})
+    if p is not None and button is not None:
         s = re.sub(r'\s+', ' ', p.text).strip()
         a = re.sub(r',', '', s)
         b = re.findall(r'\d+', a)

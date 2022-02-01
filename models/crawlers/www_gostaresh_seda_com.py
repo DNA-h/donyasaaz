@@ -1,5 +1,6 @@
 import re
 import logging
+import sys
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 import os
@@ -16,7 +17,8 @@ def gostaresh(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", options=chrome_options)
+        sys.path.append(os.path.abspath("chromedriver.exe"))
+        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
@@ -28,7 +30,7 @@ def gostaresh(link, headers, site):
     if disabled and 'disabled' not in disabled.attrs:
         return -1
     div = soup.find("a", attrs={"class": re.compile("add-to-cart btn*")})
-    if div is None and 'disabled' not in disabled.attrs:
+    if div is None:
         return -1
     div = div.parent if div is not None else disabled.parent
     p = div.find("div", attrs={"class": "pe"})

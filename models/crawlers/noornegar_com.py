@@ -17,7 +17,7 @@ def noornegar(link, headers, site):
         
         return None
 
-    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
+    if soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")}):
         p = soup.find("p", attrs={"class": "price"})
         if p.find("ins") is not None:
             s = p.find("ins")

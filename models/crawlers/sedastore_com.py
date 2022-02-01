@@ -17,15 +17,11 @@ def sedastore(link, headers, site):
         
         return None
 
-    if soup.find("button" , attrs = {"name" : "add-to-cart"}):
+    if soup.find("button" , attrs = {"class" : "btn btn-secondary btn-lg"}):
         # https://sedastore.com/product/%d9%87%d8%af%d9%81%d9%88%d9%86-hd-280-pro-%d8%b3%d9%86%d9%87%d8%a7%db%8c%d8%b2%d8%b1/
-        p = soup.find("p", attrs={"class": "price"})
-        if p.find("ins") != None:
-            s = p.find("ins")
-        else:
-            s = p.find("bdi")
-        a = re.sub(r',', '', s.text).strip()
+        p = soup.find("div", attrs={"id": "price"})
+        a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
-        return int(b[0])
+        return int(b[len(b)-1])
     else:
         return -1

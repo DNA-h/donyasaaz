@@ -430,8 +430,7 @@ def divar():
     from bs4 import BeautifulSoup
 
     try:
-        sys.path.append(os.path.abspath("chromedriver.exe"))
-        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"))
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
         driver.get("https://divar.ir/s/tehran/musical-instruments")
         time.sleep(125)
         soup = BeautifulSoup(driver.page_source, "html.parser")

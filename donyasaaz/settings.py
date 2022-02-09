@@ -47,6 +47,9 @@ CONSTANCE_CONFIG = {
     'lastCrawlStarted': ('None', ''),
     'lastCrawlEnded': ('None', ''),
     'lastCrawlChanges': ('None', ''),
+    'phoneNumberLastTime': ('None', ''),
+    'phoneNumberLatest': ('None', ''),
+    'phoneNumberTotal': ('None', '')
 }
 
 MIDDLEWARE = [

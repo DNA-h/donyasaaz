@@ -1,7 +1,7 @@
 from threading import Thread
 
 from django.shortcuts import render
-from models.models import MusicItem, Link, Price
+from models.models import MusicItem, Link, Price, Customer
 from rest_framework import serializers
 from django.http import JsonResponse, FileResponse
 from json import JSONEncoder
@@ -151,6 +151,10 @@ def musicItemHandler(request):
             'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
             if type(config.lastCrawlEnded) is datetime.datetime else config.lastCrawlEnded,
             'lastCrawlChanges': config.lastCrawlChanges,
+            'phoneNumberLastTime': config.phoneNumberLastTime.strftime("%H:%M:%S")
+            if config.phoneNumberLastTime != 'None' else '' ,
+            'phoneNumberTotal': config.phoneNumberTotal,
+            'phoneNumberLatest': config.phoneNumberLatest,
             'success': True
         }, encoder=JSONEncoder)
     elif request.data['method'] == 'get':
@@ -263,13 +267,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import parseda_com
+    from models.crawlers import davarmelody_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://iranloop.ir/%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B5%D8%AF%D8%A7-universalaudio-apollo-x4"
-    print(parseda_com.parseda(a, headers, ""))
+    a.url = "https://davarmelody.com/zoom-g1x-four"
+    print(davarmelody_com.davarmelody(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -349,6 +353,11 @@ def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+@csrf_exempt
+@api_view(['POST'])
+def run_divar(request):
+    Thread(target=divar).start()
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -383,9 +392,11 @@ def get_prices():
     links = list(links)
     import random
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
+            print(site)
+            # time.sleep(15)
             if not site:
                 logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                 continue
@@ -412,3 +423,84 @@ def get_prices_fast():
             pool.submit(callCrawlerThreadFast, link, site, i)
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+
+def divar():
+    theAdds = []
+    theCustomers = list(Customer.objects.all().values('phoneNumber'))
+    import os
+    from selenium import webdriver
+    from bs4 import BeautifulSoup
+
+    try:
+        sys.path.append(os.path.abspath("chromedriver.exe"))
+        driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"))
+        driver.get("https://divar.ir/s/tehran/musical-instruments")
+        time.sleep(125)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.info('%s', e)
+        return None
+
+    config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    config.phoneNumberTotal = 0
+    config.phoneNumberLatest = ''
+
+    while(True):
+        adds = soup.find_all("a", attrs={"class": "kt-post-card kt-post-card--outlined kt-post-card--has-chat"})
+        if len(adds) == 0:
+            return -1
+        for add in adds:
+            if add['href'] in theAdds:
+                continue
+            else:
+                theAdds.append(add['href'])
+            try:
+                driver.get("https://divar.ir"+add['href'])
+                driver.execute_script("document.getElementsByClassName(\"kt-button kt-button--primary post-actions__get-contact\")[0].click()")
+                tries = 0
+                while(True):
+                    time.sleep(5)
+                    tries = tries + 1
+                    soup = BeautifulSoup(driver.page_source, "html.parser")
+                    mobile = soup.find("a", attrs={"class": "kt-unexpandable-row__action kt-text-truncate ltr"})
+                    if mobile is not None or tries >= 6:
+                        break
+                # driver.find_element(by=By.CLASS_NAME, value="kt-button kt-button--primary post-actions__get-contact").click()
+                # WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CLASS_NAME, "kt-unexpandable-row__action kt-text-truncate ltr")))
+                mobile = soup.find("a", attrs={"class":"kt-unexpandable-row__action kt-text-truncate ltr"})
+                if mobile is None:
+                    continue
+                number = re.findall(r'\d+', mobile.text)
+                if (len(number) == 0):
+                    continue
+                if number[0] in theCustomers:
+                    continue
+                else:
+                    theCustomers.append(number[0])
+                    # print(number[0])
+                    customer = Customer.objects.create(phoneNumber=str(int(number[0])))
+                    customer.save()
+                    config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+                    config.phoneNumberTotal = config.phoneNumberTotal + 1
+                    config.phoneNumberLatest = number[0]
+                    import zeep
+                    wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
+                    client = zeep.Client(wsdl=wsdl)
+                    client.service.SendMessage(
+                        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="شماره کاربر: " + number[0],
+                        RecipientNumbers=['9140510168'], SenderNumber="9999326216", Type=1,
+                        AllowedDelay=0
+                    )
+                print(theCustomers)
+            except Exception as e:
+                print(e)
+        time.sleep(300)
+        try:
+            driver.get("https://divar.ir/s/tehran/musical-instruments")
+            time.sleep(8)
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+        except Exception as e:
+            logger = logging.getLogger(__name__)
+            logger.info('%s', e)
+            return None

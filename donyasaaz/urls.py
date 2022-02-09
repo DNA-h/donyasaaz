@@ -8,6 +8,7 @@ urlpatterns = [
     path('test_timezone/', test_timezone),
     path('test/', test),
     path('run_prices/', run_prices),
+    path('run_divar/', run_divar),
     path('run_prices_fast/', run_prices_fast),
     path('create_and_download_backup/', create_and_download_backup),
     path('free_space_left/', free_space_left),

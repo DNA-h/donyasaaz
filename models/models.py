@@ -1,6 +1,8 @@
 from django.db import models
 from model_utils.models import TimeStampedModel
 
+class Customer(TimeStampedModel):
+    phoneNumber = models.CharField(max_length=256, null=True, blank=True)
 
 # Create your models here.
 

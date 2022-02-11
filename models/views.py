@@ -430,23 +430,30 @@ def divar():
     from bs4 import BeautifulSoup
 
     try:
+        logger = logging.getLogger(__name__)
         from selenium.webdriver.chrome.options import Options
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver_95.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver_95.exe"), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
+        logger.info('opened driver')
         driver.get("https://divar.ir/s/tehran/musical-instruments")
+        logger.info('opened divar')
         time.sleep(10)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-button kt-button--inlined kt-nav-button nav-bar__btn kt-nav-button--small\")[0].click()")
+        logger.info('divar man')
         time.sleep(5)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
+        logger.info('vorood')
         time.sleep(5)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys("9359415518")
+        logger.info('935')
         time.sleep(60)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.phoneNumberLatest)
+        logger.info('code')
         # time.sleep(5)
         # driver.execute_script(
         #     "document.getElementsByClassName(\"kt-button kt-button--primary auth-modal__submit-button\")[0].click()")

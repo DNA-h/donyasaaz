@@ -430,9 +430,30 @@ def divar():
     from bs4 import BeautifulSoup
 
     try:
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
+        from selenium.webdriver.chrome.options import Options
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        # sys.path.append(os.path.abspath("chromedriver_95.exe"))
+        # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver_95.exe"), chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         driver.get("https://divar.ir/s/tehran/musical-instruments")
-        time.sleep(125)
+        time.sleep(10)
+        driver.execute_script(
+            "document.getElementsByClassName(\"kt-button kt-button--inlined kt-nav-button nav-bar__btn kt-nav-button--small\")[0].click()")
+        time.sleep(5)
+        driver.execute_script(
+            "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
+        time.sleep(5)
+        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys("9359415518")
+        time.sleep(60)
+        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.phoneNumberLatest)
+        # time.sleep(5)
+        # driver.execute_script(
+        #     "document.getElementsByClassName(\"kt-button kt-button--primary auth-modal__submit-button\")[0].click()")
+        time.sleep(10)
+        driver.execute_script(
+            "document.getElementsByClassName(\"kt-text-truncate kt-segments-item__label\")[1].click()")
+        time.sleep(10)
         soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
         logger = logging.getLogger(__name__)
@@ -442,7 +463,7 @@ def divar():
     config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.phoneNumberTotal = 0
     config.phoneNumberLatest = ''
-
+    firstAd = True
     while(True):
         adds = soup.find_all("a", attrs={"class": "kt-post-card kt-post-card--outlined kt-post-card--has-chat"})
         if len(adds) == 0:
@@ -455,6 +476,11 @@ def divar():
             try:
                 driver.get("https://divar.ir"+add['href'])
                 driver.execute_script("document.getElementsByClassName(\"kt-button kt-button--primary post-actions__get-contact\")[0].click()")
+                if firstAd:
+                    firstAd = False
+                    time.sleep(5)
+                    driver.execute_script(
+                        "document.getElementsByClassName(\"kt-button kt-button--primary\")[2].click()")
                 tries = 0
                 while(True):
                     time.sleep(5)

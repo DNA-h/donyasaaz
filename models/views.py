@@ -265,17 +265,50 @@ def test():
 @csrf_exempt
 @api_view(['GET', 'POSt'])
 def test_timezone(request):
-    import datetime
-    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import davarmelody_com
-    class Object(object):
-        pass
+    # import datetime
+    # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    # from models.crawlers import davarmelody_com
+    # class Object(object):
+    #     pass
+    #
+    # a = Object()
+    # a.url = "https://davarmelody.com/zoom-g1x-four"
+    # print(davarmelody_com.davarmelody(a, headers, ""))
+    # import zeep
+    # wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
+    # client = zeep.Client(wsdl=wsdl)
+    # result = client.service.SendMessage(
+    #     Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="تست دریافت اس ام اس",
+    #     RecipientNumbers=['9359415518'], SenderNumber="50005457", Type=1,
+    #     AllowedDelay=0
+    # )
+    from threading import Thread
+    Thread(target=send_sms_to_user, args=('9140510168',)).start()
+    # result = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=["5232300000"])
 
-    a = Object()
-    a.url = "https://davarmelody.com/zoom-g1x-four"
-    print(davarmelody_com.davarmelody(a, headers, ""))
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+def send_sms_to_user(number):
+    import zeep
+    from constance import  config
+    wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
+    client = zeep.Client(wsdl=wsdl)
+    result = client.service.SendMessage(
+        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="تست دریافت اس ام اس",
+        RecipientNumbers=[number], SenderNumber="50005457", Type=1,
+        AllowedDelay=0
+    )
+    time.sleep(12)
+    status = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=[result[0]])
+    if (status[0] <= 5):
+        config.cheapLine += 1
+        return
+    client.service.SendMessage(
+        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="دنیای ساز" + "\n" + "فروش ساز و آلات موسیقی" + "\n" + "ارسال رایگان" + "\n" + "www.donyayesaaz.com",
+        RecipientNumbers=[number], SenderNumber="9999326216", Type=1,
+        AllowedDelay=0
+    )
+    config.expensiveLine += 1
 
 @csrf_exempt
 @api_view(['GET'])
@@ -428,6 +461,7 @@ def divar():
     import os
     from selenium import webdriver
     from bs4 import BeautifulSoup
+    from threading import Thread
 
     try:
         logger = logging.getLogger(__name__)
@@ -514,14 +548,7 @@ def divar():
                     config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
                     config.phoneNumberTotal = config.phoneNumberTotal + 1
                     config.phoneNumberLatest = number[0]
-                    import zeep
-                    wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
-                    client = zeep.Client(wsdl=wsdl)
-                    client.service.SendMessage(
-                        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="شماره کاربر: " + number[0],
-                        RecipientNumbers=['9140510168'], SenderNumber="9999326216", Type=1,
-                        AllowedDelay=0
-                    )
+                    Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
                 print(theCustomers)
             except Exception as e:
                 print(e)

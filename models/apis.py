@@ -150,6 +150,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "radek.ir": radek_ir.radek, "sazkhune.com": sazkhune_com.sazkhune,
             "musicsheida.com": musicsheida_com.musicsheida, "bavandpiano.com": bavandpiano_com.bavandpiano,
             "iransote.com": iransote_com.iransote, "iranloop.ir": iranloop_ir.iranloop,
+            "www.iranloop.ir": iranloop_ir.iranloop, "behinmedia.ir": behinmedia_ir.behinmedia,
             "www.sazforoosh.com": www_sazforoosh_com.sazforoosh, "sazkala.com": sazkala_com.sazkala,
             "sedastore.com": sedastore_com.sedastore, "www.djcenter.net": www_djcenter_net.djcenter,
             "digiseda.ir": www_djcenter_net.djcenter, "rayanseda.com": rayanseda_com.rayanseda,
@@ -230,7 +231,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "sotecenter.com": sotecenter_com.sotecenter, "avaparsian.com": avaparsian_com.avaparsian,
             "www.shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven,
             "shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven, "musicala.ir": musicala_ir.musicala,
-            "shabahang.shop": shabahang_shop.shabahang,
+            "shabahang.shop": shabahang_shop.shabahang,"golhastore.com": golhastore_com.golhastore,
             "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
@@ -325,6 +326,7 @@ def updateLink(link, product, site):
             price.save()
             link.save()
         except Exception as e:
+            logger = logging.getLogger(__name__)
             logger.info('%s', e)
 
 

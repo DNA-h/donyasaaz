@@ -13,14 +13,11 @@ import logging
 import datetime
 import pytz
 from constance import config
-import time
 import math
 import sys
 import time
-import threading
 import concurrent.futures
 from models.apis import callCrawlerThread, callCrawlerThreadFast, reloadMusicItemPrice, test_link
-from models.crawlers import www_donyayesaaz_com
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
@@ -265,32 +262,21 @@ def test():
 @csrf_exempt
 @api_view(['GET', 'POSt'])
 def test_timezone(request):
-    # import datetime
-    # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    # from models.crawlers import davarmelody_com
-    # class Object(object):
-    #     pass
-    #
-    # a = Object()
-    # a.url = "https://davarmelody.com/zoom-g1x-four"
-    # print(davarmelody_com.davarmelody(a, headers, ""))
-    # import zeep
-    # wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
-    # client = zeep.Client(wsdl=wsdl)
-    # result = client.service.SendMessage(
-    #     Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="تست دریافت اس ام اس",
-    #     RecipientNumbers=['9359415518'], SenderNumber="50005457", Type=1,
-    #     AllowedDelay=0
-    # )
-    from threading import Thread
-    Thread(target=send_sms_to_user, args=('9140510168',)).start()
-    # result = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=["5232300000"])
+    import datetime
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    from models.crawlers import behinmedia_ir
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = "https://behinmedia.ir/product/%D8%B3%D8%AA-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%DA%A9%D8%A7%D9%85%DB%8C%DA%A9%D8%A7-boomx-d-d1/?utm_medium=PPC&utm_source=Torob"
+    print(behinmedia_ir.behinmedia(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):
     import zeep
-    from constance import  config
+    from constance import config
     wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
     client = zeep.Client(wsdl=wsdl)
     result = client.service.SendMessage(
@@ -300,7 +286,7 @@ def send_sms_to_user(number):
     )
     time.sleep(12)
     status = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=[result[0]])
-    if (status[0] <= 5):
+    if status[0] <= 5:
         config.cheapLine += 1
         return
     client.service.SendMessage(
@@ -313,10 +299,8 @@ def send_sms_to_user(number):
 @csrf_exempt
 @api_view(['GET'])
 def create_and_download_backup(request):
-    import subprocess
-    from django.http.response import HttpResponse, HttpResponseRedirect
+    from django.http.response import HttpResponseRedirect
     import os
-    import ctypes
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
@@ -326,11 +310,6 @@ def create_and_download_backup(request):
 @csrf_exempt
 @api_view(['GET'])
 def delete_temp(request):
-    import subprocess
-    from django.http.response import HttpResponse, HttpResponseRedirect
-    import os
-    import ctypes
-
     from pathlib import Path
     def rmdir(directory):
         directory = Path(directory)
@@ -349,7 +328,6 @@ def delete_temp(request):
 
     rmdir(Path("C:\\Windows\\Temp"))
 
-    import os
     import ctypes
 
     free_bytes = ctypes.c_ulonglong(0)
@@ -360,7 +338,6 @@ def delete_temp(request):
 @csrf_exempt
 @api_view(['GET'])
 def free_space_left(request):
-    import os
     import ctypes
 
     free_bytes = ctypes.c_ulonglong(0)
@@ -376,7 +353,6 @@ def run_test_link(request):
 
 
 def run_tests(request):
-    unitTest()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
@@ -458,7 +434,6 @@ def get_prices_fast():
 def divar():
     theAdds = []
     theCustomers = list(Customer.objects.all().values('phoneNumber'))
-    import os
     from selenium import webdriver
     from bs4 import BeautifulSoup
     from threading import Thread

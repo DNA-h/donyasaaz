@@ -22,7 +22,7 @@ def sazhouse(link, headers, site):
         # chrome_options.add_argument("--disable-features=NetworkService")  ##this did it for me
         # chrome_options.add_argument("--window-size=1920x1080")
         # chrome_options.add_argument("--disable-features=VizDisplayCompositor")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver_95.exe", options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", options=chrome_options)
         driver.get(link.url)
     except Exception as e:
         logger = logging.getLogger(__name__)

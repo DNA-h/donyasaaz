@@ -15,7 +15,7 @@ def yamahairan(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver_95.exe", options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:

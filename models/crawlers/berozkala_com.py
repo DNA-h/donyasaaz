@@ -11,6 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import sys
 
 def berozkala(link, headers, site):
     try:
@@ -19,7 +20,9 @@ def berozkala(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--ignore-certificate-errors-spki-list')
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", options=chrome_options)
+        sys.path.append("C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe",
+                                  options=chrome_options)
         driver.get(link.url)
 
     except Exception as e:

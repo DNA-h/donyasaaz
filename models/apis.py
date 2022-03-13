@@ -232,7 +232,8 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "www.shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven,
             "shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven, "musicala.ir": musicala_ir.musicala,
             "shabahang.shop": shabahang_shop.shabahang,"golhastore.com": golhastore_com.golhastore,
-            "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic}
+            "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic, "diafoto.ir": diafoto_ir.diafoto,
+            "www.avancomputer.com": www_avancomputer_com.avancomputer_com, "payatel.com": payatel_com.payatel}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 

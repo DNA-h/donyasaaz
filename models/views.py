@@ -264,13 +264,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import behinmedia_ir
+    from models.crawlers import www_digikala_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://behinmedia.ir/product/%D8%B3%D8%AA-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-%D8%A8%DB%8C-%D8%B3%DB%8C%D9%85-%DA%A9%D8%A7%D9%85%DB%8C%DA%A9%D8%A7-boomx-d-d1/?utm_medium=PPC&utm_source=Torob"
-    print(behinmedia_ir.behinmedia(a, headers, ""))
+    a.url = "https://www.digikala.com/product/dkp-2843902/%D9%84%D9%BE-%D8%AA%D8%A7%D9%BE-13-%D8%A7%DB%8C%D9%86%DA%86%DB%8C-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-macbook-air-mvh42-2020/"
+    print(www_digikala_com.digikala(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
@@ -443,8 +443,8 @@ def divar():
         from selenium.webdriver.chrome.options import Options
         chrome_options = Options()
         chrome_options.add_argument("--headless")
-        # sys.path.append(os.path.abspath("chromedriver_95.exe"))
-        # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver_95.exe"), chrome_options=chrome_options)
+        # sys.path.append(os.path.abspath("chromedriver.exe"))
+        # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         logger.info('opened driver')
         driver.get("https://divar.ir/s/tehran/musical-instruments")
@@ -523,7 +523,7 @@ def divar():
                     config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
                     config.phoneNumberTotal = config.phoneNumberTotal + 1
                     config.phoneNumberLatest = number[0]
-                    Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
+                    # Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
                 print(theCustomers)
             except Exception as e:
                 print(e)

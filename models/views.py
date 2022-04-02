@@ -304,7 +304,7 @@ def create_and_download_backup(request):
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://45.149.77.125/static/dump.sql')
+    response = HttpResponseRedirect('http://http://45.159.113.113//static/dump.sql')
     return response
 
 @csrf_exempt

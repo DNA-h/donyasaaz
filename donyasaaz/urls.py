@@ -11,6 +11,8 @@ urlpatterns = [
     path('run_divar/', run_divar),
     path('run_prices_fast/', run_prices_fast),
     path('create_and_download_backup/', create_and_download_backup),
+    path('download_divar_all/', download_divar_all),
+    path('download_divar_today/', download_divar_today),
     path('free_space_left/', free_space_left),
     path('delete_temp/', delete_temp),
     path('run_reload_music_item_prices/', run_reload_music_item_prices),

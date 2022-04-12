@@ -304,7 +304,39 @@ def create_and_download_backup(request):
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://http://45.159.113.113//static/dump.sql')
+    response = HttpResponseRedirect('http://45.159.113.113/static/dump.sql')
+    return response
+
+@csrf_exempt
+@api_view(['GET'])
+def download_divar_all(request):
+    from django.http.response import HttpResponseRedirect
+    import os
+    import subprocess
+
+    #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
+    #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
+    with open('static\\all.txt', 'w') as f:
+        subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
+                        'donyasaaz'], stdout=f, universal_newlines=True)
+    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
+    response = HttpResponseRedirect('http://45.159.113.1130/static/all.txt')
+    return response
+
+@csrf_exempt
+@api_view(['GET'])
+def download_divar_today(request):
+    from django.http.response import HttpResponseRedirect
+    import os
+    import subprocess
+
+    #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
+    #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
+    with open('static\\today.txt', 'w') as f:
+        subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
+                        'donyasaaz'], stdout=f, universal_newlines=True)
+    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
+    response = HttpResponseRedirect('http://45.159.113.113/static/today.txt')
     return response
 
 @csrf_exempt

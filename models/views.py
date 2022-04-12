@@ -320,7 +320,7 @@ def download_divar_all(request):
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://45.159.113.1130/static/all.txt')
+    response = HttpResponseRedirect('http://45.159.113.113/static/all.txt')
     return response
 
 @csrf_exempt

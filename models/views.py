@@ -316,7 +316,7 @@ def download_divar_all(request):
 
     #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('static\\all.txt', 'w') as f:
+    with open('C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\all.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
@@ -332,7 +332,7 @@ def download_divar_today(request):
 
     #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('static\\today.txt', 'w') as f:
+    with open('C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\today.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])

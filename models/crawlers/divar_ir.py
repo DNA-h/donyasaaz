@@ -16,8 +16,8 @@ def divar(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--disable-gpu")
-        sys.path.append("C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe",
+        sys.path.append("C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -29,6 +29,6 @@ def divar(link, headers, site):
     p = soup.find_all("p", string="قیمت")
     if len(p) == 0:
         return -1
-    a = re.sub(r'٫', '', p[0].parent.parent.text).strip()
+    a = re.sub(r'٬', '', p[0].parent.parent.text).strip()
     b = re.findall(r'\d+', a)
     return int(b[0])

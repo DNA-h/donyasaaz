@@ -240,17 +240,17 @@ def linkHandler(request):
 
 @api_view(['GET'])
 def fonta27a579bdf3c579fb0287ad7eedf13f5(request):
-    return FileResponse(open('C:/Users/Administrator/Desktop/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
+    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
 
 
 @api_view(['GET'])
 def fontf9ada7e5233f3a92347b7531c06f2336(request):
-    return FileResponse(open('C:/Users/Administrator/Desktop/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
+    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
 
 
 @api_view(['GET'])
 def font655ba951f59a5b99d8627273e0883638(request):
-    return FileResponse(open('C:/Users/Administrator/Desktop/donyasaaz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
+    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaazz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
 @app.task
@@ -264,13 +264,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_digikala_com
+    from models.crawlers import divar_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.digikala.com/product/dkp-2843902/%D9%84%D9%BE-%D8%AA%D8%A7%D9%BE-13-%D8%A7%DB%8C%D9%86%DA%86%DB%8C-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-macbook-air-mvh42-2020/"
-    print(www_digikala_com.digikala(a, headers, ""))
+    a.url = "https://divar.ir/v/%D9%88%D9%84%D9%88%D9%88-xc60-%D8%B3%D9%81%DB%8C%D8%AF-%D8%A8%D8%AF%D9%88%D9%86-%D8%B1%D9%86%DA%AF_%D8%B3%D9%88%D8%A7%D8%B1%DB%8C-%D9%88-%D9%88%D8%A7%D9%86%D8%AA_%D8%AA%D9%87%D8%B1%D8%A7%D9%86_%D8%B4%D9%87%D8%B1%DA%A9-%D8%BA%D8%B1%D8%A8_%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/gYddn8lu"
+    # print(divar_ir.divar(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
@@ -302,9 +302,9 @@ def create_and_download_backup(request):
     from django.http.response import HttpResponseRedirect
     import os
 
-    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
+    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://45.159.113.113/static/dump.sql')
+    response = HttpResponseRedirect('http://localhost:8000/static/dump.sql')
     return response
 
 @csrf_exempt
@@ -316,11 +316,11 @@ def download_divar_all(request):
 
     #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\all.txt', 'w') as f:
+    with open('C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://45.159.113.113/static/all.txt')
+    response = HttpResponseRedirect('http://localhost:8000/static/all.txt')
     return response
 
 @csrf_exempt
@@ -332,11 +332,11 @@ def download_divar_today(request):
 
     #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
     #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\today.txt', 'w') as f:
+    with open('C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\today.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://45.159.113.113/static/today.txt')
+    response = HttpResponseRedirect('http://localhost:8000/static/today.txt')
     return response
 
 @csrf_exempt
@@ -431,7 +431,7 @@ def get_prices():
     links = list(links)
     import random
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
             print(site)
@@ -477,7 +477,7 @@ def divar():
         chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         logger.info('opened driver')
         driver.get("https://divar.ir/s/tehran/musical-instruments")
         logger.info('opened divar')
@@ -490,7 +490,7 @@ def divar():
             "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
         logger.info('vorood')
         time.sleep(5)
-        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys("9359415518")
+        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys("9140510168")
         logger.info('935')
         time.sleep(60)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.phoneNumberLatest)
@@ -556,7 +556,7 @@ def divar():
                     config.phoneNumberTotal = config.phoneNumberTotal + 1
                     config.phoneNumberLatest = number[0]
                     # Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
-                print(theCustomers)
+                # print(theCustomers)
             except Exception as e:
                 print(e)
         time.sleep(300)

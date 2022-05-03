@@ -18,8 +18,8 @@ def royzkala(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--disable-gpu")
-        sys.path.append("C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe",
+        sys.path.append("C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
     except Exception as e:

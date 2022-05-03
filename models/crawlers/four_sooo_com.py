@@ -15,8 +15,8 @@ def four_sooo(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        sys.path.append("C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\Administrator\\Desktop\\donyasaaz\\chromedriver.exe",
+        sys.path.append("C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")

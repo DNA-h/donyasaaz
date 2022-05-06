@@ -240,17 +240,17 @@ def linkHandler(request):
 
 @api_view(['GET'])
 def fonta27a579bdf3c579fb0287ad7eedf13f5(request):
-    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
+    return FileResponse(open('C:/Users/zgb/Desktop/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
 
 
 @api_view(['GET'])
 def fontf9ada7e5233f3a92347b7531c06f2336(request):
-    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
+    return FileResponse(open('C:/Users/zgb/Desktop/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
 
 
 @api_view(['GET'])
 def font655ba951f59a5b99d8627273e0883638(request):
-    return FileResponse(open('C:/Users/DNA/Pycharmprojects/donyasaazz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
+    return FileResponse(open('C:/Users/zgb/Desktop/donyasaaz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
 @app.task
@@ -304,7 +304,7 @@ def create_and_download_backup(request):
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\dump.sql')
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://localhost:8000/static/dump.sql')
+    response = HttpResponseRedirect('http://192.168.1.149:8000/static/dump.sql')
     return response
 
 @csrf_exempt
@@ -320,7 +320,7 @@ def download_divar_all(request):
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://localhost:8000/static/all.txt')
+    response = HttpResponseRedirect('http://192.168.1.149:8000/static/all.txt')
     return response
 
 @csrf_exempt
@@ -336,7 +336,7 @@ def download_divar_today(request):
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://localhost:8000/static/today.txt')
+    response = HttpResponseRedirect('http://192.168.1.149:8000/static/today.txt')
     return response
 
 @csrf_exempt

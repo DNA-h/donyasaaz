@@ -95,13 +95,13 @@ WSGI_APPLICATION = 'donyasaaz.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+#D0nyayes@@z
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'donyasaaz',
         'USER': 'root',
-        'PASSWORD': 'HolyDance',
+        'PASSWORD': 'hrmariadbju',
         'HOST': 'localhost',
         'PORT': '3306'
     }

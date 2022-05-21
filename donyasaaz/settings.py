@@ -50,8 +50,8 @@ CONSTANCE_CONFIG = {
     'phoneNumberLastTime': ('None', ''),
     'phoneNumberLatest': ('None', ''),
     'phoneNumberTotal': ('None', ''),
-    'expensiveLine': (0, ''),
-    'cheapLine': (0, ''),
+    'divarPhoneNumber': ('None', 'شماره تلفنی که برای لاگین کردن به دیوار از آن استفاده می شود'),
+    'divarCode': ('None', 'کد تایید برای ورود به دیوار. شما 60 ثانیه وقت دارید این کد را وارد نمایید'),
 }
 
 MIDDLEWARE = [

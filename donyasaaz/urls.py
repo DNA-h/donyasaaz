@@ -3,6 +3,7 @@ from django.urls import path, include
 from models.views import *
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('items/', musicItemHandler),
     path('links/', linkHandler),
     path('test_timezone/', test_timezone),

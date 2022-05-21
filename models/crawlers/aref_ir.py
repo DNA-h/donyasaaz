@@ -16,7 +16,7 @@ def aref(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": "button nik-button"}):
+    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1

@@ -144,13 +144,13 @@ def musicItemHandler(request):
         serializer = MusicItemListSerializer(queryset[page * pageSize: (page + 1) * pageSize], many=True)
         return JsonResponse({
             'list': serializer.data, 'total': queryset.count(),
-            'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S")
-            if config.lastCrawlStarted != 'None' else '',
-            'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S")
-            if type(config.lastCrawlEnded) is datetime.datetime else config.lastCrawlEnded,
+            'lastCrawlStarted': config.lastCrawlStarted.strftime("%H:%M:%S") if hasattr(config.lastCrawlStarted, 'strftime')
+            else config.lastCrawlStarted if config.lastCrawlStarted != 'None' else '',
+            'lastCrawlEnded': config.lastCrawlEnded.strftime("%H:%M:%S") if hasattr(config.lastCrawlEnded, 'strftime')
+            else config.lastCrawlEnded if type(config.lastCrawlEnded) is datetime.datetime else config.lastCrawlEnded,
             'lastCrawlChanges': config.lastCrawlChanges,
-            'phoneNumberLastTime': config.phoneNumberLastTime.strftime("%H:%M:%S")
-            if config.phoneNumberLastTime != 'None' else '' ,
+            'phoneNumberLastTime': config.phoneNumberLastTime.strftime("%H:%M:%S") if hasattr(config.phoneNumberLastTime, 'strftime')
+            else config.phoneNumberLastTime if config.phoneNumberLastTime != 'None' else '' ,
             'phoneNumberTotal': config.phoneNumberTotal,
             'phoneNumberLatest': config.phoneNumberLatest,
             'success': True
@@ -274,28 +274,6 @@ def test_timezone(request):
     print(www_avancomputer_com.avancomputer_com(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
-
-def send_sms_to_user(number):
-    import zeep
-    from constance import config
-    wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
-    client = zeep.Client(wsdl=wsdl)
-    result = client.service.SendMessage(
-        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="تست دریافت اس ام اس",
-        RecipientNumbers=[number], SenderNumber="50005457", Type=1,
-        AllowedDelay=0
-    )
-    time.sleep(12)
-    status = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=[result[0]])
-    if status[0] <= 5:
-        config.cheapLine += 1
-        return
-    client.service.SendMessage(
-        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="دنیای ساز" + "\n" + "فروش ساز و آلات موسیقی" + "\n" + "ارسال رایگان" + "\n" + "www.donyayesaaz.com",
-        RecipientNumbers=[number], SenderNumber="9999326216", Type=1,
-        AllowedDelay=0
-    )
-    config.expensiveLine += 1
 
 @csrf_exempt
 @api_view(['GET'])
@@ -479,23 +457,17 @@ def divar():
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
-        logger.info('opened driver')
         driver.get("https://divar.ir/s/tehran/musical-instruments")
-        logger.info('opened divar')
         time.sleep(10)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-button kt-button--inlined kt-nav-button nav-bar__btn kt-nav-button--small\")[0].click()")
-        logger.info('divar man')
         time.sleep(5)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
-        logger.info('vorood')
         time.sleep(5)
-        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys("9140510168")
-        logger.info('935')
+        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarPhoneNumber)
         time.sleep(60)
-        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.phoneNumberLatest)
-        logger.info('code')
+        (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarCode)
         # time.sleep(5)
         # driver.execute_script(
         #     "document.getElementsByClassName(\"kt-button kt-button--primary auth-modal__submit-button\")[0].click()")
@@ -556,8 +528,6 @@ def divar():
                     config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
                     config.phoneNumberTotal = config.phoneNumberTotal + 1
                     config.phoneNumberLatest = number[0]
-                    # Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
-                # print(theCustomers)
             except Exception as e:
                 print(e)
         time.sleep(300)

@@ -2665,3 +2665,311 @@ IndexError: list index out of range
 2022-05-21 01:01:32,841 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2022-05-21 01:01:55,590 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.idea changed, reloading.
 2022-05-21 01:01:57,854 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:08:18,431 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:08:54,573 [ERROR] django.request: Internal Server Error: /f9ada7e5233f3a92347b7531c06f2336.woff2
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 249, in fontf9ada7e5233f3a92347b7531c06f2336
+    return FileResponse(open('C:/Users/zgb/Desktop/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/zgb/Desktop/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2'
+2022-05-21 15:08:54,638 [ERROR] django.request: Internal Server Error: /a27a579bdf3c579fb0287ad7eedf13f5.woff
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 244, in fonta27a579bdf3c579fb0287ad7eedf13f5
+    return FileResponse(open('C:/Users/zgb/Desktop/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/zgb/Desktop/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff'
+2022-05-21 15:08:54,745 [WARNING] django.request: Not Found: /655ba951f59a5b99d8627273e0883638.ttf
+2022-05-21 15:08:54,767 [WARNING] django.request: Not Found: /favicon.ico
+2022-05-21 15:08:57,923 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:08:59,653 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:10:33,953 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:10:36,781 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:11:18,568 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:11:20,224 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:11:41,461 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:11:43,233 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:12:22,400 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:12:23,934 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:22:03,227 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:22:04,930 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:22:12,398 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:22:14,645 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:23:11,129 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:23:12,621 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:27:14,720 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.git changed, reloading.
+2022-05-21 15:27:16,416 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:28:11,450 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\__init__.py changed, reloading.
+2022-05-21 15:28:13,014 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:28:21,686 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models changed, reloading.
+2022-05-21 15:28:23,500 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:29:56,693 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models changed, reloading.
+2022-05-21 15:29:58,363 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:31:20,448 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models changed, reloading.
+2022-05-21 15:31:22,155 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:34:03,030 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:34:42,206 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers changed, reloading.
+2022-05-21 15:34:46,109 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:35:28,807 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models changed, reloading.
+2022-05-21 15:35:30,467 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:36:07,047 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\__init__.py changed, reloading.
+2022-05-21 15:36:09,071 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:36:35,868 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.git changed, reloading.
+2022-05-21 15:36:37,718 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:37:27,395 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.git changed, reloading.
+2022-05-21 15:37:29,270 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:37:44,041 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\__init__.py changed, reloading.
+2022-05-21 15:37:46,076 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:37:53,921 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(avancomputer_com.avancomputer_com(a, headers, ""))
+NameError: name 'avancomputer_com' is not defined
+2022-05-21 15:37:58,166 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:37:59,766 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:38:17,106 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+NameError: name 'avancomputer_com' is not defined
+2022-05-21 15:38:18,442 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:38:20,067 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:39:00,692 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:39:03,176 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:43:55,892 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:43:58,141 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:45:31,030 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:45:32,630 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:46:17,359 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:46:19,015 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:48:06,113 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:48:07,324 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:48:32,102 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:48:33,267 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:49:07,167 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:49:08,373 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:49:47,518 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:49:48,812 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:50:03,577 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:50:04,842 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:50:22,599 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:50:23,849 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:52:15,695 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:52:17,078 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:53:31,597 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 15:53:32,721 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:53:35,617 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py", line 29, in avancomputer_com
+    a = re.sub(r',', '', p[1].text).strip()
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\bs4\element.py", line 1406, in __getitem__
+    return self.attrs[key]
+KeyError: 1
+2022-05-21 15:53:38,270 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:53:39,515 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:53:52,859 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py", line 29, in avancomputer_com
+    a = re.sub(r',', '', p[1].text).strip()
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\bs4\element.py", line 1406, in __getitem__
+    return self.attrs[key]
+KeyError: 1
+2022-05-21 15:53:56,168 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:53:57,406 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:54:40,768 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:54:41,990 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:58:36,849 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:58:38,145 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:58:41,148 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py", line 29, in avancomputer_com
+    a = re.sub(r',', '', p[0].text).strip()
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\bs4\element.py", line 1406, in __getitem__
+    return self.attrs[key]
+KeyError: 0
+2022-05-21 15:58:43,677 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:58:44,885 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:58:47,605 [ERROR] django.request: Internal Server Error: /test_timezone/
+Traceback (most recent call last):
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\views.py", line 274, in test_timezone
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+  File "C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py", line 29, in avancomputer_com
+    a = re.sub(r',', '', p[0].text).strip()
+  File "C:\Users\neo\PycharmProjects\donyasaaz\venv\lib\site-packages\bs4\element.py", line 1406, in __getitem__
+    return self.attrs[key]
+KeyError: 0
+2022-05-21 15:58:50,321 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\logging.log changed, reloading.
+2022-05-21 15:58:51,850 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:59:40,378 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 15:59:41,495 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 15:59:47,108 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.idea changed, reloading.
+2022-05-21 15:59:48,287 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 16:01:02,636 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\crawlers\www_avancomputer_com.py changed, reloading.
+2022-05-21 16:01:04,245 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 16:01:29,748 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 16:01:30,939 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 16:03:02,992 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 16:03:04,208 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 16:03:43,099 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\models\views.py changed, reloading.
+2022-05-21 16:03:44,362 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2022-05-21 16:04:30,696 [INFO] django.utils.autoreload: C:\Users\neo\PycharmProjects\donyasaaz\.idea changed, reloading.
+2022-05-21 16:04:32,219 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

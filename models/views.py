@@ -265,13 +265,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import parseda_com
+    from models.crawlers import www_avancomputer_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://parseda.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%A8%DB%8C%D8%B3%DB%8C%D9%85-%D8%AF%D8%B3%D8%AA%DB%8C-%D9%88-%DB%8C%D9%82%D9%87/551-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-%D8%AF%D9%88%D8%A8%D9%84-%D9%88%D8%A7%DB%8C%D8%B1%D9%84%D8%B3-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-%D8%A8%DB%8C%D8%B3%DB%8C%D9%85-%D8%AF%D8%B3%D8%AA%DB%8C-%DB%8C%D9%82%D9%87-%D8%A7%DB%8C-%D8%AF%D9%88-%DA%A9%D8%A7%D9%86%D8%A7%D9%84-800hb.html"
-    print(parseda_com.parseda(a, headers, ""))
+    a.url = "https://www.avancomputer.com/rgb-mechanical-gaming-mouse-model-thunder-wolf-v11"
+    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 

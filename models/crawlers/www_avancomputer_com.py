@@ -21,7 +21,10 @@ def avancomputer_com(link, headers, site):
         p = soup.find("h5", attrs={"class": "product-price"})
         if p is None:
             return -1
-        a = re.sub(r',', '', p.text).strip()
+        if len(p) ==1:
+            a = re.sub(r',', '', p[0].text).strip()
+        else:
+         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
         if len(b) == 0:
             return -1

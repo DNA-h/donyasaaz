@@ -265,13 +265,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_avancomputer_com
+    from models.crawlers import kharidkala24_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.avancomputer.com/rgb-mechanical-gaming-mouse-model-thunder-wolf-v11"
-    print(www_avancomputer_com.avancomputer_com(a, headers, ""))
+    a.url = "https://kharidkala24.com/kk24-product/34728/essence-2in1-base-and-top-coat-nail-polish-with-essence-the-gel-104-nail-polish/"
+    print(kharidkala24_com.kharidkala24(a, headers, ""))
 
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
@@ -456,7 +456,7 @@ def divar():
         chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
-        driver = webdriver.Chrome(executable_path="C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\zgb\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         driver.get("https://divar.ir/s/tehran/musical-instruments")
         time.sleep(10)
         driver.execute_script(

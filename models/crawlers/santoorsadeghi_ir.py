@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def chavoosh110(link, headers, site):
+def santoorsadeghi(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -16,10 +16,6 @@ def chavoosh110(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    # if soup.find("a", attrs={"class": "call-pro-link"}):
-    #     callus = soup.find("p", attrs={"class": "price"})
-    #     if callus is None:
-    #         return -1
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:

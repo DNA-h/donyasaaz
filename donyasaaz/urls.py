@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from models.views import *
+from models.tests import run_tests
 
 urlpatterns = [
     path('admin/', admin.site.urls),

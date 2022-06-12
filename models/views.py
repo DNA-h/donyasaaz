@@ -20,8 +20,7 @@ import time
 import concurrent.futures
 from models.apis import callCrawlerThread, callCrawlerThreadFast, reloadMusicItemPrice, test_link
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 app = Celery('donyasaaz')
 
 
@@ -263,16 +262,20 @@ def test():
 @csrf_exempt
 @api_view(['GET', 'POSt'])
 def test_timezone(request):
-    import datetime
-    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import kharidkala24_com
+    # import datetime
+    # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    from models.crawlers import divar_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://kharidkala24.com/kk24-product/34728/essence-2in1-base-and-top-coat-nail-polish-with-essence-the-gel-104-nail-polish/"
-    print(kharidkala24_com.kharidkala24(a, headers, ""))
+    a.url = "https://divar.ir/v/%D9%87%D9%86%DA%AF-%D8%AF%D8%B1%D8%A7%D9%85-%D8%A7%D8%B3%D8%AA%DB%8C%D9%84-%D8%A2%D8%B1%D8%B4%D8%A7-%D9%86%D9%87-%D9%86%D8%AA_%D8%AF%D8%B1%D8%A7%D9%85-%D9%88-%D9%BE%D8%B1%DA%A9%D8%A7%D8%B4%D9%86_%D8%AA%D9%87%D8%B1%D8%A7%D9%86_%D9%BE%D9%88%D9%86%DA%A9_%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/gYsxf78B"
 
+    print(divar_ir.divar(a, headers, ""))
+
+    queryset = MusicItem.objects.all()
+    for obj in queryset:
+        print(obj.name)
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt
@@ -363,10 +366,6 @@ def run_test_link(request):
     return JsonResponse({'success': True, 'price': price}, encoder=JSONEncoder)
 
 
-def run_tests(request):
-    return JsonResponse({'success': True}, encoder=JSONEncoder)
-
-
 @csrf_exempt
 @api_view(['POST'])
 def run_prices(request):
@@ -413,7 +412,6 @@ def get_prices():
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
-            print(site)
             # time.sleep(15)
             if not site:
                 logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))

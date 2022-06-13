@@ -264,19 +264,14 @@ def test():
 def test_timezone(request):
     # import datetime
     # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import divar_ir
+    from models.crawlers import torob_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://divar.ir/v/%D9%87%D9%86%DA%AF-%D8%AF%D8%B1%D8%A7%D9%85-%D8%A7%D8%B3%D8%AA%DB%8C%D9%84-%D8%A2%D8%B1%D8%B4%D8%A7-%D9%86%D9%87-%D9%86%D8%AA_%D8%AF%D8%B1%D8%A7%D9%85-%D9%88-%D9%BE%D8%B1%DA%A9%D8%A7%D8%B4%D9%86_%D8%AA%D9%87%D8%B1%D8%A7%D9%86_%D9%BE%D9%88%D9%86%DA%A9_%D8%AF%DB%8C%D9%88%D8%A7%D8%B1/gYsxf78B"
+    a.url = "https://torob.com/p/881b9e67-af44-4661-a4cf-e8f0ef387844/%D9%85%DA%A9-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-mac-studio-mjmv3-m1-max-with-10-core-cpu-24-core-gpu-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-512-%DA%AF%DB%8C%DA%AF%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA/"
 
-    print(divar_ir.divar(a, headers, ""))
-
-    queryset = MusicItem.objects.all()
-    for obj in queryset:
-        print(obj.name)
-    return JsonResponse({'success': True}, encoder=JSONEncoder)
+    print(torob_com.torob(a, headers, ""))
 
 @csrf_exempt
 @api_view(['GET'])
@@ -430,7 +425,7 @@ def get_prices_fast():
 
     links = Link.objects.all()
     import concurrent.futures
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         for i in range(0, len(links)):
             link = links[i]
             site = re.findall("//(.*?)/", link.url)

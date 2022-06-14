@@ -263,16 +263,18 @@ def test():
 @csrf_exempt
 @api_view(['GET', 'POSt'])
 def test_timezone(request):
-    # import datetime
-    # config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import torob_com
-    class Object(object):
-        pass
+    import datetime
+    config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
+    # from models.crawlers import torob_com
+    # class Object(object):
+    #     pass
+    #
+    # a = Object()
+    # a.url = "https://torob.com/p/881b9e67-af44-4661-a4cf-e8f0ef387844/%D9%85%DA%A9-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-mac-studio-mjmv3-m1-max-with-10-core-cpu-24-core-gpu-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-512-%DA%AF%DB%8C%DA%AF%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA/"
+    #
+    # print(torob_com.torob(a, headers, ""))
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
 
-    a = Object()
-    a.url = "https://torob.com/p/881b9e67-af44-4661-a4cf-e8f0ef387844/%D9%85%DA%A9-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-mac-studio-mjmv3-m1-max-with-10-core-cpu-24-core-gpu-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-512-%DA%AF%DB%8C%DA%AF%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA/"
-
-    print(torob_com.torob(a, headers, ""))
 
 @csrf_exempt
 @api_view(['GET'])

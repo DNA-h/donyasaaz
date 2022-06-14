@@ -1,3 +1,4 @@
+import os
 from threading import Thread
 
 from django.shortcuts import render
@@ -446,10 +447,10 @@ def divar():
         logger = logging.getLogger(__name__)
         from selenium.webdriver.chrome.options import Options
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
-        driver = webdriver.Chrome(executable_path="C:\\Users\\zgb\\Desktop\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         driver.get("https://divar.ir/s/tehran/musical-instruments")
         time.sleep(10)
         driver.execute_script(

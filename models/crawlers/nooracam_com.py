@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def nobesho(link, headers, site):
+def nooracam(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -16,14 +16,17 @@ def nobesho(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("a", attrs={"class": "btn btn-success btn-sm"}):
-        div = soup.find("span", attrs={"class": "d-block"})
+    if soup.find("span", attrs={"class": "wd-tools-icon woodmart-cart-icon"}):
+        div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
-        elif len(div) == 1:
-            a = re.sub(r',', '', div.text).strip()
+        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub(r',', '', p[0].text).strip()
         else:
-            a = re.sub(r',', '', div.text).strip()
+            a = re.sub(r',', '', p[1].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

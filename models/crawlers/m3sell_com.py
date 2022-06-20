@@ -19,10 +19,14 @@ def m3sell(link, headers, site):
     if soup.find("div", attrs={"class": "button__btn-normal-success___1JY6- button__btn-normal___299V7 button__btn___3Wejk button__success___2V0M8  styles__buy-button___11qld "}):
         div = soup.find("span", attrs={"class": "styles__final-price___1L1AM"})
         if div is None:
-            return -1
+            return -2
         else:
-            a = re.sub(r',', '', div.text).strip()
+            from persiantools import digits
+            # digits.fa_to_en("0123456789")
+            print(div.text)
+            print(digits.fa_to_en(div.text))
+            a = re.sub(r',', '', digits.fa_to_en(div.text)).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:
-        return -1
+        return -3

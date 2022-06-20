@@ -16,7 +16,7 @@ def nobesho(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("a", attrs={"class": "w-100 my-1 btn btn-primary"}):
+    if soup.find("a", attrs={"class": "btn btn-success btn-sm"}):
         div = soup.find("span", attrs={"class": "d-block"})
         if div is None:
             return -1

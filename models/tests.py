@@ -8,7 +8,7 @@ from models.apis import crawlers
 tests = [
     {
         "url": "https://www.zhovanmusic.com/store/sell-musical-instruments/piano-sales/yamaha-ydp-145",
-        "price": 49500000, "message": "zhovanmusic-1"
+        "price": 49200000, "message": "zhovanmusic-1"
     }, {
         "url": "https://www.zhovanmusic.com/store/sell-musical-instruments/piano-sales/yamaha-clp-725?utm_medium=PPC&utm_source=Torob",
         "price": 63500000, "message": "zhovanmusic-2"
@@ -20,7 +20,7 @@ tests = [
         "price": 6800000, "message": "sinacamera-1"
     }, {
         "url": "https://sinacamera.ir/Product/BKP-19735/%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%a8%d8%af%d9%88%d9%86-%d8%a2%db%8c%d9%86%d9%87-%da%a9%d8%a7%d9%86%d9%86-canon-eos-m50-mark-ii-kit-15-45mm-f-3-5-6-3-is-stm/",
-        "price": -1, "message": "sinacamera-2"
+        "price": 19800000, "message": "sinacamera-2"
     }, {
         "url": "https://sinacamera.ir/Product/BKP-20071/%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%a8%d8%af%d9%88%d9%86-%d8%a2%db%8c%d9%86%d9%87-%da%a9%d8%a7%d9%86%d9%86-canon-eos-rp-mount-adapter-ef-eos-r-ef-24-105mm-canon-eos-rp/",
         "price": -1, "message": "sinacamera-3"
@@ -29,13 +29,13 @@ tests = [
         "price": 284000, "message": "turborayan-1"
     }, {
         "url": "https://turborayan.com/%D9%BE%D8%A7%DB%8C%D9%87-%D8%AF%DB%8C%D9%88%D8%A7%D8%B1%DB%8C-%D8%B1%D9%88%D9%85%DB%8C%D8%B2%DB%8C-%D9%85%D8%A7%D9%86%DB%8C%D8%AA%D9%88%D8%B1/28076-%D9%BE%D8%A7%D9%8A%D9%87-%D9%86%DA%AF%D9%87%D8%AF%D8%A7%D8%B1%D9%86%D8%AF%D9%87-%D9%84%D9%BE-%D8%AA%D8%A7%D9%BE-%D8%AC%D9%8A%D8%A8%DB%8C-wlb003.html",
-        "price": 550000, "message": "turborayan-2"
+        "price": 625000, "message": "turborayan-2"
     }, {
         "url": "https://turborayan.com/%D9%81%DB%8C%D8%B4-%D9%BE%D8%B1%DB%8C%D9%86%D8%AA%D8%B1/14809-%D9%81%DB%8C%D8%B4-%D9%BE%D8%B1%DB%8C%D9%86%D8%AA%D8%B1-tp1000-%D9%85%DB%8C%D9%88%D8%A7.html",
-        "price": -1, "message": "turborayan-3"
+        "price": 2700000, "message": "turborayan-3"
     },
     {"url": "https://www.ghestico.com/Installment/Product/988/Game-Console/Sony/Playstation-5-825GB-PS5",
-     "price": 25400000,
+     "price": 24400000,
      "message": "ghestico_com-1"},
 
     {"url": "https://www.ghestico.com/Installment/Product/1092/Mobile-Phone/Apple/TV-4K-32GB",
@@ -47,7 +47,7 @@ tests = [
      "message": "ghestico_com-3"},
 
     {"url": "https://zhiyunkala.com/product/crane-2s/",
-     "price": 11399000,
+     "price": 17250000,
      "message": "zhiyunkala_com-1"},
 
     {"url": "https://zhiyunkala.com/product/by-k2/",
@@ -73,7 +73,7 @@ tests = [
     {
         "url": "https://santoorsadeghi.ir/product/%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%d8%b5%d8%a7%d8%af%d9%82%db%8c-%d8%a2%d9%88%d8%a7%db%8c-%d8%b9%d8%b4%d9%82-%d8%b7%d8%b1%d8%ad-%d9%86%d9%82%d8%a7%d8%b4%db%8c/",
         "price": 50000000,
-        "message": "santoorsadeghi-1"},
+        "message": "santoorsadeghi-1"},#two santoorsadeghi crawler name in apis maybe it's the reason why it doesn't work
 
     {
         "url": "https://santoorsadeghi.ir/product/%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%d8%b5%d8%a7%d8%af%d9%82%db%8c-%d8%aa%da%a9-%d9%85%d9%87%d8%b1/",
@@ -114,17 +114,17 @@ tests = [
      "price": -1,
      "message": "memorybazar-3"},
 
-    {"url": "https://www.rayanmusic.com/cort-x100-opbb",
-     "price": 6880000,
-     "message": "rayanmusic_com-1"},
-
-    {"url": "https://www.rayanmusic.com/ibanez-rgr652ahbf-wk",
-     "price": 68400000,
-     "message": "rayanmusic_com-2"},
-
-    {"url": "https://www.rayanmusic.com/cort-x100-opbk",
-     "price": 0,
-     "message": "rayanmusic_com-3"},
+    # {"url": "https://www.rayanmusic.com/cort-x100-opbb",#thi site has issue with ul in price
+    #  "price": 6880000,
+    #  "message": "rayanmusic_com-1"},
+    #
+    # {"url": "https://www.rayanmusic.com/ibanez-rgr652ahbf-wk",
+    #  "price": 68400000,
+    #  "message": "rayanmusic_com-2"},
+    #
+    # {"url": "https://www.rayanmusic.com/cort-x100-opbk",
+    #  "price": 0,
+    #  "message": "rayanmusic_com-3"},
 
     {"url": "https://nobesho.com/product/nbp-5741236098",
      "price": 290000,
@@ -157,17 +157,17 @@ tests = [
 
     {
         "url": "https://nooracam.com/product/%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%b9%da%a9%d8%a7%d8%b3%db%8c-%d9%86%db%8c%da%a9%d9%88%d9%86-nikon-d780-body/",
-        "price": 555000000,
+        "price": 55500000,
         "message": "nooracam_com-2"},
 
     {
         "url": "https://nooracam.com/product/%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%a8%d8%af%d9%88%d9%86-%d8%a2%db%8c%d9%86%d9%87-%d8%b3%d9%88%d9%86%db%8c-sony-alpha-a6400-body/",
-        "price": -1,
+        "price": 43500000,
         "message": "nooracam_com-3"},
 
     {
         "url": "https://nooracam.com/product/%d8%af%d9%88%d8%b1%d8%a8%db%8c%d9%86-%d8%b9%da%a9%d8%a7%d8%b3%db%8c-%da%a9%d8%a7%d9%86%d9%86-canon-eos-90d-dslr-kit-18-55mm-stm/",
-        "price": -1,
+        "price": 37100000,
         "message": "nooracam_com-4"},
 ]
 

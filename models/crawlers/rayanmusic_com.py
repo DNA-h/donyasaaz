@@ -17,11 +17,9 @@ def rayanmusic(link, headers, site):
         return None
 
     if soup.find("button", attrs={"class": "btn btn-primary btn-lg btn-block"}):
-        div = soup.find("u1", attrs={"class": "list-unstyled"})
+        div = soup.find("ul", attrs={"class": "list-unstyled"})
         if div is None:
             return -1
-        elif len(div) == 1:
-            a = re.sub(r',', '', div.text).strip()
         else:
             a = re.sub(r',', '', div.text).strip()
         b = re.findall(r'\d+', a)

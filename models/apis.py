@@ -183,7 +183,6 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "avatasvir.com": avatasvir_com.avatasvir, "hilatel.ir": hilatel_ir.hilatel,
             "www.yamahairan.ir": www_yamahairan_ir.yamahairan, "yamahairan.ir": www_yamahairan_ir.yamahairan,
             "navakade.com": navakade_com.navakade, "santoorsadeghi.com": santoorsadeghi_com.santoorsadeghi,
-            "santoorsadeghi.ir": santoorsadeghi_ir.santoorsadeghi,
             "head-phone.ir": head_phone_ir.head_phone, "touchmusic.ir": touchmusic_ir.touchmusic,
             "www.ghesticlub.com": www_ghesticlub_com.ghesticlub, "pcmaxhw.com": pcmaxhw_com.pcmaxhw,
             "www.pixel.ir": www_pixel_ir.pixel, "www.bokehland.com": www_bokehland_com.bokehland,
@@ -244,7 +243,9 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "m3sell.com": m3sell_com.m3sell, "santoorsadeghi.ir":santoorsadeghi_ir.santoorsadeghi,
             "canon1.ir": canon1_ir.canon1, "memorybazar.com":memorybazar_com.memorybazar,
             "www.rayanmusic.com": rayanmusic_com.rayanmusic, "nobesho.com":nobesho_com.nobesho,
-            "1xmarket.com": www_1xmarket_com.www_1xmarket, "nooracam.com": nooracam_com.nooracam}
+            "1xmarket.com": www_1xmarket_com.www_1xmarket, "nooracam.com": nooracam_com.nooracam,
+            "beethovenmshop.com": beethovenmshop_com.beethovenmshop, "www.agrastore.ir": www_agrastore_ir.agrastore,
+            "www.mahdigit.ir": www_mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": www_khaneyesaaz_ir.khaneyesaaz}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 

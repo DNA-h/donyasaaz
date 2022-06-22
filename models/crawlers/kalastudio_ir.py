@@ -14,13 +14,19 @@ def kalastudio(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
-        div = soup.find("div", attrs={"class": "product-page-box-seller-box"})
-        p = div.find("span",attrs={"class":"woocommerce-Price-amount amount"})
-        a = re.sub(r',', '', p.text).strip()
+        div = soup.find("p", attrs={"class": "price"})
+        if div is None:
+            return -1
+        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        if len(p) == 0:
+            return -1
+        elif len(p) == 1:
+            a = re.sub('\.', '', p[0].text).strip()
+        else:
+            a = re.sub(r"\.", '', p[1].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

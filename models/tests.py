@@ -18,18 +18,18 @@ tests = [
      "price": -1,
      "message": "ghestico_com-3"},
 
-    # {"url": "https://m3sell.com/product/CineTracer",
-    #  "price": 2300000,
-    #  "message": "m3sell_com-1"},
-    #
-    # {"url": "https://m3sell.com/product/G-Preset-FullPack",
-    #  "price": 110000,
-    #  "message": "m3sell_com-2"},
-    #
-    # {"url": "https://m3sell.com/product/SoftBoxX5",
-    #  "price": 1300000,
-    #  "message": "m3sell_com-3"},
-    #
+    {"url": "https://m3sell.com/product/CineTracer",
+     "price": 2300000,
+     "message": "m3sell_com-1"},
+
+    {"url": "https://m3sell.com/product/G-Preset-FullPack",
+     "price": 110000,
+     "message": "m3sell_com-2"},
+
+    {"url": "https://m3sell.com/product/SoftBoxX5",
+     "price": 1300000,
+     "message": "m3sell_com-3"},
+
     {
         "url": "https://santoorsadeghi.ir/product/%d8%b3%d9%86%d8%aa%d9%88%d8%b1-%d8%b5%d8%a7%d8%af%d9%82%db%8c-%d8%a2%d9%88%d8%a7%db%8c-%d8%b9%d8%b4%d9%82-%d8%b7%d8%b1%d8%ad-%d9%86%d9%82%d8%a7%d8%b4%db%8c/",
         "price": 50000000,

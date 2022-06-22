@@ -1,6 +1,8 @@
 import logging
 import time
 import math
+
+from models.crawlers import khaneyesaaz_ir
 from models.models import Price, Link, MusicItem
 from constance import config
 from models.crawlers import *
@@ -245,7 +247,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "www.rayanmusic.com": rayanmusic_com.rayanmusic, "nobesho.com":nobesho_com.nobesho,
             "1xmarket.com": www_1xmarket_com.www_1xmarket, "nooracam.com": nooracam_com.nooracam,
             "beethovenmshop.com": beethovenmshop_com.beethovenmshop, "www.agrastore.ir": www_agrastore_ir.agrastore,
-            "www.mahdigit.ir": www_mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": www_khaneyesaaz_ir.khaneyesaaz}
+            "www.mahdigit.ir": www_mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": khaneyesaaz_ir.khaneyesaaz,}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 

@@ -17,10 +17,10 @@ def santoorsadeghi(link, headers, site):
         return None
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
-        div = soup.find("p", attrs={"class": "price product-page-price "})
+        div = soup.find("p", attrs={"class": "price product-page-price"})
         if div is None:
             return -1
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
         if len(p) == 0:
             return -1
         elif len(p) == 1:

@@ -24,14 +24,19 @@ def chavoosh110(link, headers, site):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
         if len(p) == 0:
             return -1
+        # if "تماس بگیرید!" not in p:
+        #     return -1
         elif len(p) == 1:
             a = re.sub(r',', '', p[0].text).strip()
         else:
             a = re.sub(r',', '', p[1].text).strip()
         b = re.findall(r'\d+', a)
-        return int(b[0])
+        if b == []:
+            return -1
+        else:
+            return int(b[0])
     else:
         return -1

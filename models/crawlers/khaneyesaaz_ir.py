@@ -19,10 +19,14 @@ def khaneyesaaz(link, headers, site):
     if soup.find("button", attrs={"class": "uk-button uk-button-primary addtocart-button uk-width-1-1 addtocart-button"}):
         div = soup.find("span", attrs={"class": "PricesalesPrice"})
         if div is None:
-            return -1
+            siv = soup.find("span", attrs={"class": "PricediscountedPriceWithoutTax"})
+            a = re.sub(r',', '', siv.text).strip()
+            b = re.findall(r'\d+', a)
+            return int(b[0])
         else:
             a = re.sub(r',', '', div.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
+
     else:
         return -1

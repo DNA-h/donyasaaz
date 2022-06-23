@@ -265,58 +265,46 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    # from models.crawlers import torob_com
-    # class Object(object):
-    #     pass
-    #
-    # a = Object()
-    # a.url = "https://torob.com/p/881b9e67-af44-4661-a4cf-e8f0ef387844/%D9%85%DA%A9-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88-%D8%A7%D9%BE%D9%84-%D9%85%D8%AF%D9%84-mac-studio-mjmv3-m1-max-with-10-core-cpu-24-core-gpu-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-512-%DA%AF%DB%8C%DA%AF%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA/"
-    #
-    # print(torob_com.torob(a, headers, ""))
-    return JsonResponse({'success': True}, encoder=JSONEncoder)
+    from models.crawlers import digiseda_ir
+    class Object(object):
+        pass
+
+    a = Object()
+    a.url = "https://digiseda.ir/2795-audient-id4-mkii.html"
+    create_and_download_backup()
+    price = digiseda_ir.digiseda(a, headers, "")
+    return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
 
-@csrf_exempt
-@api_view(['GET'])
-def create_and_download_backup(request):
-    from django.http.response import HttpResponseRedirect
+def create_and_download_backup():
     import os
-
-    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\dump.sql')
-    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://192.168.1.149:8000/static/dump.sql')
-    return response
+    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\USER\\donyasaaz\\static\\dump.sql')
+    os.system('git add C:\\Users\\USER\\donyasaaz\\static\\dump.sql')
+    os.system('git commit -m "automatic update"')
+    os.system('git push origin master')
 
 @csrf_exempt
 @api_view(['GET'])
 def download_divar_all(request):
     from django.http.response import HttpResponseRedirect
-    import os
     import subprocess
 
-    #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
-    #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt', 'w') as f:
+    with open('C:\\Users\\USER\\donyasaaz\\static\\static\\all.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
-    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://192.168.1.149:8000/static/all.txt')
+    response = HttpResponseRedirect('http://192.168.1.122:8000/static/all.txt')
     return response
 
 @csrf_exempt
 @api_view(['GET'])
 def download_divar_today(request):
     from django.http.response import HttpResponseRedirect
-    import os
     import subprocess
 
-    #os.system('mysql -u root -pHolyDance -e "select * from models_customer" donyasaaz > C:\\Users\\Administrator\\Desktop\\donyasaaz\\static\\dump.sql')
-    #os.system('mysql > C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\all.txt')
-    with open('C:\\Users\\DNA\\Pycharmprojects\\donyasaaz\\static\\today.txt', 'w') as f:
+    with open('C:\\Users\\USER\\donyasaaz\\static\\today.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
                         'donyasaaz'], stdout=f, universal_newlines=True)
-    # subprocess.call(['cmd', os.path.dirname(os.path.realpath(__file__)) + '\\mysqldump.sh'])
-    response = HttpResponseRedirect('http://192.168.1.149:8000/static/today.txt')
+    response = HttpResponseRedirect('http://192.168.1.122:8000/static/today.txt')
     return response
 
 @csrf_exempt

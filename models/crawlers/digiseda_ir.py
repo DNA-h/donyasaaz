@@ -14,13 +14,16 @@ def digiseda(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-
         return None
 
-    if soup.find("div", attrs={"id": "add_to_cart_b"}):
-        p = soup.find("div", attrs={"id": "our_price_display"})
-        s = re.sub(r'\s+', ' ', p.text).strip()
-        a = re.sub(r',', '', s)
+    if soup.find("button", attrs={"class": "exclusive btn btn-success"}):
+        div = soup.find("div", attrs={"class": "prd-price"})
+        if len(div) == 0:
+            return -1
+        elif len(div) == 1:
+            a = re.sub(r',', '', div.text).strip()
+        else:
+            a = re.sub(r',', '', div.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

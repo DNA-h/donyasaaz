@@ -271,7 +271,6 @@ def test_timezone(request):
 
     a = Object()
     a.url = "https://digiseda.ir/2795-audient-id4-mkii.html"
-    create_and_download_backup()
     price = digiseda_ir.digiseda(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
@@ -388,6 +387,7 @@ def reload_music_item_prices():
 def get_prices():
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.lastCrawlChanges = 0
+    create_and_download_backup()
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}

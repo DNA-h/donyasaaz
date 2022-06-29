@@ -32,13 +32,13 @@ def index(request):
 class MusicItemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'pk', 'increase', 'decrease', 'out_of_stock', 'in_stock')
+        fields = ('name', 'image', 'pk', 'increase', 'decrease', 'out_of_stock', 'in_stock', 'is_active')
 
 
 class MusicItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'url', 'price', 'pk')
+        fields = ('name', 'image', 'url', 'price', 'pk', 'is_active')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -69,7 +69,7 @@ class LinkListSerializer(serializers.ModelSerializer):
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ('url', 'unseen', 'pk', 'reported', 'is_active')
+        fields = ('url', 'unseen', 'pk', 'reported', 'is_active', 'importance')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -167,6 +167,11 @@ def musicItemHandler(request):
                              defaults={'name': request.data["name"], 'url': request.data["url"],
                                        'image': request.data["image"]})
         return JsonResponse({'success': True}, encoder=JSONEncoder)
+    elif request.data['method'] == 'toggle':
+        MusicItem.objects. \
+            update_or_create(pk=request.data['pk'],
+                             defaults={'is_active': request.data["is_active"]})
+        return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'seen':
         links = Link.objects.filter(parent=request.data['pk'])
         for link in links:
@@ -230,6 +235,9 @@ def linkHandler(request):
         elif 'is_active' in request.data:
             Link.objects. \
                 update_or_create(pk=request.data['pk'], defaults={'is_active': request.data['is_active']})
+        elif 'importance' in request.data:
+            Link.objects. \
+                update_or_create(pk=request.data['pk'], defaults={'importance': request.data['importance']})
         return JsonResponse({'success': True}, encoder=JSONEncoder)
     elif request.data['method'] == 'delete':
         Link.objects.get(pk=request.data['pk']).delete()
@@ -265,13 +273,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import digiseda_ir
+    from models.crawlers import donyayesazha_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://digiseda.ir/2795-audient-id4-mkii.html"
-    price = digiseda_ir.digiseda(a, headers, "")
+    a.url = "https://donyayesazha.com/product/119/%D9%87%D9%86%DA%AF%D8%AF%D8%B1%D8%A7%D9%85-%D9%87%D9%86%DA%AF-%D8%AF%D8%B1%D8%A7%D9%85-9-%D9%86%D8%AA-%D8%A2%D8%B1%D8%B4%D8%A7-arsha"
+    price = donyayesazha_com.donyayesazha(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
 
@@ -391,12 +399,15 @@ def get_prices():
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    links = Link.objects.all().values('id', 'url').order_by('id')
+    links = Link.objects.filter(parent__is_active=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     import random
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
+            rnd = random.randint(1,99)
+            if links[(i + 0) % len(links)]['importance'] < rnd:
+                continue
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
             # time.sleep(15)
             if not site:
@@ -437,7 +448,7 @@ def divar():
         logger = logging.getLogger(__name__)
         from selenium.webdriver.chrome.options import Options
         chrome_options = Options()
-        #chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)

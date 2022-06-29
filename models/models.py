@@ -37,6 +37,7 @@ class Link(TimeStampedModel):
     last_run_ended = models.DateTimeField(default=None, null=True, blank=True)
     reported = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
+    importance = models.PositiveSmallIntegerField(default=100)
 
 
 # create_update new Link(url, parent_id)

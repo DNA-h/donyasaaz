@@ -11,6 +11,8 @@ urlpatterns = [
     path('test/', test),
     path('run_prices/', run_prices),
     path('run_divar/', run_divar),
+    path('divar_PhoneNumber/', divar_PhoneNumber),
+    path('divar_Code/', divar_Code),
     path('run_prices_fast/', run_prices_fast),
     path('download_divar_all/', download_divar_all),
     path('download_divar_today/', download_divar_today),

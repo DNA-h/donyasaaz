@@ -370,6 +370,18 @@ def run_divar(request):
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
+def divar_PhoneNumber(request):
+    config.divarPhoneNumber = request.data['number']
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
+def divar_Code(request):
+    config.divarCode = request.data['number']
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
+
+@csrf_exempt
 @api_view(['POST'])
 def run_prices_fast(request):
     Thread(target=get_prices_fast).start()

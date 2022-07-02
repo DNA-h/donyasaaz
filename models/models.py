@@ -38,6 +38,7 @@ class Link(TimeStampedModel):
     reported = models.BooleanField(default=False, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
     importance = models.PositiveSmallIntegerField(default=100)
+    is_bookmark = models.BooleanField(default=False, null=True, blank=True)
 
 
 # create_update new Link(url, parent_id)

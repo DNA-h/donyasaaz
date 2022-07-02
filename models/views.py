@@ -10,6 +10,7 @@ from json import JSONEncoder
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from celery import Celery
+from django.db.models.functions import Length
 import re
 import logging
 import datetime
@@ -56,7 +57,6 @@ class MusicItemSerializer(serializers.ModelSerializer):
                       key=lambda k: math.inf if (len(k['history'])) == 0 else
                       k['history'][0]['value'] if k['history'][0]['value'] != -1 else sys.maxsize)
         super_s['links'] = decreased + in_stock + increased + out_of_stock + rest
-        super_s['links'] = sorted(super_s['links'], key=lambda k: 0 if k['is_active'] else 1)
         return super_s
 
 
@@ -69,7 +69,7 @@ class LinkListSerializer(serializers.ModelSerializer):
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ('url', 'unseen', 'pk', 'reported', 'is_active', 'importance')
+        fields = ('url', 'unseen', 'pk', 'reported', 'is_bookmark', 'importance')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -232,9 +232,6 @@ def linkHandler(request):
         elif 'reported' in request.data:
             Link.objects. \
                 update_or_create(pk=request.data['pk'], defaults={'reported': request.data['reported']})
-        elif 'is_active' in request.data:
-            Link.objects. \
-                update_or_create(pk=request.data['pk'], defaults={'is_active': request.data['is_active']})
         elif 'importance' in request.data:
             Link.objects. \
                 update_or_create(pk=request.data['pk'], defaults={'importance': request.data['importance']})
@@ -245,6 +242,10 @@ def linkHandler(request):
     elif request.data['method'] == 'history':
         link = Link.objects.get(pk=request.data['pk'])
         return JsonResponse({'item': LinkHistorySerializer(link).data, 'success': True}, encoder=JSONEncoder)
+    elif request.data['method'] == 'bookmark':
+        Link.objects. \
+            update_or_create(pk=request.data['pk'], defaults={'is_bookmark': request.data['bookmark']})
+        return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
 @api_view(['GET'])
@@ -273,13 +274,13 @@ def test():
 def test_timezone(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import donyayesazha_com
+    from models.crawlers import basalam_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://donyayesazha.com/product/119/%D9%87%D9%86%DA%AF%D8%AF%D8%B1%D8%A7%D9%85-%D9%87%D9%86%DA%AF-%D8%AF%D8%B1%D8%A7%D9%85-9-%D9%86%D8%AA-%D8%A2%D8%B1%D8%B4%D8%A7-arsha"
-    price = donyayesazha_com.donyayesazha(a, headers, "")
+    a.url = "https://basalam.com/payam-art/product/3063673?utm_medium=PPC&utm_source=Torob"
+    price = basalam_com.basalam(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
 
@@ -412,6 +413,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     links = Link.objects.filter(parent__is_active=True).values('id', 'url', 'importance').order_by('id')
+    bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     import random
     random.shuffle(links)
@@ -421,11 +423,14 @@ def get_prices():
             if links[(i + 0) % len(links)]['importance'] < rnd:
                 continue
             site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
-            # time.sleep(15)
             if not site:
                 logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links), i)
+            if i % 300 == 0:
+                for j in range(0, len(bookmarks)):
+                    site = re.findall("//(.*?)/", bookmarks[j]['url'])
+                    pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links),  j)
 
     logger.info(statistic)
 
@@ -473,7 +478,7 @@ def divar():
             "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
         time.sleep(5)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarPhoneNumber)
-        time.sleep(60)
+        time.sleep(90)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarCode)
         # time.sleep(5)
         # driver.execute_script(

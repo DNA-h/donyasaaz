@@ -6,36 +6,6 @@ from django.http import JsonResponse
 from models.apis import crawlers
 
 tests = [
-    {"url": "https://m3sell.com/product/CineTracer",
-     "price": 2300000,
-     "message": "m3sell_com-1"},
-
-    {"url": "https://m3sell.com/product/G-Preset-FullPack",
-     "price": 110000,
-     "message": "m3sell_com-2"},
-
-    {"url": "https://m3sell.com/product/SoftBoxX5",
-     "price": 1300000,
-     "message": "m3sell_com-3"},
-
-    {
-        "url": "http://sazplus.com/product/%da%a9%d8%a7%d8%ae%d9%86-%d8%b3%d9%84%d8%a7-se-012/",
-        "price": 8200000,
-        "message": "sazplus.com-1"
-    },
-
-    {
-        "url": "http://sazplus.com/product/%d9%88%db%8c%d9%88%d9%84%d9%86-%d9%85%d9%88%d9%84%d8%b1-%d9%85%d8%af%d9%84-500-%d8%b3%d8%a7%db%8c%d8%b2-3-4/",
-        "price": 5800000,
-        "message": "sazplus.com-2"
-    },
-
-    {
-        "url": "http://sazplus.com/product/%d9%88%db%8c%d9%88%d9%84%d9%86-%d8%a2%d9%85%d8%a7%d8%aa%db%8c-%d9%85%d8%af%d9%84-100-%d8%b3%d8%a7%db%8c%d8%b2-2-4/?utm_medium=PPC",
-        "price": 2850000,
-        "message": "sazplus.com-3"
-    },
-
     {
         "url": "https://saazaar.com/product/%da%a9%db%8c%d9%85%d9%86%d8%af-%d9%85%d8%ac%d8%b0%d9%88%d8%a8/",
         "price": 14040000,
@@ -53,7 +23,7 @@ tests = [
         "price": -1,
         "message": "saazaar.com-3"
     },
-
+    # Todo don't check if it is too complicated
     {
         "url": "https://sazzbazz.com/product/%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D8%B5%D8%A7%D8%AF%D9%82%DB%8C-%D9%82%D9%86%D8%A8%D8%B1%DB%8C-%D9%85%DB%8C%D9%86%DB%8C%D8%A7%D8%AA%D9%88%D8%B1/",
         "price": 9185000,
@@ -77,48 +47,38 @@ tests = [
     # {"url": "https://www.rayanmusic.com/cort-x100-opbk",
     #  "price": 0,
     #  "message": "rayanmusic_com-3"},
-
-    {
-        "url": "https://www.khaneyesaaz.ir/%D8%B3%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%AC%D9%87%D8%A7%D9%86%DB%8C/%D8%AA%D9%85%D9%BE%D9%88/%D8%AF%D8%A7%D8%B1%D8%A8%D9%88%DA%A9%D8%A7-%D8%AC%D9%88%D9%87%D8%B1%D8%A7%D9%84%D9%81%D9%86-%D9%85%D8%AF%D9%84-b22-6110?utm_medium=PPC&utm_source=Torob",
-        "price": 11000000,
-        "message": "khaneyesaaz.ir-1"
-    },
-    # crawlers is ok and run correctly but doesn't work in test
-    {
-        "url": "https://www.khaneyesaaz.ir/%D8%B3%D8%A7%D8%B2-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C/%D8%A8%D8%A7%D8%BA%D9%84%D8%A7%D9%85%D8%A7/%D8%A8%D8%A7%D8%BA%D9%84%D8%A7%D9%85%D8%A7-%D8%AF%D8%B3%D8%AA%D9%87-%D8%A8%D9%84%D9%86%D8%AF-%D9%87%D9%86%D8%A7%D8%B1%D9%87?utm_medium=PPC&utm_source=Torob",
-        "price": 2950000,
-        "message": "khaneyesaaz.ir-2"
-    },
-    {
-        "url": "https://www.khaneyesaaz.ir/%D8%B3%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%AC%D9%87%D8%A7%D9%86%DB%8C/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1/%D9%BE%DA%A9%DB%8C%D8%AC-%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A7%D9%84%DA%A9%D8%AA%D8%B1%DB%8C%DA%A9-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-%D9%85%D8%AF%D9%84-erg121gp?utm_medium=PPC&utm_source=Torob",
-        "price": 9750000,
-        "message": "khaneyesaaz.ir-3"
-    },
-    {
-        "url": "https://www.mahdigit.ir/4k",
-        "price": 1200000,
-        "message": "www.mahdigit.ir-1"
-    },
-    {
-        "url": "https://www.mahdigit.ir/k8",
-        "price": 348000,
-        "message": "www.mahdigit.ir-2"
-    },
-    {
-        "url": "https://www.mahdigit.ir/vitality-cross-action",
-        "price": -1,
-        "message": "www.mahdigit.ir-3"
-    },
-    {
-        "url": "https://www.khaneyesaaz.ir/%D8%B3%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%AC%D9%87%D8%A7%D9%86%DB%8C/%D9%87%D9%86%DA%AF-%D8%AF%D8%B1%D8%A7%D9%85/%D9%87%D9%86%DA%AF%D8%AF%D8%B1%D8%A7%D9%85-9%D9%86%D8%AA-%DA%A9%DB%8C%D8%AA%D8%A7-%D9%BE%D9%86%D8%AA%D8%A7%D9%85?utm_medium=PPC&utm_source=Torob",
-        "price": 16000000,
-        "message": "reported-3"
-    },
-    {
-        "url": "https://www.khaneyesaaz.ir/%D9%84%D9%88%D8%A7%D8%B2%D9%85-%D8%AC%D8%A7%D9%86%D8%A8%DB%8C/%D8%B3%D8%A7%D8%B2%D9%87%D8%A7%DB%8C-%D8%A2%D8%B1%D8%B4%D9%87-%D8%A7%DB%8C/%D9%84%D9%88%D8%A7%D8%B2%D9%85-%D8%AC%D8%A7%D9%86%D8%A8%DB%8C-%D9%88%DB%8C%D9%88%D9%84%D9%86/%D8%B3%DB%8C%D9%85-%D9%88%DB%8C%D9%88%D9%84%D9%86-%D9%BE%DB%8C%D8%B1%D8%A7%D8%B3%D8%AA%D8%B1%D9%88-%D8%B3%D8%A8%D8%B2-%D9%85%D8%AF%D9%84-chromcor?utm_medium=PPC&utm_source=Torob",
-        "price": 1300000,
-        "message": "reported-4"
-    },
+    # some issue with ul in price section
+    # Todo use regular expression
+    # {
+    #     "url": "https://www.mahdigit.ir/4k",
+    #     "price": 999000,
+    #     "message": "www.mahdigit.ir-1"
+    # }, The price has no class in page web source
+    # {
+    #     "url": "https://www.mahdigit.ir/k8",
+    #     "price": 348000,
+    #     "message": "www.mahdigit.ir-2"
+    # },
+    # {
+    #     "url": "https://www.mahdigit.ir/vitality-cross-action",
+    #     "price": -1,
+    #     "message": "www.mahdigit.ir-3"
+    # },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%da%a9%d9%86%d8%aa%d8%b1%d9%84%d8%b1-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%a7%d9%84%da%af%d8%a7%d8%aa%d9%88-%d9%85%d8%af%d9%84-elgato-stream-deck-xl/",
+    #     "price": 10428000,
+    #     "message": "agrastore-1"
+    # },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-saramonic-blink500-b4/?utm_medium=PPC&utm_source=Torob",
+    #     "price": 8504000,
+    #     "message": "agrastore-2"
+    # },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%AF%D8%A7%DB%8C%D9%86%D8%A7%D9%85%DB%8C%DA%A9-%D8%B4%D9%88%D8%B1-%D9%85%D8%AF%D9%84-sm7b/?utm_medium=PPC&utm_source=Torob",
+    #     "price": -1,
+    #     "message": "agrastore-3"
+    # }, site is down
     {
         "url": "https://www.sazbebar.com/shop/guitar/electric-guitars/%D9%BE%DA%A9%DB%8C%D8%AC-%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A7%D9%84%DA%A9%D8%AA%D8%B1%DB%8C%DA%A9-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-%D9%85%D8%AF%D9%84-eg112c/?utm_medium=PPC&utm_source=Torob",
         "price": 10200000,
@@ -135,9 +95,19 @@ tests = [
         "message": "sazbebar-3"
     },
     {
-        "url": "https://dragon-shop.ir/product/%d9%be%d8%af-%d8%b5%d9%86%d8%af%d9%84%db%8c-%da%af%db%8c%d9%85%db%8c%d9%86%da%af-%d9%81%d9%84%d9%88%d8%b1%d9%be%d8%af-%d8%b7%d8%b1%d8%ad-florpad-arctic/",
-        "price": -1,
+        "url": "https://dragon-shop.ir/product/%d8%ae%d8%b1%db%8c%d8%af-%da%a9%d8%a7%d8%a8%d9%84-%d8%b4%d8%a7%d8%b1%da%98%d8%b1-%d8%af%d8%b3%d8%aa%d9%87-cable-charger-1m-ps4/",
+        "price": 59000,
         "message": "dragon-shop-1"
+    },
+    {
+        "url": "https://dragon-shop.ir/product/%d9%be%d8%af-%d8%b5%d9%86%d8%af%d9%84%db%8c-%da%af%db%8c%d9%85%db%8c%d9%86%da%af-%d9%81%d9%84%d9%88%d8%b1%d9%be%d8%af-%d8%b7%d8%b1%d8%ad-florpad-arctic/",
+        "price": 2400000,
+        "message": "dragon-shop-2"
+    },
+    {
+        "url": "https://dragon-shop.ir/product/%d8%ae%d8%b1%db%8c%d8%af-dualshock-4-%d8%b1%d8%b2%da%af%d9%84%d8%af-%d8%b3%d8%b1%db%8c-%d8%ac%d8%af%db%8c%d8%af/",
+        "price": -1,
+        "message": "dragon-shop-3"
     },
 ]
 

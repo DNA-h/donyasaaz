@@ -426,11 +426,11 @@ def get_prices():
             if not site:
                 logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                 continue
-            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links), i)
+            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
             if i % 300 == 0:
                 for j in range(0, len(bookmarks)):
                     site = re.findall("//(.*?)/", bookmarks[j]['url'])
-                    pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links),  j)
+                    pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
 
     logger.info(statistic)
 

@@ -6,6 +6,10 @@ from django.http import JsonResponse
 from models.apis import crawlers
 
 tests = [
+    {"url": "https://digiseda.ir/153-rode-nt2-a.html?utm_medium=PPC&utm_source=Torob",
+     "price": 12000000,
+     "message": "digiseda_ir-1"},
+
     {"url": "https://www.ghestico.com/Installment/Product/988/Game-Console/Sony/Playstation-5-825GB-PS5",
      "price": 24400000,
      "message": "ghestico_com-1"},
@@ -27,7 +31,7 @@ tests = [
      "message": "m3sell_com-2"},
 
     {"url": "https://m3sell.com/product/SoftBoxX5",
-     "price": 1300000,
+     "price": 1200000,
      "message": "m3sell_com-3"},
 
     {
@@ -56,6 +60,7 @@ tests = [
     # {"url": "https://www.rayanmusic.com/cort-x100-opbk",
     #  "price": 0,
     #  "message": "rayanmusic_com-3"},
+    # some issue with ul in price section
 
     {"url": "https://1xmarket.com/product/rapoo-gk500punk-mechanical-gaming-keyboard/",
      "price": 1710000,
@@ -74,7 +79,6 @@ tests = [
         "price": 11000000,
         "message": "khaneyesaaz.ir-1"
     },
-    # crawlers is ok and run correctly but doesn't work in test
     {
         "url": "https://www.khaneyesaaz.ir/%D8%B3%D8%A7%D8%B2-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C/%D8%A8%D8%A7%D8%BA%D9%84%D8%A7%D9%85%D8%A7/%D8%A8%D8%A7%D8%BA%D9%84%D8%A7%D9%85%D8%A7-%D8%AF%D8%B3%D8%AA%D9%87-%D8%A8%D9%84%D9%86%D8%AF-%D9%87%D9%86%D8%A7%D8%B1%D9%87?utm_medium=PPC&utm_source=Torob",
         "price": 2950000,
@@ -97,14 +101,14 @@ tests = [
     },
     {
         "url": "https://chavoosh110.com/product/%D9%BE%D8%A7%DB%8C%D9%87-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%A7%DB%8C%D8%B3%D8%AA%D8%A7%D8%AF%D9%87-%D9%87%D8%B1%DA%A9%D9%88%D9%84%D8%B3-hercules-ms531b/",
-        "price": -1,
+        "price": 2350000,
         "message": "chavoosh110.com-3"
     },
     # {
     #     "url": "https://www.mahdigit.ir/4k",
     #     "price": 999000,
     #     "message": "www.mahdigit.ir-1"
-    # },
+    # }, The price has no class in page web source
     # {
     #     "url": "https://www.mahdigit.ir/k8",
     #     "price": 348000,
@@ -115,21 +119,21 @@ tests = [
     #     "price": -1,
     #     "message": "www.mahdigit.ir-3"
     # },
-    {
-        "url": "https://www.agrastore.ir/product/%da%a9%d9%86%d8%aa%d8%b1%d9%84%d8%b1-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%a7%d9%84%da%af%d8%a7%d8%aa%d9%88-%d9%85%d8%af%d9%84-elgato-stream-deck-xl/",
-        "price": 10428000,
-        "message": "agrastore-1"
-    },
-    {
-        "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-saramonic-blink500-b4/?utm_medium=PPC&utm_source=Torob",
-        "price": 8504000,
-        "message": "agrastore-2"
-    },
-    {
-        "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%AF%D8%A7%DB%8C%D9%86%D8%A7%D9%85%DB%8C%DA%A9-%D8%B4%D9%88%D8%B1-%D9%85%D8%AF%D9%84-sm7b/?utm_medium=PPC&utm_source=Torob",
-        "price": -1,
-        "message": "agrastore-3"
-    },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%da%a9%d9%86%d8%aa%d8%b1%d9%84%d8%b1-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%a7%d9%84%da%af%d8%a7%d8%aa%d9%88-%d9%85%d8%af%d9%84-elgato-stream-deck-xl/",
+    #     "price": 10428000,
+    #     "message": "agrastore-1"
+    # },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-saramonic-blink500-b4/?utm_medium=PPC&utm_source=Torob",
+    #     "price": 8504000,
+    #     "message": "agrastore-2"
+    # },
+    # {
+    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%AF%D8%A7%DB%8C%D9%86%D8%A7%D9%85%DB%8C%DA%A9-%D8%B4%D9%88%D8%B1-%D9%85%D8%AF%D9%84-sm7b/?utm_medium=PPC&utm_source=Torob",
+    #     "price": -1,
+    #     "message": "agrastore-3"
+    # }, site is down
     {
         "url": "https://beethovenmshop.com/product/699/%D9%BE%DB%8C%D8%A7%D9%86%D9%88-%D8%AF%DB%8C%D8%AC%DB%8C%D8%AA%D8%A7%D9%84-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88-%D9%84%D8%A7%D8%AC%DB%8C%DA%A9-%D9%85%D8%AF%D9%84-numa-compact-2?utm_medium=PPC&utm_source=Torob",
         "price": 17500000,
@@ -137,7 +141,7 @@ tests = [
     },
     {
         "url": "https://beethovenmshop.com/product/732/%D9%BE%DB%8C%D8%A7%D9%86%D9%88-%D8%AF%DB%8C%D8%AC%DB%8C%D8%AA%D8%A7%D9%84-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-%D9%85%D8%AF%D9%84-clp-745",
-        "price": 87500000,
+        "price": 88500000,
         "message": "beethovenmshop-2"
     },
     {

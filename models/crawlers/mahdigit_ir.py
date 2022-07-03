@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def basalam(link, headers, site):
+def mahdigit(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -16,15 +16,18 @@ def basalam(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": "add-to-cart__button bs-button bs-button--lg bs-button-fill bs-button-fill--primary bs-button--full-width"}):
-        div = soup.find("span", attrs={"class": "add-to-cart__content-price"})
-        if len(div) == 0:
+    if soup.find("button", attrs={"class": "btn btn-primary btn-block product-addtocart"}):
+        div = soup.find("h5", attrs={"class": "product-price"})
+        if div is None:
             return -2
-        elif len(div) == 1:
-            a = re.sub(r',', '', div.text).strip()
-        else:
-            a = re.sub(r',', '', div.text).strip()
-        b = re.findall(r'\d+', a)
+        # p = div.find_all("span", attrs={"class": "ng-binding"})
+        # if len(p) == 0:
+        #     return -1
+        # elif len(p) == 1:
+        #     a = re.sub(r',', '', p[0].text).strip()
+        # else:
+        #     a = re.sub(r',', '', p[1].text).strip()
+        # b = re.findall(r'\d+', a)
         return div
     else:
         return -3

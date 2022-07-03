@@ -24,17 +24,18 @@ tests = [
         "message": "saazaar.com-3"
     },
     # Todo don't check if it is too complicated
+    # piece a cake ;-)
     {
         "url": "https://sazzbazz.com/product/%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D8%B5%D8%A7%D8%AF%D9%82%DB%8C-%D9%82%D9%86%D8%A8%D8%B1%DB%8C-%D9%85%DB%8C%D9%86%DB%8C%D8%A7%D8%AA%D9%88%D8%B1/",
-        "price": 9185000,
+        "price": 9650000,
         "message": "sazzbazz.com-1"
     },
 
-    {
-        "url": "https://basalam.com/payam-art/product/3063673?utm_medium=PPC&utm_source=Torob",
-        "price": 2049000,
-        "message": "basalam.com-1"
-    },
+    # {
+    #     "url": "https://basalam.com/payam-art/product/3063673?utm_medium=PPC&utm_source=Torob",
+    #     "price": 2049000,
+    #     "message": "basalam.com-1"
+    # },
 
     # {"url": "https://www.rayanmusic.com/cort-x100-opbb",#thi site has issue with ul in price
     #  "price": 8250000,
@@ -64,21 +65,21 @@ tests = [
     #     "price": -1,
     #     "message": "www.mahdigit.ir-3"
     # },
-    # {
-    #     "url": "https://www.agrastore.ir/product/%da%a9%d9%86%d8%aa%d8%b1%d9%84%d8%b1-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%a7%d9%84%da%af%d8%a7%d8%aa%d9%88-%d9%85%d8%af%d9%84-elgato-stream-deck-xl/",
-    #     "price": 10428000,
-    #     "message": "agrastore-1"
-    # },
-    # {
-    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-saramonic-blink500-b4/?utm_medium=PPC&utm_source=Torob",
-    #     "price": 8504000,
-    #     "message": "agrastore-2"
-    # },
-    # {
-    #     "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%AF%D8%A7%DB%8C%D9%86%D8%A7%D9%85%DB%8C%DA%A9-%D8%B4%D9%88%D8%B1-%D9%85%D8%AF%D9%84-sm7b/?utm_medium=PPC&utm_source=Torob",
-    #     "price": -1,
-    #     "message": "agrastore-3"
-    # }, site is down
+    {
+        "url": "https://www.agrastore.ir/product/%da%a9%d9%86%d8%aa%d8%b1%d9%84%d8%b1-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%a7%d9%84%da%af%d8%a7%d8%aa%d9%88-%d9%85%d8%af%d9%84-elgato-stream-deck-xl/",
+        "price": -1,
+        "message": "agrastore-1"
+    },
+    {
+        "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-saramonic-blink500-b4/?utm_medium=PPC&utm_source=Torob",
+        "price": -1,
+        "message": "agrastore-2"
+    },
+    {
+        "url": "https://www.agrastore.ir/product/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-%D8%AF%D8%A7%DB%8C%D9%86%D8%A7%D9%85%DB%8C%DA%A9-%D8%B4%D9%88%D8%B1-%D9%85%D8%AF%D9%84-sm7b/?utm_medium=PPC&utm_source=Torob",
+        "price": -1,
+        "message": "agrastore-3"
+    },
     {
         "url": "https://www.sazbebar.com/shop/guitar/electric-guitars/%D9%BE%DA%A9%DB%8C%D8%AC-%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A7%D9%84%DA%A9%D8%AA%D8%B1%DB%8C%DA%A9-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-%D9%85%D8%AF%D9%84-eg112c/?utm_medium=PPC&utm_source=Torob",
         "price": 10200000,
@@ -86,7 +87,7 @@ tests = [
     },
     {
         "url": "https://www.sazbebar.com/shop/wind-instruments/trumpet/%D8%AA%D8%B1%D9%88%D9%85%D9%BE%D8%AA-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-%D9%85%D8%AF%D9%84-ytr-2330/",
-        "price": 2620000,
+        "price": 2262000,
         "message": "sazbebar-2"
     },
     {

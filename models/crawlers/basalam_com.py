@@ -1,16 +1,27 @@
 import re
 import logging
-
 import requests
 from urllib3.exceptions import InsecureRequestWarning
+import os
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+import sys
 
 
 def basalam(link, headers, site):
     try:
-        requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-        response = requests.get(link.url, headers=headers, verify=False)
-        soup = BeautifulSoup(response.text, "html.parser")
+        chrome_options = Options()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--disable-gpu")
+        sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
+                                  options=chrome_options)
+        driver.get(link.url)
+        soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
@@ -25,6 +36,6 @@ def basalam(link, headers, site):
         else:
             a = re.sub(r',', '', div.text).strip()
         b = re.findall(r'\d+', a)
-        return div
+        return int(b[0])
     else:
         return -3

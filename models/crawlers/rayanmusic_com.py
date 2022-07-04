@@ -17,11 +17,11 @@ def rayanmusic(link, headers, site):
         return None
 
     if soup.find("button", attrs={"class": "btn btn-primary btn-lg btn-block"}):
-        div = soup.find("ul", attrs={"class": "list-unstyled"})
-        if div is None:
+        div = soup.find_all("h2", string=re.compile("تومان"))
+        if len(div) == 0:
             return -1
         else:
-            a = re.sub(r',', '', div.text).strip()
+            a = re.sub(r',', '', div[0].text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
     else:

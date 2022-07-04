@@ -1,17 +1,13 @@
 import logging
 import time
 import math
-
+from models.crawlers import *
 from models.models import Price, Link, MusicItem
 from constance import config
-from models.crawlers import *
 import random
-from urllib3.exceptions import InsecureRequestWarning
 import os
 import re
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
 crawlers = {"digiavl.com": digiavl_com.digiavl,
@@ -154,7 +150,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "www.iranloop.ir": iranloop_ir.iranloop, "behinmedia.ir": behinmedia_ir.behinmedia,
             "www.sazforoosh.com": www_sazforoosh_com.sazforoosh, "sazkala.com": sazkala_com.sazkala,
             "sedastore.com": sedastore_com.sedastore, "www.djcenter.net": www_djcenter_net.djcenter,
-            "digiseda.ir": www_djcenter_net.djcenter, "rayanseda.com": rayanseda_com.rayanseda,
+            "digiseda.ir": digiseda_ir.digiseda, "rayanseda.com": rayanseda_com.rayanseda,
             "sornashop.com": www_sornashop_com.sornashop, "gemamart.com": gemamart_com.gemamart,
             "www.sornashop.com": www_sornashop_com.sornashop, "davarmelody.com": davarmelody_com.davarmelody,
             "www.tehranmelody.com": www_tehranmelody_com.tehranmelody, "guitarbaz.com": guitarbaz_com.guitarbaz_com,
@@ -232,21 +228,25 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "sotecenter.com": sotecenter_com.sotecenter, "avaparsian.com": avaparsian_com.avaparsian,
             "www.shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven,
             "shiraz-beethoven.ir": shiraz_beethoven_ir.shiraz_beethoven, "musicala.ir": musicala_ir.musicala,
-            "shabahang.shop": shabahang_shop.shabahang,"golhastore.com": golhastore_com.golhastore,
+            "shabahang.shop": shabahang_shop.shabahang, "golhastore.com": golhastore_com.golhastore,
             "www.shabahangmusic.com": www_shabahangmusic_com.shabahangmusic, "diafoto.ir": diafoto_ir.diafoto,
             "www.avancomputer.com": www_avancomputer_com.avancomputer_com, "payatel.com": payatel_com.payatel,
             "arasound.ir": arasound_ir.arasound, "shahresaz.com": shahresaz_com.shahresaz,
             "arshiamehr.co": arshiamehr_co.arshiamehr, "tehransaz.com": tehransaz_com.tehransaz,
-            "kharidkala24.com":kharidkala24_com.kharidkala24, "dorbino.org": dorbino_org.dorbino,
+            "kharidkala24.com": kharidkala24_com.kharidkala24, "dorbino.org": dorbino_org.dorbino,
             "saazestaan.com": saazestaan_com.saazestaan, "www.zhovanmusic.com": zhovanmusic_com.zhovanmusic,
             "sinacamera.ir": sinacamera_ir.sinacamera, "turborayan.com": turborayan_com.turborayan,
-            "www.ghestico.com": ghestico_com.ghestico, "zhiyunkala.com":zhiyunkala_com.zhiyunkala,
-            "m3sell.com": m3sell_com.m3sell, "santoorsadeghi.ir":santoorsadeghi_ir.santoorsadeghi,
-            "canon1.ir": canon1_ir.canon1, "memorybazar.com":memorybazar_com.memorybazar,
-            "www.rayanmusic.com": rayanmusic_com.rayanmusic, "nobesho.com":nobesho_com.nobesho,
+            "www.ghestico.com": ghestico_com.ghestico, "zhiyunkala.com": zhiyunkala_com.zhiyunkala,
+            "m3sell.com": m3sell_com.m3sell, "santoorsadeghi.ir": santoorsadeghi_ir.santoorsadeghi,
+            "canon1.ir": canon1_ir.canon1, "memorybazar.com": memorybazar_com.memorybazar,
+            "www.rayanmusic.com": rayanmusic_com.rayanmusic, "nobesho.com": nobesho_com.nobesho,
             "1xmarket.com": www_1xmarket_com.www_1xmarket, "nooracam.com": nooracam_com.nooracam,
             "beethovenmshop.com": beethovenmshop_com.beethovenmshop, "www.agrastore.ir": www_agrastore_ir.agrastore,
-            "www.mahdigit.ir": www_mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": www_khaneyesaaz_ir.khaneyesaaz}
+            "www.mahdigit.ir": mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": www_khaneyesaaz_ir.khaneyesaaz,
+            "sazplus.com": sazplus_com.sazplus, "saazaar.com": saazaar_com.saazaar,
+            "papiran.ir": papiran_ir.papiran, "activemarket24.com": activemarket24_com.activemarket24,
+            "www.sazbebar.com": www_sazbebar_com.sazbebar, "dragon-shop.ir": dragon_shop_ir.dragon_shop,
+            "saazbaaz.com": saazbaaz_com.saazbaaz}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 

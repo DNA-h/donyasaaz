@@ -81,4 +81,4 @@ __all__ = ["iranloop_ir", "iransote_com", "www_sazforoosh_com", "sazkala_com", "
            "santoorsadeghi_ir", "canon1_ir", "memorybazar_com", "rayanmusic_com", "nobesho_com", "www_1xmarket_com",
            "nooracam_com", "beethovenmshop_com", "www_agrastore_ir", "mahdigit_ir", "www_khaneyesaaz_ir",
            'sazplus_com', 'saazaar_com', "papiran_ir", "activemarket24_com", "www_sazbebar_com",
-           "dragon_shop_ir","saazbaaz_com"]
+           "dragon_shop_ir","saazbaaz_com","doornegahshop_com","microless_ir"]

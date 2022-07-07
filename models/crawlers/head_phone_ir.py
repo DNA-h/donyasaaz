@@ -16,7 +16,7 @@ def head_phone(link, headers, site):
         logger.info('%s :  %s,', site, e)
         
         return None
-    if soup.find("a",attrs={"class":"btn btn-danger btn-cart addToCart"}):
+    if soup.find("a",attrs={"class":"btn btn-cart addToCart"}):
         div = soup.find("div", attrs={"class":"price-box text-right"})
         if div is None:
             return -1

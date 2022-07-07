@@ -14,15 +14,19 @@ def head_phone(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
-        
         return None
-    if soup.find("a",attrs={"class":"btn btn-danger btn-cart addToCart"}):
-        div = soup.find("div", attrs={"class":"price-box text-right"})
+
+    if soup.find("a", attrs={"class": "btn btn-cart addToCart"}):
+        div = soup.find("span", attrs={"class": "price"})
         if div is None:
-            return -1
-        p = div.find("span", attrs={"class": "price"})
-        if p:
+            siv = soup.find("p", attrs={"class": "special-price"})
+            p = siv.find_all("span", attrs={"class":"price"})
             a = re.sub(r',', '', p.text).strip()
             b = re.findall(r'\d+', a)
             return int(b[0])
-    return -1
+        else:
+            a = re.sub(r',', '', div.text).strip()
+            b = re.findall(r'\d+', a)
+        return int(b[0])
+    else:
+        return -1

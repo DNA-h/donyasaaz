@@ -246,7 +246,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "sazplus.com": sazplus_com.sazplus, "saazaar.com": saazaar_com.saazaar,
             "papiran.ir": papiran_ir.papiran, "activemarket24.com": activemarket24_com.activemarket24,
             "www.sazbebar.com": www_sazbebar_com.sazbebar, "dragon-shop.ir": dragon_shop_ir.dragon_shop,
-            "saazbaaz.com": saazbaaz_com.saazbaaz}
+            "saazbaaz.com": saazbaaz_com.saazbaaz,"pro-av.ir": pro_av_ir.pro_av}
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'}
 

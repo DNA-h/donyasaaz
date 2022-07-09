@@ -387,6 +387,8 @@ def run_prices(request):
     Thread(target=get_prices).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 
+@csrf_exempt
+@api_view(['GET', 'POST'])
 def run_divar(request):
     Thread(target=divar).start()
     return JsonResponse({'success': True}, encoder=JSONEncoder)

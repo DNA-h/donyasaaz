@@ -283,6 +283,27 @@ def test_timezone(request):
     price = basalam_com.basalam(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
+def send_sms_to_user(number):
+    import zeep
+    from constance import config
+    wsdl = "https://www.payam-resan.com/ws/v2/ws.asmx?WSDL"
+    client = zeep.Client(wsdl=wsdl)
+    result = client.service.SendMessage(
+        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="در دنیای ساز" + "\n" + "سازت رو با شماره خودت آگهی کن و بفروش" + "\n" + "donyaayesaaz.com",
+        RecipientNumbers=[number], SenderNumber="50005457", Type=1,
+        AllowedDelay=0
+    )
+    time.sleep(12)
+    status = client.service.GetMessagesStatus(Username="09122727100", PassWord="5e9K#p@6#3", messagesId=[result[0]])
+    if status[0] <= 5:
+        # config.cheapLine += 1
+        return
+    client.service.SendMessage(
+        Username="09122727100", PassWord="5e9K#p@6#3", MessageBodie="در دنیای ساز" + "\n" + "سازت رو با شماره خودت آگهی کن و بفروش" + "\n" + "donyaayesaaz.com",
+        RecipientNumbers=[number], SenderNumber="9999326216", Type=1,
+        AllowedDelay=0
+    )
+    # config.expensiveLine += 1
 
 def create_and_download_backup():
     import os
@@ -470,16 +491,26 @@ def divar():
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         driver.get("https://divar.ir/s/tehran/musical-instruments")
+        config.phoneNumberLatest = 'باز کردن دیوار'
+        config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
         time.sleep(10)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-button kt-button--inlined kt-nav-button nav-bar__btn kt-nav-button--small\")[0].click()")
+        config.phoneNumberLatest = 'دیوار من'
+        config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
         time.sleep(5)
         driver.execute_script(
             "document.getElementsByClassName(\"kt-fullwidth-link kt-fullwidth-link--small navbar-my-divar__button-item\")[0].click()")
+        config.phoneNumberLatest = 'ورود'
+        config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
         time.sleep(5)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarPhoneNumber)
+        config.phoneNumberLatest = 'کد ارسال شد'
+        config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
         time.sleep(90)
         (driver.find_elements_by_class_name("kt-textfield__input")[2]).send_keys(config.divarCode)
+        config.phoneNumberLatest = 'کد وارد شد'
+        config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
         # time.sleep(5)
         # driver.execute_script(
         #     "document.getElementsByClassName(\"kt-button kt-button--primary auth-modal__submit-button\")[0].click()")
@@ -498,19 +529,21 @@ def divar():
     config.phoneNumberLatest = ''
     firstAd = True
     while(True):
-        adds = soup.find_all("a", attrs={"class": "kt-post-card kt-post-card--outlined kt-post-card--has-chat"})
+        adds = soup.find_all("article", attrs={"class": "kt-post-card kt-post-card--outlined kt-post-card--padded kt-post-card--has-action"})
         if len(adds) == 0:
             return -1
         for add in adds:
-            if add['href'] in theAdds:
+            if add.parent['href'] in theAdds:
                 continue
             else:
-                theAdds.append(add['href'])
+                theAdds.append(add.parent['href'])
             try:
-                driver.get("https://divar.ir"+add['href'])
+                driver.get("https://divar.ir"+add.parent['href'])
                 driver.execute_script("document.getElementsByClassName(\"kt-button kt-button--primary post-actions__get-contact\")[0].click()")
                 if firstAd:
                     firstAd = False
+                    config.phoneNumberLatest = 'قوانین و مقررات'
+                    config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
                     time.sleep(5)
                     driver.execute_script(
                         "document.getElementsByClassName(\"kt-button kt-button--primary\")[2].click()")
@@ -540,6 +573,7 @@ def divar():
                     config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
                     config.phoneNumberTotal = config.phoneNumberTotal + 1
                     config.phoneNumberLatest = number[0]
+                    Thread(target=send_sms_to_user, args=(str(int(number[0])),)).start()
             except Exception as e:
                 print(e)
         time.sleep(300)

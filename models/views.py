@@ -271,16 +271,16 @@ def test():
 
 @csrf_exempt
 @api_view(['GET', 'POSt'])
-def test_timezone(request):
+def test(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import basalam_com
+    from models.crawlers import torob_com
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://basalam.com/payam-art/product/3063673?utm_medium=PPC&utm_source=Torob"
-    price = basalam_com.basalam(a, headers, "")
+    a.url = "https://torob.com/p/718c9285-f29a-449e-a1a6-67af6b15c632/alhambra-z-nature-cw-ez/"
+    price = torob_com.torob(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):

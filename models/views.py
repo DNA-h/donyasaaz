@@ -263,12 +263,6 @@ def font655ba951f59a5b99d8627273e0883638(request):
     return FileResponse(open('C:/Users/USER/donyasaaz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
-@app.task
-def test():
-    print('just a test')
-    return JsonResponse({'success': True}, encoder=JSONEncoder)
-
-
 @csrf_exempt
 @api_view(['GET', 'POSt'])
 def test(request):

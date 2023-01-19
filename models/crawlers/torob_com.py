@@ -17,7 +17,9 @@ def torob(link, headers, site):
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+        print(1)
         driver.get(link.url)
+        print(2)
         soup = BeautifulSoup(driver.page_source, "html.parser")
         driver.close()
     except Exception as e:
@@ -25,6 +27,7 @@ def torob(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
+    print(3)
     p = soup.find("div", attrs={"class": "jsx-e248faa755581a69 price"})
     if p is not None:
         s = re.sub(r'٫', '', p.text).strip()

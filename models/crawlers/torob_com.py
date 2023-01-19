@@ -25,7 +25,7 @@ def torob(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    p = soup.find("h2", attrs={"class": "jsx-222558948"})
+    p = soup.find("div", attrs={"class": "jsx-e248faa755581a69 price"})
     if p is not None:
         s = re.sub(r'٫', '', p.text).strip()
         a = re.sub(r'\s+', ' ', s)

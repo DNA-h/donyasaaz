@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('items/', musicItemHandler),
     path('links/', linkHandler),
-    path('test_timezone/', test_timezone),
+    path('test_timezone/', test),
     path('test/', test),
     path('run_prices/', run_prices),
     path('run_divar/', run_divar),

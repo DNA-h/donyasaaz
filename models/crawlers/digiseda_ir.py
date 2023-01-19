@@ -17,7 +17,7 @@ def digiseda(link, headers, site):
         return None
 
     if soup.find("button", attrs={"class": "exclusive btn btn-success"}):
-        div = soup.find("div", attrs={"class": "prd-price"})
+        div = soup.find("div", attrs={"class": re.compile("prd-price*")})
         if len(div) == 0:
             return -1
         elif len(div) == 1:

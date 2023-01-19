@@ -20,6 +20,6 @@ def donyayesaaz(link, headers):
     if p is not None:
         a = re.sub(r',', '', p.text).strip()
         b = re.findall(r'\d+', a)
-        return int(b[0]) / 10
+        return int(b[0])
     else:
         return -1

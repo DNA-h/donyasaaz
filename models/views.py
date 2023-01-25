@@ -268,13 +268,13 @@ def font655ba951f59a5b99d8627273e0883638(request):
 def test(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import torob_com
+    from models.crawlers import www_brilliantsound_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://torob.com/p/718c9285-f29a-449e-a1a6-67af6b15c632/alhambra-z-nature-cw-ez/"
-    price = torob_com.torob(a, headers, "")
+    a.url = "https://fadaksound.com/product/%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%86-akg-%d9%85%d8%af%d9%84-d5s/"
+    price = www_brilliantsound_ir.brilliantsound(a, headers, "")
     return JsonResponse({'returned price': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):

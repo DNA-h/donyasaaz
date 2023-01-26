@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def abadimusic(link, headers, site):
+def woocommerce(link, headers, site, button_class="single_add_to_cart_button button alt", price_type="p", amount_type="span"):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -16,11 +16,11 @@ def abadimusic(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
-        div = soup.find("p", attrs={"class": "price"})
+    if soup.find("button", attrs={"class": button_class}):
+        div = soup.find(price_type, attrs={"class": "price"})
         if div is None:
             return -1
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+        p = div.find_all(amount_type, attrs={"class":"woocommerce-Price-amount amount"})
         if len(p) == 0:
             return -1
         elif len(p) == 1:

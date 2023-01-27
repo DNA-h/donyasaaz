@@ -244,7 +244,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "beethovenmshop.com": beethovenmshop_com.beethovenmshop, "www.agrastore.ir": www_agrastore_ir.agrastore,
             "www.mahdigit.ir": mahdigit_ir.mahdigit, "www.khaneyesaaz.ir": www_khaneyesaaz_ir.khaneyesaaz,
             "sazplus.com": sazplus_com.sazplus, "saazaar.com": saazaar_com.saazaar,
-            "papiran.ir": papiran_ir.papiran, "activemarket24.com": activemarket24_com.activemarket24,
+            "papiran.ir": papiran_ir.papiran, "activemarket24.com": _woocommerce.woocommerce,
             "www.sazbebar.com": www_sazbebar_com.sazbebar, "dragon-shop.ir": dragon_shop_ir.dragon_shop,
             "saazbaaz.com": saazbaaz_com.saazbaaz,"doornegahshop.com":doornegahshop_com.doornegahshop,
             "microless_ir": microless_ir.microless,"pro-av.ir": pro_av_ir.pro_av,}

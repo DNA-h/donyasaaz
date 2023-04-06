@@ -17,14 +17,15 @@ def technicav(link, headers, site):
         
         return None
 
-    if soup.find("button", attrs={"name": "add-to-cart"}):
-        p = soup.find("p", attrs={"class": "price"})
-        if p.find("ins") is not None:
-            s = p.find("ins")
+    if soup.find("button", attrs={"class": "btn-full-disabled"}):
+        return -1
+    else:
+        p = soup.find("div", attrs={"class": "product-price"})
+        if p.find("div",attrs={"class": "old-price"}) is not None:
+            s = p.find("div",attrs={"class": "new-price"})
+            s = s.find("span")[0]
         else:
-            s = p.find("bdi")
+            s = p.find("span")[0]
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         return int(b[0])
-    else:
-        return -1

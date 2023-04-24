@@ -8,11 +8,11 @@ from models.apis import crawlers
 tests = [
     # Todo don't check if it is too complicated
     # piece a cake ;-)
-    # {
-    #     "url": "https://sazzbazz.com/product/%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D8%B5%D8%A7%D8%AF%D9%82%DB%8C-%D9%82%D9%86%D8%A8%D8%B1%DB%8C-%D9%85%DB%8C%D9%86%DB%8C%D8%A7%D8%AA%D9%88%D8%B1/",
-    #     "price": 9650000,
-    #     "message": "sazzbazz.com-1"
-    # },
+    #{
+    #    "url": "https://sazzbazz.com/product/%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D8%B5%D8%A7%D8%AF%D9%82%DB%8C-%D9%82%D9%86%D8%A8%D8%B1%DB%8C-%D9%85%DB%8C%D9%86%DB%8C%D8%A7%D8%AA%D9%88%D8%B1/",
+    #    "price": 9650000,
+    #    "message": "sazzbazz.com-1"
+    #},
     # some issue with ul in price section
     # Todo use regular expression
 ]

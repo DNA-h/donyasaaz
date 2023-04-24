@@ -264,18 +264,18 @@ def font655ba951f59a5b99d8627273e0883638(request):
 
 
 @csrf_exempt
-@api_view(['GET', 'POSt'])
+@api_view(['GET', 'POST'])
 def test(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import www_brilliantsound_ir
+    from models.crawlers import sowtazhang_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://fadaksound.com/product/%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%86-akg-%d9%85%d8%af%d9%84-d5s/"
-    price = www_brilliantsound_ir.brilliantsound(a, headers, "")
-    return JsonResponse({'returned price': price}, encoder=JSONEncoder)
+    a.url = "https://sowtazhang.ir/product/yamaha-hs7i/"
+    price = sowtazhang_ir.sowtazhang(a, headers, "")
+    return JsonResponse({'returned price 2': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):
     import zeep

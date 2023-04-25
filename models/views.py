@@ -275,7 +275,7 @@ def test(request):
     a = Object()
     a.url = "https://sowtazhang.ir/product/yamaha-hs7i/"
     price = sowtazhang_ir.sowtazhang(a, headers, "")
-    return JsonResponse({'returned price ': price}, encoder=JSONEncoder)
+    return JsonResponse({'returned price 3': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):
     import zeep

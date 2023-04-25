@@ -27,17 +27,6 @@ def technicav(link, headers, site):
         return None
 
     if soup.find("div",attrs={"class": "row skel-pro-single loaded"}):
-        details = soup.find("div", attrs={"class": "row skel-pro-single loaded"})
-        if details.find("div", attrs={"class": "product-price"}):
-            if details.find("div",attrs={"class": "old-price"}):
-                div = details.find("div",attrs={"class": "new-price"})
-                span = div.find_all("span")[0]
-                a = re.sub(r',', '', span.text).strip()
-                b = re.findall(r'\d+', a)
-                return int(b[0])  
-            else:
-                return -1 
-        else:
-            return -1
+        return 1
     else:
         return -1

@@ -20,10 +20,10 @@ def technicav(link, headers, site):
     if soup.find("button", attrs={"class": "btn-full-disabled"}):
         return -1
     else:
-        soup.find("div", attrs={"class": "product-price"})
-        if soup.find("div", attrs={"class": "product-price"}):
-            if soup.find("div",attrs={"class": "old-price"}):
-                div = soup.find("div",attrs={"class": "new-price"})
+        details = soup.find("div", attrs={"class": "product-details-top"})
+        if details.find("div", attrs={"class": "product-price"}):
+            if details.find("div",attrs={"class": "old-price"}):
+                div = details.find("div",attrs={"class": "new-price"})
                 a = re.sub(r',', '', div.text).strip()
                 b = re.findall(r'\d+', a)
                 return int(b[0])  

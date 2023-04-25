@@ -21,10 +21,15 @@ def technicav(link, headers, site):
         return -1
     else:
         p = soup.find("div", attrs={"class": "product-price"})
-        if p.find("div",attrs={"class": "old-price"}) is not None:
-            s = s.find("span")[0]
+        if p is not None:
+            return -1
         else:
-            s = p.find("span")[0]
-        a = re.sub(r',', '', s.text).strip()
-        b = re.findall(r'\d+', a)
-        return int(b[0])
+            if p.find("div",attrs={"class": "old-price"}) is not None:
+                s = s.find("span")[0]
+            else:
+                s = p.find("span")[0]
+                a = re.sub(r',', '', s.text).strip()
+                b = re.findall(r'\d+', a)
+                return int(b[0])      
+        
+        

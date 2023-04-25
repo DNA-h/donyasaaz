@@ -275,7 +275,7 @@ def test(request):
     a = Object()
     a.url = "https://www.technicav.com/products/audio-interface/motu-m2/"
     price = technicav_com.technicav(a, headers, "")
-    return JsonResponse({'returned price 5': price}, encoder=JSONEncoder)
+    return JsonResponse({'returned price 6': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):
     import zeep

@@ -20,7 +20,7 @@ def technicav(link, headers, site):
     if soup.find("button", attrs={"class": "btn-full-disabled"}):
         return -1
     else:
-        if soup.find("div", attrs={"class": "row skel-pro-single loaded"}):
+        if soup.find("div",attrs={"class": "row skel-pro-single loaded"}):
             details = soup.find("div", attrs={"class": "row skel-pro-single loaded"})
             if details.find("div", attrs={"class": "product-price"}):
                 if details.find("div",attrs={"class": "old-price"}):

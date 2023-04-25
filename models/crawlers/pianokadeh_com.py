@@ -6,7 +6,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def iranloop(link, headers, site):
+def pianokadeh(link, headers, site):
     try:
         requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
         response = requests.get(link.url, headers=headers, verify=False)
@@ -14,14 +14,15 @@ def iranloop(link, headers, site):
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
+
         return None
 
-    notavail = soup.find("div", attrs={"class": "product-unavailable"})
-    if notavail is None:
-        s = soup.find("span", attrs={"class": "price"})
-        a = re.sub(r',', '', s.text).strip()
+    s= soup.find("div", attrs={"class": "wz-shop-product-out-stock"})
+    if s is None:
+        q = soup.find("span",attrs={"id": "wz-product-price"})
+        a = re.sub(r',', '', q.attrs['wz-data-product-price']).strip()
         b = re.findall(r'\d+', a)
-        if len(b) == 0 :
+        if len(b) == 0:
             return -1
         return int(b[0])
     else:

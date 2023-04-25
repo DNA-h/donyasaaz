@@ -33,7 +33,7 @@ def technicav(link, headers, site):
                 div = details.find("div",attrs={"class": "new-price"})
                 a = re.sub(r',', '', div.text).strip()
                 b = re.findall(r'\d+', a)
-                return int(b[0])  
+                return div.text  
             else:
                 return -1 
         else:

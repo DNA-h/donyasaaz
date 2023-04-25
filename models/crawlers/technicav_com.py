@@ -26,7 +26,9 @@ def technicav(link, headers, site):
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("div",attrs={"class": "row skel-pro-single loaded"}):
-        return 1
-    else:
+    p = soup.find("span", attrs={"id": "popup_name_price"})
+    if p is None:
         return -1
+    a = re.sub(r',', '', p.text).strip()
+    b = re.findall(r'\d+', a)
+    return int(b[0])

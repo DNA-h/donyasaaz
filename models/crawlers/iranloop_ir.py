@@ -17,14 +17,13 @@ def iranloop(link, headers, site):
         
         return None
 
-    availability = soup.find("p", attrs={"id": "availability_statut"})
-    if not availability or availability.text == ' در انبار موجود نیست':
-        return -1
-    else:
-        p = soup.find("p", attrs={"class": "our_price_display"})
-        s = soup.find("span", attrs={"id": "our_price_display"})
+    notavail = soup.find("div", attrs={"class": "product-availability"})
+    if notavail is None:
+        s = soup.find("span", attrs={"class": "price"})
         a = re.sub(r',', '', s.text).strip()
         b = re.findall(r'\d+', a)
         if len(b) == 0 :
             return -1
         return int(b[0])
+    else:
+        return -1

@@ -268,14 +268,14 @@ def font655ba951f59a5b99d8627273e0883638(request):
 def test(request):
     import datetime
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
-    from models.crawlers import technicav_com
+    from models.crawlers import iranloop_ir
     class Object(object):
         pass
 
     a = Object()
-    a.url = "https://www.technicav.com/products/audio-interface/motu-m2/"
-    price = technicav_com.technicav(a, headers, "")
-    return JsonResponse({'returned price 7': price}, encoder=JSONEncoder)
+    a.url = "https://iranloop.ir/-/1677--alesis-vi61.html"
+    price = iranloop_ir.iranloop(a, headers, "")
+    return JsonResponse({'returned price 8': price}, encoder=JSONEncoder)
 
 def send_sms_to_user(number):
     import zeep

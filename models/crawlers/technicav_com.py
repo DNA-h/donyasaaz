@@ -21,7 +21,7 @@ def technicav(link, headers, site):
         return -1
     else:
         if soup.find("div", attrs={"class": "row skel-pro-single loaded"}):
-            details = soup.find("div", attrs={"class": "row skel-pro-single loaded"});
+            details = soup.find("div", attrs={"class": "row skel-pro-single loaded"})
             if details.find("div", attrs={"class": "product-price"}):
                 if details.find("div",attrs={"class": "old-price"}):
                     div = details.find("div",attrs={"class": "new-price"})

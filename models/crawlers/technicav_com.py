@@ -22,7 +22,6 @@ def technicav(link, headers, site):
     else:
         p = soup.find("div", attrs={"class": "product-price"})
         if p.find("div",attrs={"class": "old-price"}) is not None:
-            s = p.find("div",attrs={"class": "new-price"})
             s = s.find("span")[0]
         else:
             s = p.find("span")[0]

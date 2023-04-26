@@ -17,7 +17,7 @@ def sazkadeh(link, headers, site):
         return None
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button alt"}):
-        div = soup.find("p", attrs={"class": re.compile("price*")})
+        div = soup.find("p", attrs={"class": "price"})
         if div is None:
             return -1
         p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})

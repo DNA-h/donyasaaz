@@ -27,7 +27,11 @@ def sazkadeh(link, headers, site):
             a = re.sub(r',', '', p[0].text).strip()
         else:
             a = re.sub(r',', '', p[1].text).strip()
-        b = re.findall(r'\d+', a)
+        intab='۱۲۳۴۵۶۷۸۹۰١٢٣٤٥٦٧٨٩٠'
+        outtab='12345678901234567890'
+        translation_table = str.maketrans(intab, outtab)
+        output_text = a.translate(translation_table)
+        b = re.findall(r'\d+', output_text)
         return int(b[0])
     else:
         return -1

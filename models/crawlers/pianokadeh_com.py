@@ -20,7 +20,11 @@ def pianokadeh(link, headers, site):
     s= soup.find("div", attrs={"class": "wz-shop-product-out-stock"})
     if s is None:
         q = soup.find("span",attrs={"id": "wz-product-price"})
-        a = re.sub(r',', '', q.attrs['wz-data-product-price']).strip()
+        intab='۱۲۳۴۵۶۷۸۹۰١٢٣٤٥٦٧٨٩٠'
+        outtab='12345678901234567890'
+        translation_table = str.maketrans(intab, outtab)
+        output_text = q.text.translate(translation_table)
+        a = re.sub(r',', '', output_text).strip()
         b = re.findall(r'\d+', a)
         if len(b) == 0:
             return -1

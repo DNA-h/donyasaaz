@@ -17,7 +17,6 @@ def sazkala(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--follow-redirects")
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)

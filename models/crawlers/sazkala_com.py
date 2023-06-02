@@ -1,6 +1,7 @@
 import re
 import logging
 import requests
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 import os
@@ -24,9 +25,27 @@ def sazkala(link, headers, site):
 
         elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
         for element in elements:
-            first_ins = element.find_element(By.TAG_NAME, 'ins')
-            if first_ins:
-                first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
+            try:
+                # simple product
+                first_ins = element.find_element(By.TAG_NAME, 'ins')
+                if first_ins:
+                    first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
+                    price_text = first_strong.text.strip()
+                    price_text = convert_to_english(price_text)
+                    if price_text != "":
+                        price_text = int(price_text)
+                        driver.close()
+                        return price_text
+                    else:
+                        driver.close()
+                        return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException:
+                # variation-product
+                # <ins> element is not available
+                first_strong = element.find_element(By.TAG_NAME, 'bdi')
                 price_text = first_strong.text.strip()
                 price_text = convert_to_english(price_text)
                 if price_text != "":
@@ -36,9 +55,7 @@ def sazkala(link, headers, site):
                 else:
                     driver.close()
                     return -1
-            else:
-                driver.close()
-                return -1
+
         driver.close()
         return -1
 

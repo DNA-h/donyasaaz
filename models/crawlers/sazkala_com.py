@@ -24,8 +24,9 @@ def sazkala(link, headers, site):
 
         elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
         for element in elements:
-            first_strong = element.find_element(By.TAG_NAME, 'bdi')
-            if first_strong:
+            first_ins = element.find_element(By.TAG_NAME, 'ins')
+            if first_ins:
+                first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
                 price_text = first_strong.text.strip()
                 price_text = convert_to_english(price_text)
                 if price_text != "":

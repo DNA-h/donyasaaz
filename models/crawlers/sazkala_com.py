@@ -1,6 +1,7 @@
 import re
 import logging
 import requests
+from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 import os
 from bs4 import BeautifulSoup
@@ -19,30 +20,52 @@ def sazkala(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
-        time.sleep(3)
-        soup = BeautifulSoup(driver.page_source, "html.parser")
+        elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
-    button = soup.find("button", attrs={"class": re.compile("single_add_to_cart_button button alt*")})
-    not_found = soup.find_all("div", attrs={"class":"absolute-label-product outofstock-product"})
-    if button and not not_found and 'wc-variation-is-unavailable' not in button.attrs['class']:
-        div = soup.find("p", attrs={"class": "price"})
-        if div is None:
+    try:
+        if elements:
+            for element in elements:
+                first_strong = element.find_element(By.TAG_NAME, 'bdi')
+                if first_strong:
+                    price_text = first_strong.text.strip()
+                    price_text = convert_to_english(price_text)
+                    if price_text != "":
+                        price_text = int(price_text)
+                        driver.close()
+                        return price_text
+                    else:
+                        driver.close()
+                        return -1
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
             return -1
-        p = div.find_all("span", attrs={"class": "woocommerce-Price-amount amount"})
-        if len(p) == 0:
-            return -1
-        elif len(p) == 1:
-            a = re.sub(r',', '', p[0].text).strip()
-        else:
-            if p[0].parent.name == 'del':
-                a = re.sub(r',', '', p[1].text).strip()
-            else:
-                a = re.sub(r',', '', p[0].text).strip()
-        b = re.findall(r'\d+', a)
-        return int(b[0])
-    else:
+    except Exception as e:
+        driver.close()
         return -1
+
+
+def convert_to_english(text):
+    persian_to_english = {
+        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
+        # Add more mappings for other Persian characters if needed
+    }
+
+    converted_text = ''
+
+    for char in text:
+        if char in persian_to_english:
+            converted_text += persian_to_english[char]
+        else:
+            converted_text += char
+
+    # Remove non-numeric characters
+    converted_text = ''.join(c for c in converted_text if c.isdigit())
+
+    return converted_text

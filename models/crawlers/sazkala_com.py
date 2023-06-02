@@ -12,7 +12,7 @@ import time
 import sys
 
 def sazkala(link, headers, site):
-    return -1
+    elements = None
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -22,30 +22,29 @@ def sazkala(link, headers, site):
                                   options=chrome_options)
         driver.get(link.url)
         elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
+        driver.close()
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
     try:
-        if elements:
-            for element in elements:
-                first_strong = element.find_element(By.TAG_NAME, 'bdi')
-                if first_strong:
-                    price_text = first_strong.text.strip()
-                    price_text = convert_to_english(price_text)
-                    if price_text != "":
-                        price_text = int(price_text)
-                        driver.close()
-                        return price_text
-                    else:
-                        driver.close()
-                        return -1
+
+        for element in elements:
+            first_strong = element.find_element(By.TAG_NAME, 'bdi')
+            if first_strong:
+                price_text = first_strong.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    return price_text
                 else:
-                    driver.close()
                     return -1
-            driver.close()
-            return -1
+            else:
+                return -1
+
+        return -1
+
     except Exception as e:
         driver.close()
         return -1

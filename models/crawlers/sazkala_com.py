@@ -12,7 +12,7 @@ import time
 import sys
 
 def sazkala(link, headers, site):
-    return -1
+    return 0
 
 
 def convert_to_english(text):

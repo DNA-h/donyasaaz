@@ -27,7 +27,7 @@ def sazkala(link, headers, site):
             first_strong = element.find_element(By.TAG_NAME, 'bdi')
             if first_strong:
                 price_text = first_strong.text.strip()
-
+                price_text = convert_to_english(price_text)
                 if price_text != "":
                     price_text = int(price_text)
                     driver.close()

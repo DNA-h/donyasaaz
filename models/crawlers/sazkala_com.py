@@ -15,7 +15,7 @@ def sazkala(link, headers, site):
     elements = None
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",

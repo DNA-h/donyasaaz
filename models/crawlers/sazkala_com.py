@@ -22,7 +22,7 @@ def sazkala(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
-        driver.implicitly_wait(2)
+
         elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
         for element in elements:
             first_strong = element.find_element(By.TAG_NAME, 'bdi')

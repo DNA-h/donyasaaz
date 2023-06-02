@@ -12,6 +12,7 @@ import time
 import sys
 
 def sazkala(link, headers, site):
+    return -1
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")

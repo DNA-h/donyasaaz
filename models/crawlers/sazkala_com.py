@@ -12,42 +12,7 @@ import time
 import sys
 
 def sazkala(link, headers, site):
-    try:
-        chrome_options = Options()
-        # chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
-        sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
-        driver.get(link.url)
-        elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
-    except Exception as e:
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
-
-    try:
-        if elements:
-            for element in elements:
-                first_strong = element.find_element(By.TAG_NAME, 'bdi')
-                if first_strong:
-                    price_text = first_strong.text.strip()
-                    price_text = convert_to_english(price_text)
-                    if price_text != "":
-                        price_text = int(price_text)
-                        driver.close()
-                        return price_text
-                    else:
-                        driver.close()
-                        return -1
-                else:
-                    driver.close()
-                    return -1
-            driver.close()
-            return -1
-    except Exception as e:
-        driver.close()
-        return -1
+    return -1
 
 
 def convert_to_english(text):

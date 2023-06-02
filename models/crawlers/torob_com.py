@@ -49,24 +49,24 @@ def torob(link, headers, site):
         return None
 
     if elements is not None:
-        elements = elements[0:3]
-        largest = 0
+        elements = elements[0:4]
+        smallest = 0
 
         for price_element in elements:
             # Extract the price text
             price_text = price_element.text.strip()
             price_text = convert_to_english(price_text)
-            print(price_text)
+
             if price_text != "":
                 price_text = int(price_text)
             else:
                 price_text = 0
-            if largest > 0:
-                if largest > price_text > 0:
-                    largest = price_text
+            if smallest > 0:
+                if smallest > price_text > 0:
+                    smallest = price_text
             else:
-                largest = price_text
-        if largest > 0:
-            return largest
+                smallest = price_text
+        if smallest > 0:
+            return smallest
         else:
             return -1

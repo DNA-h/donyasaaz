@@ -1,6 +1,8 @@
 import re
 import logging
 import sys
+
+from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 import os
 from bs4 import BeautifulSoup
@@ -22,19 +24,44 @@ def digikala(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
-        soup = BeautifulSoup(driver.page_source, "html.parser")
+        element = driver.find_element(By.CSS_SELECTOR, '.color-800.ml-1.text-h4')
         driver.close()
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
-    if soup.find("p", string="قیمت بهتری سراغ دارید؟"):
-        p = soup.find("span", string="قیمت فروشنده").parent.parent.parent.text
-        a = re.sub(r',', '', p).strip()
-        b = re.findall(r'\d+', a)
-        if len(b) == 0:
+    try:
+        if element:
+            price_text = element.text.strip()
+            price_text = convert_to_english(price_text)
+            if price_text != "":
+                price_text = int(price_text)
+                return price_text
+            else:
+                return -1
+        else:
             return -1
-        return int(b[len(b) -1])
-    else:
+    except Exception as e:
         return -1
+
+
+def convert_to_english(text):
+    persian_to_english = {
+        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
+        # Add more mappings for other Persian characters if needed
+    }
+
+    converted_text = ''
+
+    for char in text:
+        if char in persian_to_english:
+            converted_text += persian_to_english[char]
+        else:
+            converted_text += char
+
+    # Remove non-numeric characters
+    converted_text = ''.join(c for c in converted_text if c.isdigit())
+
+    return converted_text

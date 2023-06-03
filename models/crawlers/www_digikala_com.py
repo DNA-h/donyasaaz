@@ -24,7 +24,7 @@ def digikala(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
-        element = driver.find_element(By.CSS_SELECTOR, '.color-800.ml-1.text-h4')
+        elements = driver.find_elements(By.CSS_SELECTOR, "[class*='styles_BuyBoxFooter__actionWrapper']")
         driver.close()
     except Exception as e:
         logger = logging.getLogger(__name__)
@@ -32,14 +32,17 @@ def digikala(link, headers, site):
         return None
 
     try:
-        if element:
-            price_text = element.text.strip()
-            price_text = convert_to_english(price_text)
-            if price_text != "":
-                price_text = int(price_text)
-                return price_text
-            else:
-                return -1
+        if elements:
+            for element in elements:
+                first_text = element.find_element(By.CSS_SELECTOR, ".text-h4")
+                price_text = first_text.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    return price_text
+                else:
+                    return -1
+            return -1
         else:
             return -1
     except Exception as e:

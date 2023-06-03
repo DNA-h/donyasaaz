@@ -35,26 +35,24 @@ def digikala(link, headers, site):
     try:
         if elements:
             for element in elements:
-                first_text = element.find_element(By.CSS_SELECTOR, ".text-h4")
+                first_text = element.find_element(By.CSS_SELECTOR, "[class*='text-h4']")
                 price_text = first_text.text.strip()
                 price_text = convert_to_english(price_text)
                 if price_text != "":
                     price_text = int(price_text)
-
+                    driver.close()
                     return price_text
 
                 else:
-                    logger = logging.getLogger(__name__)
-                    logger.info('%s :  %s,', site, "text!")
+                    driver.close()
                     return -1
+            driver.close()
             return -1
         else:
-            logger = logging.getLogger(__name__)
-            logger.info('%s :  %s,', site, "elements!")
+            driver.close()
             return -1
     except Exception as e:
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, "except!")
+        driver.close()
         return -1
 
 

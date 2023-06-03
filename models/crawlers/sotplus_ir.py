@@ -16,36 +16,57 @@ def sotplus(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
+
         try:
-            element = driver.find_element(By.CSS_SELECTOR, '.is_stuck')
-            first_strong = element.find_element(By.CSS_SELECTOR, ".woocommerce-Price-currencySymbol")
-            parent_element = first_strong.find_element(By.XPATH, "..")
+            elements = driver.find_elements(By.CSS_SELECTOR, '.product-image-summary-inner')
+            for element in elements:
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
+            return -1
+        except NoSuchElementException:
+            try:
 
-            # Get the HTML content of the parent element
-            html_content = parent_element.get_attribute('innerHTML')
+                elements = driver.find_elements(By.CSS_SELECTOR, '.product-image-summary-inner')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
 
-            # Extract the pure text using regular expressions
-            price_text = re.sub('<[^>]+>', '', html_content)
-
-            if price_text != "":
-                price_text = int(price_text)
-                driver.close()
-                return price_text
-            else:
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    driver.close()
+                    return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
                 driver.close()
                 return -1
 
-        except NoSuchElementException:
-            driver.close()
-            return -1
     except Exception as ee:
         return -1
-
-
 
 def convert_to_english(text):
     persian_to_english = {
@@ -66,3 +87,11 @@ def convert_to_english(text):
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
     return converted_text
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://sotplus.net/rode-k2/")
+# print(sotplus(item, None, None))

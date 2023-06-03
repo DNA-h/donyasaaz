@@ -26,7 +26,7 @@ def digikala(link, headers, site):
         driver.get(link.url)
         driver.implicitly_wait(10)
         elements = driver.find_elements(By.CSS_SELECTOR, "[class*='styles_BuyBoxFooter']")
-        driver.close()
+
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)

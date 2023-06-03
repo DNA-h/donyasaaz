@@ -42,7 +42,7 @@ def sotplus(link, headers, site):
         except NoSuchElementException:
             driver.close()
             return -1
-    except Exception as e:
+    except Exception as ee:
         return -1
 
 

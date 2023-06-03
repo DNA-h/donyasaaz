@@ -39,13 +39,19 @@ def digikala(link, headers, site):
                 price_text = convert_to_english(price_text)
                 if price_text != "":
                     price_text = int(price_text)
+
                     return price_text
+
                 else:
+                    print('text!')
                     return -1
             return -1
         else:
+            print('elements!')
             return -1
     except Exception as e:
+        print(e)
+        print('catch!')
         return -1
 
 

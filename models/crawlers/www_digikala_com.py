@@ -24,7 +24,7 @@ def digikala(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
-        elements = driver.find_elements(By.CSS_SELECTOR, "[class*='styles_BuyBoxFooter__actionWrapper']")
+        elements = driver.find_elements(By.CSS_SELECTOR, "[class*='styles_BuyBoxFooter']")
         driver.close()
     except Exception as e:
         logger = logging.getLogger(__name__)

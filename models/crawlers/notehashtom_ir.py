@@ -1,10 +1,14 @@
 import re
 import logging
+import sys
 
 import requests
+from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
-
 
 def notehashtom(link, headers, site):
     try:

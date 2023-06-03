@@ -43,15 +43,17 @@ def digikala(link, headers, site):
                     return price_text
 
                 else:
-                    print('text!')
+                    logger = logging.getLogger(__name__)
+                    logger.info('%s :  %s,', site, "text!")
                     return -1
             return -1
         else:
-            print('elements!')
+            logger = logging.getLogger(__name__)
+            logger.info('%s :  %s,', site, "elements!")
             return -1
     except Exception as e:
-        print(e)
-        print('catch!')
+        logger = logging.getLogger(__name__)
+        logger.info('%s :  %s,', site, "except!")
         return -1
 
 

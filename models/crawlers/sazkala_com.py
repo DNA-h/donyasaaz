@@ -18,18 +18,38 @@ def sazkala(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.get(link.url)
 
-        elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
-        for element in elements:
-            try:
-                # simple product
-                first_ins = element.find_element(By.TAG_NAME, 'ins')
-                if first_ins:
-                    first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
+        cart = driver.find_elements(By.CSS_SELECTOR, ".single_add_to_cart_button")
+        if cart:
+            elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
+            for element in elements:
+                try:
+                    # simple product
+                    first_ins = element.find_element(By.TAG_NAME, 'ins')
+                    if first_ins:
+                        first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
+                        price_text = first_strong.text.strip()
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    else:
+                        driver.close()
+                        return -1
+                except NoSuchElementException:
+                    # variation-product
+                    # <ins> element is not available
+                    first_strong = element.find_element(By.TAG_NAME, 'bdi')
                     price_text = first_strong.text.strip()
                     price_text = convert_to_english(price_text)
                     if price_text != "":
@@ -39,25 +59,12 @@ def sazkala(link, headers, site):
                     else:
                         driver.close()
                         return -1
-                else:
-                    driver.close()
-                    return -1
-            except NoSuchElementException:
-                # variation-product
-                # <ins> element is not available
-                first_strong = element.find_element(By.TAG_NAME, 'bdi')
-                price_text = first_strong.text.strip()
-                price_text = convert_to_english(price_text)
-                if price_text != "":
-                    price_text = int(price_text)
-                    driver.close()
-                    return price_text
-                else:
-                    driver.close()
-                    return -1
 
-        driver.close()
-        return -1
+            driver.close()
+            return -1
+        else:
+            driver.close()
+            return -1
 
     except Exception as e:
         print(e)
@@ -85,3 +92,12 @@ def convert_to_english(text):
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
     return converted_text
+
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://sazkala.com/product/tar-shahriar/")
+# print(sazkala(item, None, None))

@@ -23,10 +23,8 @@ def ertebat(link, headers, site):
         #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
-        sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
-        # sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", options=chrome_options)
+        sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", options=chrome_options)
         driver.get(link.url)
 
         # FIXED WOOCOMMERCE
@@ -81,11 +79,11 @@ def convert_to_english(text):
 
 
 
-class MyObject:
-    def __init__(self, url):
-        self.url = url
-
-
-item = MyObject("https://ertebat.co/product/ZOOM_ZUM-2_Microphone")
-print(ertebat(item, None, None))
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://ertebat.co/product/sennheiser_ew_135-p_g3")
+# print(ertebat(item, None, None))
 

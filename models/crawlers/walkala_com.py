@@ -11,10 +11,10 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def ofoghstore(link, headers, site):
+def walkala(link, headers, site):
     try:
         chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
@@ -87,3 +87,13 @@ def convert_to_english(text):
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
     return converted_text
+
+
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://walkala.com/product/%d9%87%d8%a7%d8%b1%d8%af-%d8%af%db%8c%d8%b3%da%a9-hdd-%d8%a8%d8%b1%d9%86%d8%af-western-digital-%d9%85%d8%af%d9%84-wd10ezex-%d8%b8%d8%b1%d9%81%db%8c%d8%aa-1-%d8%aa%d8%b1%d8%a7%d8%a8%d8%a7%db%8c/")
+# print(walkala(item, None, None))

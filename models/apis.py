@@ -2,6 +2,7 @@ import logging
 import time
 import math
 from models.crawlers import *
+from models.crawlers import walkala_com
 from models.models import Price, Link, MusicItem
 from constance import config
 import random
@@ -109,7 +110,7 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "offer.market": offer_market.offer_market, "afsharstore.com": afsharstore_com.afsharstore,
             "aria-mall.ir": aria_mall_ir.aria_mall, "sazcenter.com": sazcenter_com.sazcenter,
             "www.vafaiemusic.com": www_vafaiemusic_com.vafaiemusic, "timcheh.com": timcheh_com.timcheh,
-            "shahab-store.com": shahab_store_com.shahab_store, "ofoghstore.ir": ofoghstore_ir.ofoghstore,
+            "shahab-store.com": shahab_store_com.shahab_store, "walkala.com": walkala_com.walkala,"ofoghstore.ir": ofoghstore_ir.ofoghstore,
             "cinemakala.com": cinemakala_com.cinemakala, "kharidazma.com": kharidazma_com.kharidazma,
             "troly.ir": troly_ir.troly, "irandjstore.com": irandjstore_com.irandjstore,
             "www.parsian-sound.com": www_parsian_sound_com.parsian_sound, "persikav.com": persikav_com.persikav,

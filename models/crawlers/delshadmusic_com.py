@@ -22,7 +22,7 @@ def delshadmusic(link, headers, site):
                                   options=chrome_options)
         driver.get(link.url)
 
-        # FIXED WOOCOMMERCE
+        # FIXED WOOCOMMERCE PRO
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:

@@ -17,13 +17,21 @@ def sazplaza(link, headers, site):
         #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+
         driver.get(link.url)
 
         # FIXED WOOCOMMERCE
         try:
+            outstock = driver.find_elements(By.CSS_SELECTOR, ".summary-inner .stock.out-of-stock")
+            if outstock:
+                driver.close()
+                return -1
             elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
@@ -89,4 +97,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://sazplaza.com/product/ydp-165/?utm_medium=PPC&utm_source=Torob")
+# print(sazplaza(item, None, None))

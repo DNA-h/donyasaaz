@@ -23,9 +23,10 @@ def sazkala(link, headers, site):
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, ".single_add_to_cart_button")
+        cart = driver.find_elements(By.CSS_SELECTOR, "form.cart .single_add_to_cart_button")
         if cart:
             elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')
             for element in elements:
@@ -99,5 +100,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sazkala.com/product/tar-shahriar/")
+# item = MyObject("https://sazkala.com/product/shure-sm58-lce-%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%88%d9%86-%d8%af%d8%a7%db%8c%d9%86%d8%a7%d9%85%db%8c%da%a9/")
 # print(sazkala(item, None, None))

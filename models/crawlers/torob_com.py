@@ -37,9 +37,12 @@ def torob(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--log-level=3')
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
+                                options=chrome_options)
         driver.get(link.url)
         elements = driver.find_elements(By.CSS_SELECTOR, '.seller-element.price')
 
@@ -54,10 +57,10 @@ def torob(link, headers, site):
 
         for price_element in elements:
             # Extract the price text
-            price_text = price_element.text.strip()
-            price_text = convert_to_english(price_text)
+            price_text_orig = price_element.text.strip()
+            price_text = convert_to_english(price_text_orig)
 
-            if price_text != "":
+            if price_text != "" and "ناموجود" not in price_text_orig:
                 price_text = int(price_text)
             else:
                 price_text = 0
@@ -70,3 +73,14 @@ def torob(link, headers, site):
             return smallest
         else:
             return -1
+
+
+
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://torob.com/p/8e5ab0d6-4ea7-4774-9b9f-d71fb1da4061/%D9%BE%DB%8C%D8%A7%D9%86%D9%88-%D8%AF%DB%8C%D8%AC%DB%8C%D8%AA%D8%A7%D9%84-%D8%B1%D9%88%D9%84%D9%86%D8%AF-%D9%85%D8%AF%D9%84-rp30/")
+# print(torob(item, None, None))

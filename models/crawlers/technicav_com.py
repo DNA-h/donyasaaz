@@ -84,11 +84,3 @@ def convert_to_english(text):
 
     return converted_text
 
-
-# class MyObject:
-#     def __init__(self, url):
-#         self.url = url
-#
-#
-# item = MyObject("https://www.technicav.com/products/audio-interface/m-audio-air-1924/")
-# print(technicav(item, None, None))

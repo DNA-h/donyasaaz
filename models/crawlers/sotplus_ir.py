@@ -18,13 +18,16 @@ def sotplus(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
+                             options=chrome_options)
+
         driver.get(link.url)
 
+        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.product-image-summary-inner')
+            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -41,8 +44,7 @@ def sotplus(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-
-                elements = driver.find_elements(By.CSS_SELECTOR, '.product-image-summary-inner')
+                elements = driver.find_elements(By.CSS_SELECTOR, 'h1 ~ .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -93,5 +95,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sotplus.net/rode-k2/")
+# item = MyObject("https://sotplus.net/focusrite-scarlett-18i20-g3/?utm_medium=PPC&utm_source=Torob")
 # print(sotplus(item, None, None))

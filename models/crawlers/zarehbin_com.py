@@ -23,7 +23,6 @@ def zarehbin(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-
         driver.get(link.url)
 
         try:

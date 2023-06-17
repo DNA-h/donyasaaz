@@ -25,7 +25,7 @@ def plazapiano(link, headers, site):
 
         driver.get(link.url)
 
-        # FIXED WOOCOMMERCE PRO
+
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, ".wd-single-price .price")
             for element in elements:

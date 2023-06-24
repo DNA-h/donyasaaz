@@ -95,5 +95,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://saazaar.com/product/yamaha-psr-sx600/")
+# item = MyObject("https://saazaar.com/product/%d8%a8%d9%84%d8%b2-%d8%b1%d9%87%d8%a7-%db%b2-%d8%a7%d9%83%d8%aa%d8%a7%d9%88-%d9%83%d8%a7%d9%88%d8%b1%d8%af%d8%a7%d8%b1/")
 # print(saazaar(item, None, None))

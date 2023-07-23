@@ -69,3 +69,12 @@ def emalls(link, headers, site):
         return -1
     driver.close()
     return -1
+
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://emalls.ir/%D9%85%D8%B4%D8%AE%D8%B5%D8%A7%D8%AA_%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D9%85%D9%88%D8%B3%D9%88%DB%8C-%D8%AF%D9%88-%D9%85%D9%87%D8%B1~id~4619479")
+# print(arasound(item, None, None))

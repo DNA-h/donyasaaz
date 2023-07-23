@@ -17,9 +17,14 @@ def ofoghstore(link, headers, site):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
+
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+
         driver.get(link.url)
 
         # FIXED WOOCOMMERCE
@@ -87,3 +92,4 @@ def convert_to_english(text):
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
     return converted_text
+

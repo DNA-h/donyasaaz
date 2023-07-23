@@ -1,46 +1,103 @@
 import re
 import logging
 import sys
-from urllib3.exceptions import InsecureRequestWarning
-import os
-from bs4 import BeautifulSoup
+
+import requests
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from urllib3.exceptions import InsecureRequestWarning
+from bs4 import BeautifulSoup
+
 
 def parsiansote(link, headers, site):
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--follow-redirects")
+
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+        #
         sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
-        driver.get(link.url)
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-    except Exception as e:
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
 
-    if soup.find("button", attrs={"class": "single_add_to_cart_button button dk-button"}):
-        div = soup.find(attrs={"class": "price"})
-        if div is None:
-           WebDriverWait(driver,100).until(EC.presence_of_element_located((By.CLASS_NAME,"price")))
-           soup = BeautifulSoup(driver.page_source, "html.parser")
-           div = soup.find( attrs={"class": "price"})
-        p = div.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
-        if len(p) == 0:
+        driver.get(link.url)
+
+        # FIXED WOOCOMMERCE
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+            for element in elements:
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
             return -1
-        elif len(p) == 1:
-            a = re.sub(r',', '', p[0].text).strip()
-        else:
-            a = re.sub(r',', '', p[1].text).strip()
-        b = re.findall(r'\d+', a)
-        return int(b[0])
-    else:
+        except NoSuchElementException:
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
+
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    driver.close()
+                    return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
+
+    except Exception as ee:
         return -1
+
+
+def convert_to_english(text):
+    persian_to_english = {
+        '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+        '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
+        # Add more mappings for other Persian characters if needed
+    }
+
+    converted_text = ''
+
+    for char in text:
+        if char in persian_to_english:
+            converted_text += persian_to_english[char]
+        else:
+            converted_text += char
+
+    # Remove non-numeric characters
+    converted_text = ''.join(c for c in converted_text if c.isdigit())
+
+    return converted_text
+
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://parsiansote.com/product/nektar-impact-lx25-plus/?utm_medium=PPC&utm_source=Torob")
+# print(parsiansote(item, None, None))

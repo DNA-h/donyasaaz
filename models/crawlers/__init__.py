@@ -82,4 +82,4 @@ __all__ = ["_woocommerce",
            "santoorsadeghi_ir", "canon1_ir", "memorybazar_com", "rayanmusic_com", "nobesho_com", "www_1xmarket_com",
            "nooracam_com", "beethovenmshop_com", "www_agrastore_ir", "mahdigit_ir", "www_khaneyesaaz_ir",
            'sazplus_com', 'saazaar_com', "papiran_ir", "www_sazbebar_com",
-           "dragon_shop_ir","saazbaaz_com","doornegahshop_com","microless_ir", "pro_av_ir"]
+           "dragon_shop_ir", "safircoshop_ir", "saazbaaz_com","doornegahshop_com","microless_ir", "pro_av_ir"]

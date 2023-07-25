@@ -20,8 +20,8 @@ def sazkala(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
-        sys.path.append("C:\\Users\\USER\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe",
+        sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
 
         driver.get(link.url)

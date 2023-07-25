@@ -301,8 +301,8 @@ def send_sms_to_user(number):
 
 def create_and_download_backup():
     import os
-    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\USER\\donyasaaz\\static\\dump.sql')
-    os.system('git add C:\\Users\\USER\\donyasaaz\\static\\dump.sql')
+    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
+    os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
     os.system('git commit -m "automatic update"')
     os.system('git push origin master')
 
@@ -312,7 +312,7 @@ def download_divar_all(request):
     from django.http.response import HttpResponseRedirect
     import subprocess
 
-    with open('C:\\Users\\USER\\donyasaaz\\static\\static\\all.txt', 'w') as f:
+    with open('C:\\Users\\hamed\\donyasaaz\\static\\static\\all.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     response = HttpResponseRedirect('http://192.168.1.122:8000/static/all.txt')
@@ -324,7 +324,7 @@ def download_divar_today(request):
     from django.http.response import HttpResponseRedirect
     import subprocess
 
-    with open('C:\\Users\\USER\\donyasaaz\\static\\today.txt', 'w') as f:
+    with open('C:\\Users\\hamed\\donyasaaz\\static\\today.txt', 'w') as f:
         subprocess.run(['mysql', '-u', 'root', '-pHolyDance', '-e', "select phoneNumber, created from models_customer where created >= DATE_ADD(NOW(), INTERVAL -1 DAY)",
                         'donyasaaz'], stdout=f, universal_newlines=True)
     response = HttpResponseRedirect('http://192.168.1.122:8000/static/today.txt')
@@ -485,7 +485,7 @@ def divar():
         # chrome_options.add_argument("--headless")
         # sys.path.append(os.path.abspath("chromedriver.exe"))
         # driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"), chrome_options=chrome_options)
-        driver = webdriver.Chrome(executable_path="C:\\Users\\USER\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe", chrome_options=chrome_options)
         driver.get("https://divar.ir/s/tehran/musical-instruments")
         config.phoneNumberLatest = 'باز کردن دیوار'
         config.phoneNumberLastTime = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

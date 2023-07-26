@@ -250,17 +250,17 @@ def linkHandler(request):
 
 @api_view(['GET'])
 def fonta27a579bdf3c579fb0287ad7eedf13f5(request):
-    return FileResponse(open('C:/Users/USER/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
+    return FileResponse(open('C:/Users/hamed/donyasaaz/static/a27a579bdf3c579fb0287ad7eedf13f5.woff', 'rb'))
 
 
 @api_view(['GET'])
 def fontf9ada7e5233f3a92347b7531c06f2336(request):
-    return FileResponse(open('C:/Users/USER/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
+    return FileResponse(open('C:/Users/hamed/donyasaaz/static/f9ada7e5233f3a92347b7531c06f2336.woff2', 'rb'))
 
 
 @api_view(['GET'])
 def font655ba951f59a5b99d8627273e0883638(request):
-    return FileResponse(open('C:/Users/USER/donyasaaz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
+    return FileResponse(open('C:/Users/hamed/donyasaaz/static/655ba951f59a5b99d8627273e0883638.ttf', 'rb'))
 
 
 @csrf_exempt

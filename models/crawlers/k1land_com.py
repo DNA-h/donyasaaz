@@ -18,6 +18,7 @@ def k1land(link, headers, site):
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+        driver.set_page_load_timeout(40)
         driver.get(link.url)
         soup = BeautifulSoup(driver.page_source, "html.parser")
     except Exception as e:

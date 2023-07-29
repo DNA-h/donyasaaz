@@ -23,6 +23,7 @@ def harpmusical(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
+        driver.set_page_load_timeout(40)
         driver.get(link.url)
 
         # FIXED WOOCOMMERCE PRO

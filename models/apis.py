@@ -379,7 +379,7 @@ def manualBrowse():
             prefs = {"profile.managed_default_content_settings.images": 2}
             chrome_options.add_experimental_option("prefs", prefs)
             driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), options=chrome_options)
-            driver.get(link.url)
+            driver.set_page_load_timeout(40);driver.get(link.url);
             while True:
                 driver.title
                 time.sleep(1)

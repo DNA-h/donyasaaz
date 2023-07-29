@@ -24,8 +24,7 @@ def zhovanmusic(link, headers, site):
                              options=chrome_options)
 
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")

@@ -24,8 +24,7 @@ def offer_market(link, headers, site):
     #     chrome_options.add_argument("--window-size=1920x1080")
     #     chrome_options.add_argument("--disable-features=VizDisplayCompositor")
     #     driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe", options=chrome_options)
-    #     driver.set_page_load_timeout(40)
-        driver.get(link.url)
+    #     driver.set_page_load_timeout(40);driver.get(link.url);
     # except Exception as e:
     #     logger = logging.getLogger(__name__)
     #     logger.info('%s :  %s,', site, e)

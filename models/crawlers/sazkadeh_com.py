@@ -18,8 +18,7 @@ def sazkadeh(link, headers, site):
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, '.price')

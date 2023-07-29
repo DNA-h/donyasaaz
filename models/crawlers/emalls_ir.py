@@ -40,8 +40,7 @@ def emalls(link, headers, site):
         chrome_options.add_argument('log-level=3')
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe", options=chrome_options)
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
         # Find the element containing the product price
         elements = driver.find_elements(By.CSS_SELECTOR, '.itemprice')
     except Exception as e:

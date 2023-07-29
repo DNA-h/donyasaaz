@@ -436,19 +436,21 @@ def get_prices():
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
-            rnd = random.randint(1,99)
-            if links[(i + 0) % len(links)]['importance'] < rnd:
-                continue
-            site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
-            if not site:
-                logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
-                continue
-            pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
-            if i % 300 == 0:
-                for j in range(0, len(bookmarks)):
-                    site = re.findall("//(.*?)/", bookmarks[j]['url'])
-                    pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
-
+            try:
+                rnd = random.randint(1,99)
+                if links[(i + 0) % len(links)]['importance'] < rnd:
+                    continue
+                site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
+                if not site:
+                    logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
+                    continue
+                pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+                if i % 300 == 0:
+                    for j in range(0, len(bookmarks)):
+                        site = re.findall("//(.*?)/", bookmarks[j]['url'])
+                        pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
+            except:
+                pass
     logger.info(statistic)
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))

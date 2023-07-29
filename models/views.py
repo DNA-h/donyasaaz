@@ -450,6 +450,7 @@ def get_prices():
                         site = re.findall("//(.*?)/", bookmarks[j]['url'])
                         pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
             except:
+                logger.info('except')
                 pass
     logger.info(statistic)
 

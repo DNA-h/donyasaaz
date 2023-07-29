@@ -19,10 +19,13 @@ def iranloop(link, headers, site):
     notavail = soup.find("div", attrs={"class": "product-unavailable"})
     if notavail is None:
         s = soup.find("span", attrs={"class": "price"})
-        a = re.sub(r',', '', s.text).strip()
-        b = re.findall(r'\d+', a)
-        if len(b) == 0 :
+        if s is not None :
+            a = re.sub(r',', '', s.text).strip()
+            b = re.findall(r'\d+', a)
+            if len(b) == 0 :
+                return -1
+            return int(b[0])
+        else:
             return -1
-        return int(b[0])
     else:
         return -1

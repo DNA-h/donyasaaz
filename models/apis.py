@@ -267,6 +267,8 @@ def callCrawlerThread(link, site, statistic, total):
     link.last_run_started = timezone.now()
     link.save()
     try:
+        print("site:")
+        print(crawlers[site[0]])
         product = crawlers[site[0]](link, headers, site[0])
     except Exception as e:
         logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
@@ -292,6 +294,8 @@ def callCrawlerThread(link, site, statistic, total):
         }
     if product == 0:
         product = -1
+    print("price:")
+    print(product)
     link.last_run = math.ceil(time.time() - start_time)
     link.last_run_ended = timezone.now()
     link.save()

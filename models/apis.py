@@ -264,7 +264,7 @@ def callCrawlerThread(link, site, statistic, total):
     time.sleep(2 + random.randint(1, 5))
     link = Link.objects.get(id=link['id'])
     start_time = time.time()
-    link.last_run_started = datetime.datetime.now()
+    link.last_run_started = timezone.now()
     link.save()
     try:
         product = crawlers[site[0]](link, headers, site[0])

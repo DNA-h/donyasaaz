@@ -10,6 +10,7 @@ import os
 import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from django.utils import timezone
 
 crawlers = {"digiavl.com": digiavl_com.digiavl,
             "www.audiobashiryan.com": www_audiobashiryan_com.audiobashiryan, "www.charge-e.ir": www_charge_e_ir.charge,
@@ -270,14 +271,14 @@ def callCrawlerThread(link, site, statistic, total):
     except Exception as e:
         logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
         link.last_run = -2
-        link.last_run_ended = datetime.datetime.now()
+        link.last_run_ended = timezone.now()
         link.save()
         return
 
     if product is None:
         logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
         link.last_run = -1
-        link.last_run_ended = datetime.datetime.now()
+        link.last_run_ended = timezone.now()
         link.save()
         return
     duration = time.time() - start_time
@@ -292,7 +293,7 @@ def callCrawlerThread(link, site, statistic, total):
     if product == 0:
         product = -1
     link.last_run = math.ceil(time.time() - start_time)
-    link.last_run_ended = datetime.datetime.now()
+    link.last_run_ended = timezone.now()
     link.save()
     updateLink(link, product, site[0])
 

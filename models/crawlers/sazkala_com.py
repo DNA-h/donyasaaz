@@ -94,7 +94,7 @@ def convert_to_english(text):
     # Remove non-numeric characters
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
-    return converted_text
+    return converted_text;
 
 
 # class MyObject:

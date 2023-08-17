@@ -17,7 +17,7 @@ def sazkala(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
+        #chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
@@ -102,5 +102,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sazkala.com/product/roland-e-x30/")
+# item = MyObject("https://sazkala.com/product/ibanez-rg370ahmz-bmt/")
 # print(sazkala(item, None, None))

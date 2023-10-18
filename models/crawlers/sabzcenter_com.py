@@ -14,22 +14,18 @@ from bs4 import BeautifulSoup
 def sabzcenter(link, headers, site):
     try:
         chrome_options = Options()
-        #chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
-
-        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
-
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+        driver.set_page_load_timeout(40);
+        driver.get(link.url);
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
-
-        # FIXED WOOCOMMERCE
+        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.wd-single-price .price')
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-element-9db7253 .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -46,7 +42,7 @@ def sabzcenter(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR, '.wd-single-price .price')
+                elements = driver.find_elements(By.CSS_SELECTOR, '.elementor-element-9db7253 .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +95,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.sabzcenter.com/product/audio-technica-at4060a/?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://www.sabzcenter.com/product/neumann-tlm-103-studio-set/")
 # print(sabzcenter(item, None, None))

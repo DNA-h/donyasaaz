@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فرم ثبت محصول</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
 <body dir="rtl">
@@ -19,7 +20,7 @@
                         <label class="mt-2 fw-bold form-label" for="product_name">نام اصلی محصول</label>
                         <input class="form-control" type="text" name="product_name" id="product_name" required />
                     </div>
-                    
+                    <p class="status-product">وضعیت : <b class="data"></b></p>
                     <div class="form-group">
                         <label class="mt-2 fw-bold form-label" for="product_link">لینک محصول در دنیای ساز</label>
                         <input class="form-control" type="text" name="product_link" id="product_link" required />
@@ -57,10 +58,24 @@
 
 </body>
 </html>
-
+<script>
+    jQuery(document).ready(function($){
+        jQuery("#product_name").keyup(function($){
+            var title = jQuery(this).val();
+            jQuery(".status-product .data").text("درحال لود ...");
+            jQuery.post("ajax.php",
+            {
+                title: title,
+            },
+            function(data, status){
+                jQuery(".status-product .data").text(data);
+            });
+        })
+    });
+</script>
 
 <?php
-
+require_once('db.php');
 if( $_POST && isset($_POST['product_name'])){
 
     if($_POST['password'] == "yahoo"){
@@ -119,18 +134,3 @@ if( $_POST && isset($_POST['product_name'])){
 
 }
 
-function db(){
-    $servername = "localhost";
-    $username = "root";
-    $password = "HolyDance";
-    $dbname = "donyasaaz";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    return $conn;
-}

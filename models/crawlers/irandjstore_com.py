@@ -18,11 +18,11 @@ def irandjstore(link, headers, site):
         # chrome_options.add_argument("--headless")
         # chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
-        sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
-        # sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-        #                           options=chrome_options)
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+        sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
+                                  options=chrome_options)
 
         driver.set_page_load_timeout(40)
         driver.get(link.url)
@@ -83,13 +83,13 @@ def convert_to_english(text):
 
     return converted_text;
 
-class MyObject:
-    def __init__(self, url):
-        self.url = url
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
 
-
-item = MyObject("https://irandjstore.com/novation-launchpad-x")
-print(irandjstore(item, None, None))
-
-item = MyObject("https://irandjstore.com/korg-c1-air-wh")
-print(irandjstore(item, None, None))
+# item = MyObject("https://irandjstore.com/novation-launchpad-x")
+# print(irandjstore(item, None, None))
+#
+# item = MyObject("https://irandjstore.com/korg-c1-air-wh")
+# print(irandjstore(item, None, None))

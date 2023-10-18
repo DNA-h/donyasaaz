@@ -25,6 +25,7 @@ def basalam(link, headers, site):
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
+
         driver.set_page_load_timeout(40);driver.get(link.url);
 
         # FIXED WOOCOMMERCE PRO
@@ -75,5 +76,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://basalam.com/nkolind/product/4367224?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://basalam.com/behinmedia/product/5092342")
 # print(basalam(item, None, None))

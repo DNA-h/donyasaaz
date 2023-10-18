@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def turborayan(link, headers, site):
+def anemonemusic(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -27,18 +27,19 @@ def turborayan(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".single_add_to_cart_button")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.elementor-element-7b6ae0b')
             for element in elements:
                 try:
-                    first_ins = element.find_element(By.CSS_SELECTOR, '#our_price_display')
+                    # simple product
+                    first_ins = element.find_element(By.TAG_NAME, 'ins')
                     if first_ins:
-
-                        price_text = first_ins.text.strip()
+                        first_strong = first_ins.find_element(By.TAG_NAME, 'bdi')
+                        price_text = first_strong.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
-                            price_text = int(int(price_text) / 10)
+                            price_text = int(price_text)
                             driver.close()
                             return price_text
                         else:
@@ -48,20 +49,30 @@ def turborayan(link, headers, site):
                         driver.close()
                         return -1
                 except NoSuchElementException:
-                    driver.close()
-                    return -1
+                    # variation-product
+                    # <ins> element is not available
+                    first_strong = element.find_element(By.TAG_NAME, 'bdi')
+                    price_text = first_strong.text.strip()
+                    price_text = convert_to_english(price_text)
+                    if price_text != "":
+                        price_text = int(price_text)
+                        driver.close()
+                        return price_text
+                    else:
+                        driver.close()
+                        return -1
 
             driver.close()
             return -1
         else:
             driver.close()
             return -1
-
     except Exception as e:
         print(e)
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
+
 
 def convert_to_english(text):
     persian_to_english = {
@@ -89,5 +100,14 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://turborayan.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86/26002-saramonic-uwmic9-tx-xlr9.html")
-# print(turborayan(item, None, None))
+# item = MyObject("https://anemonemusic.com/product/%da%a9%d8%aa%d8%a7%d8%a8-%d8%aa%d9%85%d8%b1%db%8c%d9%86-%d9%87%d8%a7-%d9%88-%d9%82%d8%b7%d8%b9%d9%87-%d9%87%d8%a7%db%8c-%d8%b3%d8%a7%d8%af%d9%87-%d8%aa%da%a9%d9%86%d9%88%d8%a7%d8%b2%db%8c-%da%af%db%8c/")
+# print(anemonemusic(item, None, None))
+#
+#
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://anemonemusic.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%d8%b7%d8%b1%d8%ad-%d8%a2%da%a9%d9%88%d8%b3%d8%aa%db%8c%da%a9-%db%8c%d8%a7%d9%85%d8%a7%d9%87%d8%a7-yamaha-slp-45/")
+# print(anemonemusic(item, None, None))

@@ -11,12 +11,13 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def turborayan(link, headers, site):
+def aressystem(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -24,44 +25,53 @@ def turborayan(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
-        if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.our_price_display')
+        # FIXED WOOCOMMERCE PRO
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:
-                try:
-                    first_ins = element.find_element(By.CSS_SELECTOR, '#our_price_display')
-                    if first_ins:
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
+            return -1
+        except NoSuchElementException:
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                'h1 ~ .price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
 
-                        price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
-                            price_text = int(int(price_text) / 10)
+                            price_text = int(price_text)
                             driver.close()
                             return price_text
                         else:
                             driver.close()
                             return -1
-                    else:
-                        driver.close()
-                        return -1
-                except NoSuchElementException:
                     driver.close()
                     return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
 
-            driver.close()
-            return -1
-        else:
-            driver.close()
-            return -1
-
-    except Exception as e:
-        print(e)
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
+    except Exception as ee:
+        return -1
 
 def convert_to_english(text):
     persian_to_english = {
@@ -83,11 +93,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://turborayan.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86/26002-saramonic-uwmic9-tx-xlr9.html")
-# print(turborayan(item, None, None))
+# item = MyObject("https://aressystem.ir/product/shure-mv7x-xlr-podcast-microphone/?utm_medium=PPC_adv_click&utm_source=Torob")
+# print(aressystem(item, None, None))

@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def turborayan(link, headers, site):
+def aranil(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -24,21 +24,21 @@ def turborayan(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);
+        driver.get(link.url);
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.seller-content')
             for element in elements:
                 try:
-                    first_ins = element.find_element(By.CSS_SELECTOR, '#our_price_display')
+                    first_ins = element.find_element(By.CSS_SELECTOR, '.item-newprice .price-val')
                     if first_ins:
 
                         price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
-                            price_text = int(int(price_text) / 10)
+                            price_text = int(price_text)
                             driver.close()
                             return price_text
                         else:
@@ -89,5 +89,6 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://turborayan.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86/26002-saramonic-uwmic9-tx-xlr9.html")
-# print(turborayan(item, None, None))
+# item = MyObject("https://aranil.ir/product/2/%D8%A7%D8%B3%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%A7%D9%86%DB%8C%D8%AA%D9%88%D8%B1%DB%8C%D9%86%DA%AF-yamaha-hs80m/?utm_medium=PPC&utm_source=Torob")
+# print(aranil(item, None, None))
+

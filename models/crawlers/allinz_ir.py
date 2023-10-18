@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def turborayan(link, headers, site):
+def allinz(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -27,18 +27,18 @@ def turborayan(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart-button")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.product-price')
             for element in elements:
                 try:
-                    first_ins = element.find_element(By.CSS_SELECTOR, '#our_price_display')
+                    first_ins = element.find_element(By.CSS_SELECTOR, ' span')
                     if first_ins:
 
                         price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
-                            price_text = int(int(price_text) / 10)
+                            price_text = int(price_text)
                             driver.close()
                             return price_text
                         else:
@@ -89,5 +89,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://turborayan.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86/26002-saramonic-uwmic9-tx-xlr9.html")
-# print(turborayan(item, None, None))
+# item = MyObject("https://allinz.ir/coolbaby-military-tactical-backpack-large-45l")
+# print(allinz(item, None, None))

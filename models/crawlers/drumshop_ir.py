@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def turborayan(link, headers, site):
+def drumshop(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -22,46 +22,59 @@ def turborayan(link, headers, site):
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                             options=chrome_options)
+                                  options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);
+        driver.implicitly_wait(20);
+        driver.get(link.url);
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
-        if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.our_price_display')
+        # FIXED WOOCOMMERCE PRO
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR,
+                                            ".elementor-element-3067f087 .price")
             for element in elements:
-                try:
-                    first_ins = element.find_element(By.CSS_SELECTOR, '#our_price_display')
-                    if first_ins:
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
+            return -1
+        except NoSuchElementException:
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                '.elementor-element-3067f087 .price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
 
-                        price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
-                            price_text = int(int(price_text) / 10)
+                            price_text = int(price_text)
                             driver.close()
                             return price_text
                         else:
                             driver.close()
                             return -1
-                    else:
-                        driver.close()
-                        return -1
-                except NoSuchElementException:
                     driver.close()
                     return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
 
-            driver.close()
-            return -1
-        else:
-            driver.close()
-            return -1
+    except Exception as ee:
+        return -1
 
-    except Exception as e:
-        print(e)
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
 
 def convert_to_english(text):
     persian_to_english = {
@@ -83,11 +96,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://turborayan.com/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86/26002-saramonic-uwmic9-tx-xlr9.html")
-# print(turborayan(item, None, None))
+# item = MyObject("https://drumshop.ir/product/%d8%aa%d9%88%d9%85%d8%a8%d8%a7-%d9%85%d8%a7%db%8c%d9%86%d9%84-%d8%b3%d8%b1%db%8c-%d9%87%d8%af%d9%84%d8%a7%db%8c%d9%86%d8%b1-conga-meinl-hc555nt/")
+# print(drumshop(item, None, None))

@@ -28,6 +28,7 @@ def sazkala(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
+        # WOOCOMMERCE PRO PLUS
         cart = driver.find_elements(By.CSS_SELECTOR, "form.cart .single_add_to_cart_button")
         if cart:
             elements = driver.find_elements(By.CSS_SELECTOR, '.price-wrp')

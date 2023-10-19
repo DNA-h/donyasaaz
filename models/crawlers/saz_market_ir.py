@@ -11,13 +11,12 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def melodux(link, headers, site):
+def saz_market(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
-
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -25,34 +24,18 @@ def melodux(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
-        # FIXED WOOCOMMERCE PRO
-        try:
-            elements = driver.find_elements(By.CSS_SELECTOR, ".product-content .product-price")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
+        if cart:
+            elements = driver.find_elements(By.CSS_SELECTOR, '.seller-content')
             for element in elements:
-                ins = element.find_element(By.TAG_NAME, 'ins')
-                bdi = ins.find_element(By.TAG_NAME, 'bdi')
-                price_text = bdi.text.strip()
-                price_text = convert_to_english(price_text)
-                if price_text != "":
-                    price_text = int(price_text)
-                    driver.close()
-                    return price_text
-                else:
-                    driver.close()
-                    return -1
-            driver.close()
-            return -1
-        except NoSuchElementException:
-            try:
-                elements = driver.find_elements(By.CSS_SELECTOR,
-                                                '.product-content .product-price')
-                if elements:
-                    for element in elements:
-                        bdi = element.find_element(By.TAG_NAME, 'bdi')
-                        price_text = bdi.text.strip()
+                try:
+                    first_ins = element.find_element(By.CSS_SELECTOR, '.item-newprice .price-val')
+                    if first_ins:
 
+                        price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
@@ -61,17 +44,24 @@ def melodux(link, headers, site):
                         else:
                             driver.close()
                             return -1
+                    else:
+                        driver.close()
+                        return -1
+                except NoSuchElementException:
                     driver.close()
                     return -1
-                else:
-                    driver.close()
-                    return -1
-            except NoSuchElementException as e:
-                driver.close()
-                return -1
 
-    except Exception as ee:
-        return -1
+            driver.close()
+            return -1
+        else:
+            driver.close()
+            return -1
+
+    except Exception as e:
+        print(e)
+        logger = logging.getLogger(__name__)
+        logger.info('%s :  %s,', site, e)
+        return None
 
 def convert_to_english(text):
     persian_to_english = {
@@ -93,10 +83,12 @@ def convert_to_english(text):
 
     return converted_text
 
+
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://melodux.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%da%a9%d9%88%d8%b1%d8%b2%d9%88%db%8c%d9%84-kurzweil-m230/?utm_medium=PPC&utm_source=Torob")
-# print(melodux(item, None, None))
+# item = MyObject("https://saz-market.ir/product/177/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A8%D9%86%D8%A8%D8%B1%DA%AF-%D9%85%D8%AF%D9%84-bg-%DB%B5%DB%B4%DB%B1/?utm_medium=PPC&utm_source=Torob")
+# print(saz_market(item, None, None))
+

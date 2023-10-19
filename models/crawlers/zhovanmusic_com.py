@@ -16,27 +16,27 @@ def zhovanmusic(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe", options=chrome_options)
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                             options=chrome_options)
+                                  options=chrome_options)
 
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
-
-        try:
-            elements = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
+        if cart:
+            elements = driver.find_elements(By.CSS_SELECTOR, '.product-price')
             for element in elements:
-                inside_text = element.text.strip()
-                if "اتمام موجودی" in inside_text:
-                    driver.close()
-                    return -1
-                else:
-                    product_price = driver.find_element(By.CSS_SELECTOR, '.product-price')
-                    if product_price:
-                        price_text = product_price.text.strip()
+                try:
+                    # simple product
+                    first_ins = element.find_element(By.CSS_SELECTOR, 'ins')
+                    if first_ins:
+                        price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
@@ -48,14 +48,22 @@ def zhovanmusic(link, headers, site):
                     else:
                         driver.close()
                         return -1
+                except NoSuchElementException:
+                    driver.close()
+                    return -1
+
             driver.close()
             return -1
-        except NoSuchElementException:
+        else:
             driver.close()
             return -1
 
-    except Exception as ee:
-        return -1
+    except Exception as e:
+        print(e)
+        logger = logging.getLogger(__name__)
+        logger.info('%s :  %s,', site, e)
+        return None
+
 
 def convert_to_english(text):
     persian_to_english = {
@@ -77,10 +85,11 @@ def convert_to_english(text):
 
     return converted_text
 
+
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.zhovanmusic.com/store/sell-musical-instruments/piano-sales/casio-ap-470?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://www.zhovanmusic.com/store/traditional-iranian-instruments/tar-sales/tar-behruz-kalhor")
 # print(zhovanmusic(item, None, None))

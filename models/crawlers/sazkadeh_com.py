@@ -10,18 +10,27 @@ from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
+
 def sazkadeh(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
-        driver.set_page_load_timeout(40);driver.get(link.url);
+                             options=chrome_options)
 
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
+
+        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-element-fc526f0 .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -38,7 +47,8 @@ def sazkadeh(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                '.elementor-element-fc526f0 .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -63,7 +73,6 @@ def sazkadeh(link, headers, site):
 
     except Exception as ee:
         return -1
-
 
 def convert_to_english(text):
     persian_to_english = {
@@ -90,6 +99,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sazkadeh.com/shop/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%d8%b7%d8%b1%d8%ad-%d8%a2%da%af%d9%88%d8%b3%d8%aa%db%8c%da%a9-%da%a9%d8%a7%d8%b3%db%8c%d9%88-casio-s120/")
+# item = MyObject("https://sazkadeh.com/product/%da%a9%db%8c%d8%a8%d9%88%d8%b1%d8%af-%db%8c%d8%a7%d9%85%d8%a7%d9%87%d8%a7-%d9%85%d8%af%d9%84-yamaha-e360-2/?utm_medium=PPC&utm_source=Torob")
 # print(sazkadeh(item, None, None))
-

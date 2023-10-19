@@ -17,10 +17,18 @@ def audioshop(link, headers, site):
         #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--follow-redirects")
+
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
-        driver.set_page_load_timeout(40);driver.get(link.url);
+
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
         # FIXED WOOCOMMERCE PRO
         try:
@@ -90,3 +98,10 @@ def convert_to_english(text):
     return converted_text
 
 
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://audioshop.ir/product/%d8%a7%d9%85%d9%be%d9%84%db%8c-%d9%81%d8%a7%db%8c%d8%b1-vox-vx50-gtv/")
+# print(audioshop(item, None, None))

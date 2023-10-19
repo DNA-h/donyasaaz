@@ -29,7 +29,7 @@ def microless(link, headers, site):
 
         # FIXED WOOCOMMERCE
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.cart-pro.price')
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -46,7 +46,7 @@ def microless(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR, '.price')
+                elements = driver.find_elements(By.CSS_SELECTOR, '.cart-pro.price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')

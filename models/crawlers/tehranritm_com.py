@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def melodux(link, headers, site):
+def tehranritm(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -25,11 +25,12 @@ def melodux(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, ".product-content .product-price")
+            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -47,7 +48,7 @@ def melodux(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                '.product-content .product-price')
+                                                'h1 ~ .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -98,5 +99,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://melodux.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%da%a9%d9%88%d8%b1%d8%b2%d9%88%db%8c%d9%84-kurzweil-m230/?utm_medium=PPC&utm_source=Torob")
-# print(melodux(item, None, None))
+# item = MyObject("https://tehranritm.com/product/pioneer-ddj-flx4/")
+# print(tehranritm(item, None, None))

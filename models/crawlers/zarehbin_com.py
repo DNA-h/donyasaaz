@@ -16,6 +16,8 @@ def zarehbin(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -73,5 +75,5 @@ def convert_to_english(text):
 #     def __init__(self, url):
 #         self.url = url
 #
-# item = MyObject("https://www.zarehbin.com/product-details/%D8%AC%D8%A7%D8%B1%D9%88%D8%B3%D8%B7%D9%84%DB%8C-%D8%A8%D9%88%D8%B4-%D9%85%D8%AF%D9%84-bh-5561-6600w/941672")
+# item = MyObject("https://www.zarehbin.com/product-details/%D9%85%D9%84%D9%88%D8%AF%D9%8A%DA%A9%D8%A7-suzuki-%D9%85%D8%AF%D9%84-m-37-c-plus/5674959")
 # print(zarehbin(item, None, None))

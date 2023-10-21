@@ -11,25 +11,25 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def parsiansote(link, headers, site):
+def lunamarket(link, headers, site):
     try:
         chrome_options = Options()
-        #chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--follow-redirects")
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
 
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
-        #
+
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
+                             options=chrome_options)
 
         driver.set_page_load_timeout(40);driver.get(link.url);
 
-        # FIXED WOOCOMMERCE
+        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.product-info-box .price')
+            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -46,7 +46,8 @@ def parsiansote(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR, '.product-info-box .price')
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                'h1 ~ .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -72,7 +73,6 @@ def parsiansote(link, headers, site):
     except Exception as ee:
         return -1
 
-
 def convert_to_english(text):
     persian_to_english = {
         '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
@@ -93,14 +93,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://parsiansote.com/product/m-audio-oxygen-61-mkv/")
-# print(parsiansote(item, None, None))
-#
-# item = MyObject("https://parsiansote.com/product/arturia-keylab-88-mkii/")
-# print(parsiansote(item, None, None))
+# item = MyObject("https://aressystem.ir/product/shure-mv7x-xlr-podcast-microphone/?utm_medium=PPC_adv_click&utm_source=Torob")
+# print(aressystem(item, None, None))

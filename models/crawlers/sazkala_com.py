@@ -16,7 +16,7 @@ import sys
 def sazkala(link, headers, site):
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         #chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
@@ -97,11 +97,11 @@ def convert_to_english(text):
 
     return converted_text;
 
-
+#
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://sazkala.com/product/ibanez-rg370ahmz-bmt/")
+# item = MyObject("https://sazkala.com/product/roland-rp30-digital-piano/")
 # print(sazkala(item, None, None))

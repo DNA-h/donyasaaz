@@ -1,62 +1,56 @@
 import re
 import logging
 import sys
+
 import requests
+from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
-import os
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-import math
 
 
 def gostaresh(link, headers, site):
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--follow-redirects")
+
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
-        driver.set_page_load_timeout(40);driver.get(link.url);
-        elements = driver.find_elements(By.CSS_SELECTOR,'.footer-product.hidden-xs .product-page__prices')
-    except Exception as e:
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
 
-    if elements:
-        for element in elements:
-            try:
-                prices = element.find_elements(By.TAG_NAME, "div")
-                for div in prices:
-                    if "old-price" not in div.get_attribute("class"):
-                        final_div = div
-                    else:
-                        final_div = div.find_elements(By.TAG_NAME, "div")
-                        final_div = final_div[0]
-                    price_text = final_div.text.strip()
-                    price_text = convert_to_english(price_text)
-                    if price_text != "":
-                        price_text = int(price_text)
-                        driver.close()
-                        return price_text
-                    else:
-                        driver.close()
-                        return -1
-                driver.close()
-                return -1
-            except NoSuchElementException:
-                driver.close()
-                return -1
-    else:
-        driver.close()
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
+
+        # FIXED WOOCOMMERCE PRO
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR, ".footer-product.hidden-xs .js__product-page__prices >div >span")
+            for element in elements:
+
+                price_text = element.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
+            return -1
+        except NoSuchElementException:
+            driver.close()
+            return -1
+
+    except Exception as ee:
         return -1
 
 
@@ -87,5 +81,18 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.gostaresh-seda.com/%D9%85%D8%AD%D8%B5%D9%88%D9%84/2118/focusrite-scarlett-4i4-3rd-gen")
+# item = MyObject("https://www.gostaresh-seda.com/%D9%85%D8%AD%D8%B5%D9%88%D9%84/2112/alesis-q49-mkii")
 # print(gostaresh(item, None, None))
+# item = MyObject("https://www.gostaresh-seda.com/%D9%85%D8%AD%D8%B5%D9%88%D9%84/7190/%D9%85%DB%8C%D8%AF%DB%8C-%DA%A9%D9%86%D8%AA%D8%B1%D9%84%D8%B1-%D8%A2%DA%A9%D8%A7%DB%8C%DB%8C-akai-mpc-studio-2")
+# print(gostaresh(item, None, None))
+# item = MyObject("https://www.gostaresh-seda.com/%D9%85%D8%AD%D8%B5%D9%88%D9%84/1779/m-audio-oxygen-pro-25")
+# print(gostaresh(item, None, None))
+#
+
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
+#
+#
+# item = MyObject("https://sanadeltrading.com/product/%d8%ac%d8%a7%d8%b1%d9%88%d8%a8%d8%b1%d9%82%db%8c-%d8%a8%d9%88%d8%b4-bosch-%d9%85%d8%af%d9%84-kb-705/")
+# print(sanadeltrading(item, None, None))

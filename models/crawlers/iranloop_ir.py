@@ -27,14 +27,13 @@ def iranloop(link, headers, site):
         driver.set_page_load_timeout(40);
         driver.get(link.url);
 
-        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart:not(.disabled)")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.product-price .current-price')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.current-price')
             for element in elements:
                 try:
                     first_ins = element.find_element(By.CSS_SELECTOR, '.price')
                     if first_ins:
-
                         price_text = first_ins.text.strip()
                         price_text = convert_to_english(price_text)
                         if price_text != "":
@@ -87,17 +86,16 @@ def convert_to_english(text):
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
+
+
+# item = MyObject("https://iranloop.ir/speaker-monitoring/KRK-V8-S4-used")
+# print(iranloop(item, None, None))
 #
-#
-# item = MyObject("https://iranloop.ir/studio-microphones/-universal-audio-sd-1")
+# item = MyObject("https://iranloop.ir/speaker-monitoring/adam-t7v")
 # print(iranloop(item, None, None))
 #
 #
-# class MyObject:
-#     def __init__(self, url):
-#         self.url = url
-#
-#
-# item = MyObject("https://iranloop.ir/studio-Used/neumann-tlm-103-used#/4-%D8%B1%D9%86%DA%AF-%D9%86%D9%82%D8%B1%D9%87_%D8%A7%DB%8C")
+# item = MyObject("https://iranloop.ir/Studio-equipment/speaker-monitoring-neumann-kh-80-dsp")
 # print(iranloop(item, None, None))
+
 

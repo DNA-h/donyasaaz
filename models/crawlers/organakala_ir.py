@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def organakala(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -30,7 +30,7 @@ def tehranseda(link, headers, site):
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-element-7363d92 .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -48,7 +48,7 @@ def tehranseda(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                                                '.elementor-element-7363d92 .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +99,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://organakala.ir/product/%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%88%d9%86-%d9%be%d8%a7%d8%af%da%a9%d8%b3%d8%aa-%d9%88-%d8%a7%d8%b3%d8%aa%d8%b1%db%8c%d9%85-%d8%b4%d9%88%d8%b1-%d9%85%d8%af%d9%84-shure-mv7/?utm_medium=PPC&utm_source=Torob")
+# print(organakala(item, None, None))

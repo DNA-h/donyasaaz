@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def epasand(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -25,12 +25,11 @@ def tehranseda(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-element-709e8102 .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -47,8 +46,7 @@ def tehranseda(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                elements = driver.find_elements(By.CSS_SELECTOR, '.elementor-element-709e8102 .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +97,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://epasand.com/product/%da%a9%d8%a7%d8%b1%d8%aa-%d8%b5%d8%af%d8%a7-%d8%a8%d8%b1%d9%86%d8%af-motu-%d9%85%d8%af%d9%84-motu-m4-4-in-4-out-%d8%b1%d8%a7%d8%a8%d8%b7-%d8%b5%d9%88%d8%aa%db%8c-%d8%a8%d8%a7-2-%d9%be%db%8c%d8%b4/")
+# print(epasand(item, None, None))

@@ -83,9 +83,9 @@ def convert_to_english(text):
     return converted_text
 
 
-class MyObject:
-    def __init__(self, url):
-        self.url = url
+# class MyObject:
+#     def __init__(self, url):
+#         self.url = url
 
 
 # item = MyObject("https://iranloop.ir/speaker-monitoring/KRK-V8-S4-used")

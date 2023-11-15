@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def sollavaz(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -28,9 +28,10 @@ def tehranseda(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
+
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".cart-box  .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -48,7 +49,7 @@ def tehranseda(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                                                '.cart-box .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +100,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://sollavaz.ir/product/%d8%a7%d9%85%d9%be%d9%84%db%8c-%d9%81%d8%a7%db%8c%d8%b1-%d9%81%d9%86%d8%af%d8%b1/?utm_medium=PPC&utm_source=Torob")
+# print(sollavaz(item, None, None))

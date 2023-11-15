@@ -11,13 +11,11 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def bikook(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
-
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -25,12 +23,11 @@ def tehranseda(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".all-prices p.price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -47,8 +44,7 @@ def tehranseda(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                elements = driver.find_elements(By.CSS_SELECTOR, '.all-prices p.price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +95,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://bikook.shop/product/%da%af%db%8c%d8%aa%d8%a7%d8%b1-%da%a9%d9%84%d8%a7%d8%b3%db%8c%da%a9-%da%a9%d9%88%db%8c%db%8c%d9%86%da%a9%d8%a7-%d9%85%d8%af%d9%84-45-ziricote-%d8%a7%d9%86%d8%af%d8%a7%d8%b2%d9%87-4-4/?utm_medium=PPC&utm_source=Torob")
+# print(bikook(item, None, None))

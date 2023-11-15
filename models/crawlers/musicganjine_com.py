@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def musicganjine(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -30,7 +30,7 @@ def tehranseda(link, headers, site):
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".product-info-panel ~ div.price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -48,7 +48,7 @@ def tehranseda(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                                                '.product-info-panel ~ div.price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -99,5 +99,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://musicganjine.com/product/%D9%BE%D9%83%D9%8A%D8%AC-%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%88%D9%86-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88%DB%8C%DB%8C-%D8%A7%D9%85-%D8%A7%D9%8A%D9%83%D8%B3-%D8%A7%D9%84-microphones-mxl-990/?utm_medium=PPC&utm_source=Torob")
+# print(musicganjine(item, None, None))

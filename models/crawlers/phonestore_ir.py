@@ -11,27 +11,32 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def rayanmusic(link, headers, site):
+def phonestore(link, headers, site):
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument("--follow-redirects")
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                             options=chrome_options)
+                                  options=chrome_options)
 
         driver.set_page_load_timeout(40)
+
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#button-cart")
-        if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, 'h2.productprice')
-            for element in elements:
-                try:
+
+
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR, '.product-buttons .product-addtocart')
+            if elements :
+                elements = driver.find_elements(By.CSS_SELECTOR, '.product-price-wrap h5.product-price')
+                for element in elements:
                     price_text = element.text.strip()
                     price_text = convert_to_english(price_text)
                     if price_text != "":
@@ -41,22 +46,19 @@ def rayanmusic(link, headers, site):
                     else:
                         driver.close()
                         return -1
-
-                except NoSuchElementException:
-                    driver.close()
-                    return -1
-
+                driver.close()
+                return -1
+            else:
+                driver.close()
+                return -1
+        except NoSuchElementException:
             driver.close()
             return -1
-        else:
-            driver.close()
-            return -1
 
-    except Exception as e:
-        print(e)
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
+
+    except Exception as ee:
+        return -1
+
 
 def convert_to_english(text):
     persian_to_english = {
@@ -84,5 +86,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.rayanmusic.com/zoom-g5n?sort=pd.name&order=DESC")
-# print(rayanmusic(item, None, None))
+# item = MyObject("https://www.phonestore.ir/%DA%AF%D9%88%D8%B4%DB%8C-%D9%85%D9%88%D8%A8%D8%A7%DB%8C%D9%84-%D8%A2%D9%86%D8%B1-%D9%85%D8%AF%D9%84-9a-%D8%AF%D9%88-%D8%B3%DB%8C%D9%85-%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B8%D8%B1%D9%81%DB%8C%D8%AA-64-%DA%AF%DB%8C%DA%AF%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA")
+# print(phonestore(item, None, None))

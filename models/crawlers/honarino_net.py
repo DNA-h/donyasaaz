@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def tehranseda(link, headers, site):
+def honarino(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -25,8 +25,7 @@ def tehranseda(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);driver.get(link.url);
 
         # FIXED WOOCOMMERCE PRO
         try:
@@ -99,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://tehranseda.com/presonus-studio-1810c/")
-# print(tehranseda(item, None, None))
+# item = MyObject("https://honarino.net/product/%d8%aa%d9%86%d8%a8%da%a9-%d9%82%d8%a7%d8%b3%d9%85%db%8c-%db%8c%da%a9-%d8%aa%da%a9%d9%87-%d8%af%d9%87%d8%a7%d9%86%d9%87-27/")
+# print(honarino(item, None, None))

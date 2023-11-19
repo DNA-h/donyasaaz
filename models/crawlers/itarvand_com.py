@@ -11,28 +11,29 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def t2fungallery(link, headers, site):
+def itarvand(link, headers, site):
     try:
         chrome_options = Options()
-        #chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--follow-redirects")
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
 
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
+                             options=chrome_options)
 
         driver.set_page_load_timeout(40);driver.get(link.url);
 
-        # FIXED WOOCOMMERCE
+        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.seller-box')
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-widget-wd_single_product_price .price")
             for element in elements:
-                span = element.find_element(By.CSS_SELECTOR, '.item-newprice')
-                price_text = span.text.strip()
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
                 price_text = convert_to_english(price_text)
                 if price_text != "":
                     price_text = int(price_text)
@@ -44,12 +45,33 @@ def t2fungallery(link, headers, site):
             driver.close()
             return -1
         except NoSuchElementException:
-            driver.close()
-            return -1
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                '.elementor-widget-wd_single_product_price .price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
+
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    driver.close()
+                    return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
 
     except Exception as ee:
         return -1
-
 
 def convert_to_english(text):
     persian_to_english = {
@@ -71,11 +93,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://2fungallery.ir/product/119/%D8%B3%D8%A7%D8%B2-%DA%A9%D8%A7%D9%84%DB%8C%D9%85%D8%A8%D8%A7-%DB%B1%DB%B7-%D8%AA%DB%8C%D8%BA%D9%87-%D8%B6%D8%AF%D8%B2%D9%86%DA%AF-%DA%86%D9%88%D8%A8-%DA%AF%D8%B1%D8%AF%D9%88/?utm_medium=PPC&utm_source=Torob")
-# print(t2fungallery(item, None, None))
+# item = MyObject("https://itarvand.com/product/%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%88%d9%86-akg-%d9%85%d8%af%d9%84-p120/?utm_medium=PPC&utm_source=Torob")
+# print(itarvand(item, None, None))

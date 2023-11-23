@@ -36,39 +36,50 @@ def emalls(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('log-level=3')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
+        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe", options=chrome_options)
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
+                                  options=chrome_options)
+
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
+
         # Find the element containing the product price
-        elements = driver.find_elements(By.CSS_SELECTOR, '.itemprice')
+        elements = driver.find_elements(By.CSS_SELECTOR, 'h2 ~ .price-more')
+
+        if elements is not None:
+            for element in elements:
+
+                strong_element = element.find_element(By.TAG_NAME, 'strong')
+                if strong_element:
+                    first_strong = strong_element
+                    price_text = first_strong.text.strip()
+                    price_text = convert_to_english(price_text)
+                    if price_text != "":
+                        price_text = int(price_text)
+                        driver.close()
+                        return price_text
+                    else:
+                        driver.close()
+                        return -1
+                else:
+                    driver.close()
+                    return -1
+            driver.close()
+            return -1
+        driver.close()
+        return -1
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
         return None
 
-    if elements is not None:
-        for element in elements:
-            strong_element = element.find_element(By.TAG_NAME, 'strong')
-            if strong_element:
-                first_strong = strong_element
-                price_text = first_strong.text.strip()
-                price_text = convert_to_english(price_text)
-                if price_text != "":
-                    price_text = int(price_text)
-                    driver.close()
-                    return price_text
-                else:
-                    driver.close()
-                    return -1
-            else:
-                driver.close()
-                return -1
-        driver.close()
-        return -1
-    driver.close()
-    return -1
+
+
 
 
 # class MyObject:
@@ -76,5 +87,5 @@ def emalls(link, headers, site):
 #         self.url = url
 #
 #
-# item = MyObject("https://emalls.ir/%D9%85%D8%B4%D8%AE%D8%B5%D8%A7%D8%AA_%D8%B3%D9%86%D8%AA%D9%88%D8%B1-%D9%85%D9%88%D8%B3%D9%88%DB%8C-%D8%AF%D9%88-%D9%85%D9%87%D8%B1~id~4619479")
-# print(arasound(item, None, None))
+# item = MyObject("https://emalls.ir/%d9%85%d8%b4%d8%ae%d8%b5%d8%a7%d8%aa_%da%af%db%8c%d8%aa%d8%a7%d8%b1-%d9%81%d9%84%d8%a7%d9%85%d9%86%da%a9%d9%88-Alhambra-%d9%85%d8%af%d9%84-4F-%d8%b3%d8%a7%db%8c%d8%b2-4-4~id~182315")
+# print(emalls(item, None, None))

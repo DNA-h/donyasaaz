@@ -16,6 +16,8 @@ def caspianava(link, headers, site):
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -27,7 +29,7 @@ def caspianava(link, headers, site):
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, ".product-price-container .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price-wrapper")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -44,7 +46,8 @@ def caspianava(link, headers, site):
             return -1
         except NoSuchElementException:
             try:
-                elements = driver.find_elements(By.CSS_SELECTOR, '.product-price-container .price')
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                'h1 ~ .price-wrapper')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -66,7 +69,6 @@ def caspianava(link, headers, site):
             except NoSuchElementException as e:
                 driver.close()
                 return -1
-
     except Exception as ee:
         return -1
 
@@ -89,11 +91,11 @@ def convert_to_english(text):
     converted_text = ''.join(c for c in converted_text if c.isdigit())
 
     return converted_text
-
+#
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://caspianava.com/product/alesis-q25/")
+# item = MyObject("https://caspianava.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-yamaha-ydp-105/")
 # print(caspianava(item, None, None))

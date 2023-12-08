@@ -445,19 +445,11 @@ def get_prices():
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                     continue
-                music_item = MusicItem.objects.filter(id=links[(i + 0) % len(links)]['parent'])
-                if music_item:
-                    if check_if_its_turn(music_item.counter,music_item.priority) :
-                        pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
-                        if i % 300 == 0:
-                            for j in range(0, len(bookmarks)):
-                                site = re.findall("//(.*?)/", bookmarks[j]['url'])
-                                pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
-                    counter = counter + 1 if counter < 10 else 0
-                    music_item.counter = counter
-                    music_item.save()
-                else:
-                    logger.info('music item not found')
+                pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+                if i % 300 == 0:
+                    for j in range(0, len(bookmarks)):
+                        site = re.findall("//(.*?)/", bookmarks[j]['url'])
+                        pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
             except:
                 logger.info('except')
                 pass

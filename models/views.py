@@ -445,7 +445,9 @@ def get_prices():
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                     continue
-                music_item = MusicItem.objects.filter(id=links[(i + 0) % len(links)]['parent'])
+                parent_id = links[(i + 0) % len(links)]['parent']
+                music_item = MusicItem.objects.filter(id=parent_id)
+                print(music_item.id)
                 if music_item:
                     if check_if_its_turn(music_item.counter,music_item.priority) :
                         pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))

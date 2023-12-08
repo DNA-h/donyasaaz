@@ -33,13 +33,13 @@ def index(request):
 class MusicItemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'pk', 'increase', 'decrease', 'out_of_stock', 'in_stock', 'is_active')
+        fields = ('name', 'image', 'pk', 'increase', 'decrease', 'out_of_stock', 'in_stock', 'is_active', 'counter', 'priority')
 
 
 class MusicItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MusicItem
-        fields = ('name', 'image', 'url', 'price', 'pk', 'is_active')
+        fields = ('name', 'image', 'url', 'price', 'pk', 'is_active', 'priority', 'counter')
 
     def to_representation(self, instance):
         super_s = super().to_representation(instance)
@@ -429,7 +429,7 @@ def get_prices():
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    links = Link.objects.filter(parent__is_active=True).values('id', 'url', 'importance').order_by('id')
+    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('id')
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     import random
@@ -437,6 +437,7 @@ def get_prices():
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
             try:
+
                 rnd = random.randint(1,99)
                 if links[(i + 0) % len(links)]['importance'] < rnd:
                     continue
@@ -444,11 +445,17 @@ def get_prices():
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                     continue
-                pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
-                if i % 300 == 0:
-                    for j in range(0, len(bookmarks)):
-                        site = re.findall("//(.*?)/", bookmarks[j]['url'])
-                        pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
+                music_item = MusicItem.objects.filter(id=links[(i + 0) % len(links)]['id'])
+                if music_item:
+                    if check_if_its_turn(music_item.counter,music_item.priority) :
+                        pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+                        if i % 300 == 0:
+                            for j in range(0, len(bookmarks)):
+                                site = re.findall("//(.*?)/", bookmarks[j]['url'])
+                                pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
+                    counter = counter + 1 if counter < 10 else 0
+                    music_item.counter = counter
+                    music_item.save()
             except:
                 logger.info('except')
                 pass
@@ -456,6 +463,18 @@ def get_prices():
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')
+
+
+def check_if_its_turn(counter:int, priority:int) -> bool:
+    """Check if it's ok to let a link continue to be be crawled"""
+    if priority == 0:
+        return False  # PRODUCT IGNORED FOR EVER!
+    if counter == 0:
+        return True  # Initial point
+    elif counter / priority > 1:
+        return False
+    else:
+        return True
 
 
 def get_prices_fast():

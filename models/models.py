@@ -19,6 +19,8 @@ class MusicItem(TimeStampedModel):
     out_of_stock = models.SmallIntegerField(default=0, null=True, blank=True)
     increase = models.SmallIntegerField(default=0, null=True, blank=True)
     decrease = models.SmallIntegerField(default=0, null=True, blank=True)
+    priority = models.SmallIntegerField(default=10, null=False, blank=False)
+    counter = models.SmallIntegerField(default=1, null=False, blank=False)
 
 
 # create_update new Item(name,link,image)

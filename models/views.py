@@ -447,17 +447,21 @@ def get_prices():
                     continue
                 parent_id = links[(i + 0) % len(links)]['parent']
                 music_item = MusicItem.objects.filter(id=parent_id).first()
-                print(music_item.id)
+
                 if music_item:
-                    if check_if_its_turn(music_item.counter,music_item.priority) :
+                    if check_if_its_turn(music_item.counter, music_item.priority):
+                        saveMusicItemCounter(music_item)
                         pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
                         if i % 300 == 0:
                             for j in range(0, len(bookmarks)):
                                 site = re.findall("//(.*?)/", bookmarks[j]['url'])
                                 pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
-                    counter = counter + 1 if counter < 10 else 0
-                    music_item.counter = counter
-                    music_item.save()
+                    else:
+                        saveMusicItemCounter(music_item)
+                        print("not turn")
+
+
+
                 else:
                     logger.info('music item not found')
             except:
@@ -469,6 +473,11 @@ def get_prices():
     logger.info('done')
 
 
+def saveMusicItemCounter(music_item):
+    counter = music_item.counter
+    counter = counter + 1 if counter < 10 else 0
+    music_item.counter = counter
+    music_item.save()
 def check_if_its_turn(counter:int, priority:int) -> bool:
     """Check if it's ok to let a link continue to be be crawled"""
     if priority == 0:

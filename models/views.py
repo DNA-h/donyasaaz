@@ -445,20 +445,12 @@ def get_prices():
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))
                     continue
-                parent_id = links[(i + 0) % len(links)]['parent']
-                music_item = MusicItem.objects.filter(id=parent_id).first()
+                pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
+                if i % 300 == 0:
+                    for j in range(0, len(bookmarks)):
+                        site = re.findall("//(.*?)/", bookmarks[j]['url'])
+                        pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
 
-                if music_item:
-                    if check_if_its_turn(music_item.counter, music_item.priority):
-                        saveMusicItemCounter(music_item)
-                        pool.submit(callCrawlerThread, links[(i + 0) % len(links)], site, statistic, len(links))
-                        if i % 300 == 0:
-                            for j in range(0, len(bookmarks)):
-                                site = re.findall("//(.*?)/", bookmarks[j]['url'])
-                                pool.submit(callCrawlerThread, bookmarks[j], site, statistic, len(links))
-                    else:
-                        saveMusicItemCounter(music_item)
-                        print("not turn")
 
 
 
@@ -471,24 +463,6 @@ def get_prices():
 
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')
-
-
-def saveMusicItemCounter(music_item):
-    # priority counter update
-    counter = music_item.counter
-    counter = counter + 1 if counter < 10 else 0
-    music_item.counter = counter
-    music_item.save()
-def check_if_its_turn(counter:int, priority:int) -> bool:
-    """Check if it's ok to let a link continue to be be crawled"""
-    if priority == 0:
-        return False  # PRODUCT IGNORED FOR EVER!
-    if counter == 0:
-        return True  # Initial point
-    elif counter / priority > 1:
-        return False
-    else:
-        return True
 
 
 def get_prices_fast():

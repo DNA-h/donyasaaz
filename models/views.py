@@ -437,6 +437,7 @@ def get_prices():
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         for i in range(0, len(links)):
             try:
+
                 rnd = random.randint(1,99)
                 if links[(i + 0) % len(links)]['importance'] < rnd:
                     continue
@@ -453,6 +454,7 @@ def get_prices():
                 logger.info('except')
                 pass
     logger.info(statistic)
+
     config.lastCrawlEnded = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     logger.info('done')
 

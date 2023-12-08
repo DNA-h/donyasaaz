@@ -289,6 +289,7 @@ def callCrawlerThread(link, site, statistic, total):
 
     parent_id = link['parent']
     music_item = MusicItem.objects.filter(id=parent_id).first()
+    print(music_item)
     if music_item:
         if check_if_its_turn(music_item.counter, music_item.priority):
             saveMusicItemCounter(music_item)
@@ -329,6 +330,8 @@ def callCrawlerThread(link, site, statistic, total):
         else:
             saveMusicItemCounter(music_item)
             print("not turn")
+    else:
+        print("music item not loaded")
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,

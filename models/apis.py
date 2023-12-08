@@ -266,6 +266,8 @@ def callCrawlerThread(link, site, statistic, total):
     start_time = time.time()
     link.last_run_started = timezone.now()
     link.save()
+    parent_id = link['parent']
+    logger.info(parent_id)
     try:
         print("site:")
         print(crawlers[site[0]])

@@ -474,6 +474,7 @@ def get_prices():
 
 
 def saveMusicItemCounter(music_item):
+    # priority counter update
     counter = music_item.counter
     counter = counter + 1 if counter < 10 else 0
     music_item.counter = counter

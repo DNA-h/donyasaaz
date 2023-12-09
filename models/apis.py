@@ -287,6 +287,7 @@ def callCrawlerThread(link, site, statistic, total):
     link.save()
 
     parent_id = link.parent
+    logger.info('parent '+parent_id)
     music_item = MusicItem.objects.filter(id=parent_id).first()
 
     if music_item:

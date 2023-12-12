@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def navakade(link, headers, site):
+def arbizone(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -25,11 +25,11 @@ def navakade(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
-        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".av-woo-purchase-button p.price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -47,7 +47,7 @@ def navakade(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                                                '.av-woo-purchase-button p.price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -98,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://aressystem.ir/product/shure-mv7x-xlr-podcast-microphone/?utm_medium=PPC_adv_click&utm_source=Torob")
-# print(aressystem(item, None, None))
+# item = MyObject("https://arbizone.com/product/%D8%AF%DB%8C-%D8%AC%DB%8C-dj/%D8%AF%DB%8C-%D8%AC%DB%8C-%D9%87%D9%85%D9%87-%DA%A9%D8%A7%D8%B1%D9%87-all-in-one-dj/%D8%AF%DB%8C-%D8%AC%DB%8C-%D9%87%D9%85%D9%87-%DA%A9%D8%A7%D8%B1%D9%87-%D9%BE%D8%A7%DB%8C%D9%88%D9%86%DB%8C%D8%B1-xdj-rx3/")
+# print(arbizone(item, None, None))

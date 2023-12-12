@@ -10,8 +10,7 @@ from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
-
-def harmonicatools(link, headers, site):
+def dehkadedigital(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -28,12 +27,33 @@ def harmonicatools(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+
+        cart = driver.find_elements(By.CSS_SELECTOR, ".single_add_to_cart_button")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '#our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.summary.entry-summary')
             for element in elements:
                 try:
-                    price_text = element.text.strip()
+                    # simple product
+                    first_ins = element.find_element(By.TAG_NAME, 'ins')
+                    if first_ins:
+                        first_strong = first_ins.find_element(By.CSS_SELECTOR, '.amount')
+                        price_text = first_strong.text.strip()
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    else:
+                        driver.close()
+                        return -1
+                except NoSuchElementException:
+                    # variation-product
+                    # <ins> element is not available
+                    first_strong = element.find_element(By.CSS_SELECTOR, '.amount')
+                    price_text = first_strong.text.strip()
                     price_text = convert_to_english(price_text)
                     if price_text != "":
                         price_text = int(price_text)
@@ -42,10 +62,6 @@ def harmonicatools(link, headers, site):
                     else:
                         driver.close()
                         return -1
-
-                except NoSuchElementException:
-                    driver.close()
-                    return -1
 
             driver.close()
             return -1
@@ -79,11 +95,11 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://suntech.ir/dj-controller/3912-pioneer-ddj-400.html?utm_medium=PPC&utm_source=Torob")
-# print(suntech(item, None, None))
+# item = MyObject("https://dehkadedigital.ir/product/%d9%be%d8%ae%d8%b4-%da%a9%d9%86%d9%86%d8%af%d9%87-%d8%a8%db%8c-%d8%b3%db%8c%d9%85-%d9%be%d8%b1%d8%aa%d8%a7%d8%a8%d9%84-%d8%b3%d9%88%d9%86%db%8c-%d9%85%d8%af%d9%84-gtk-pg10/")
+# print(dehkadedigital(item, None, None))
+

@@ -84,5 +84,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://metamelody.ir/product/%D9%BE%DB%8C%D8%A7%D9%86%D9%88-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-p-45/?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://metamelody.ir/product/%DA%A9%DB%8C%D8%A8%D9%88%D8%B1%D8%AF-%D8%A7%D8%B1%D9%86%D8%AC%D8%B1-yamaha-psr-a5000/?utm_medium=PPC&utm_source=Torob")
 # print(metamelody(item, None, None))

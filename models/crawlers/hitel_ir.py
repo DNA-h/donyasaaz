@@ -11,29 +11,35 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def harmonicatools(link, headers, site):
+def hitel(link, headers, site):
     try:
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
+        #chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+        chrome_options.add_argument("--follow-redirects")
 
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                             options=chrome_options)
+                                  options=chrome_options)
 
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
-        if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '#our_price_display')
-            for element in elements:
-                try:
-                    price_text = element.text.strip()
+        try:
+            try:
+                out_stock = driver.find_element(By.CSS_SELECTOR, ".stock.out-of-stock")
+                text_status = out_stock.text.strip()
+                driver.close()
+                return -1
+            except NoSuchElementException:
+                elements = driver.find_elements(By.CSS_SELECTOR, ".d-lg-block .price")
+                for element in elements:
+                    ins = element.find_element(By.TAG_NAME, 'ins')
+                    bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                    price_text = bdi.text.strip()
                     price_text = convert_to_english(price_text)
                     if price_text != "":
                         price_text = int(price_text)
@@ -42,22 +48,35 @@ def harmonicatools(link, headers, site):
                     else:
                         driver.close()
                         return -1
+                driver.close()
+                return -1
+        except NoSuchElementException:
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR, '.d-lg-block .price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
 
-                except NoSuchElementException:
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
                     driver.close()
                     return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
 
-            driver.close()
-            return -1
-        else:
-            driver.close()
-            return -1
-
-    except Exception as e:
-        print(e)
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
+    except Exception as ee:
+        return -1
 
 def convert_to_english(text):
     persian_to_english = {
@@ -84,6 +103,5 @@ def convert_to_english(text):
 #     def __init__(self, url):
 #         self.url = url
 #
-#
-# item = MyObject("https://suntech.ir/dj-controller/3912-pioneer-ddj-400.html?utm_medium=PPC&utm_source=Torob")
-# print(suntech(item, None, None))
+# item = MyObject("https://studiopaya.com/product/takstar-pc-k320-black/")
+# print(studiopaya(item, None, None))

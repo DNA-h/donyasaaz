@@ -89,6 +89,6 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://saz-market.ir/product/177/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A8%D9%86%D8%A8%D8%B1%DA%AF-%D9%85%D8%AF%D9%84-bg-%DB%B5%DB%B4%DB%B1/?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://saz-market.ir/product/182/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%D8%A8%D9%86%D8%A8%D8%B1%DA%AF-%D9%85%D8%AF%D9%84-bg-492m/?utm_medium=PPC&utm_source=Torob")
 # print(saz_market(item, None, None))
 

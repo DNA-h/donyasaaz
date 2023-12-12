@@ -11,13 +11,12 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def harmonicatools(link, headers, site):
+def mosighi_aghajan_ir(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
-
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
@@ -25,24 +24,29 @@ def harmonicatools(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40)
-        driver.get(link.url)
+        driver.set_page_load_timeout(40);
+        driver.get(link.url);
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, ".add-to-cart")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '#our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '.seller-content')
             for element in elements:
                 try:
-                    price_text = element.text.strip()
-                    price_text = convert_to_english(price_text)
-                    if price_text != "":
-                        price_text = int(price_text)
-                        driver.close()
-                        return price_text
+                    first_ins = element.find_element(By.CSS_SELECTOR, '.item-newprice .price-val')
+                    if first_ins:
+
+                        price_text = first_ins.text.strip()
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
                     else:
                         driver.close()
                         return -1
-
                 except NoSuchElementException:
                     driver.close()
                     return -1
@@ -85,5 +89,6 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://suntech.ir/dj-controller/3912-pioneer-ddj-400.html?utm_medium=PPC&utm_source=Torob")
-# print(suntech(item, None, None))
+# item = MyObject("https://aranil.ir/product/2/%D8%A7%D8%B3%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%A7%D9%86%DB%8C%D8%AA%D9%88%D8%B1%DB%8C%D9%86%DA%AF-yamaha-hs80m/?utm_medium=PPC&utm_source=Torob")
+# print(aranil(item, None, None))
+

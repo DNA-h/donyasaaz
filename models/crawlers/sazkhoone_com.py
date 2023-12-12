@@ -98,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sazkhoone.com/product/casio-ap270/?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://sazkhoone.com/product/rp107/?utm_medium=PPC&utm_source=Torob")
 # print(sazkhoone(item, None, None))

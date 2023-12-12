@@ -28,7 +28,6 @@ def studiopaya(link, headers, site):
 
         driver.set_page_load_timeout(40);driver.get(link.url);
 
-        # FIXED WOOCOMMERCE PRO
         try:
             try:
                 out_stock = driver.find_element(By.CSS_SELECTOR, ".stock.out-of-stock")

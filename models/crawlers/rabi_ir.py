@@ -97,5 +97,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://rabi.ir/product/441284/%D9%85%DB%8C%DA%A9%D8%B1%D9%88%D9%81%D9%86-Shure-MV7X?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://rabi.ir/product/397044/%DA%A9%D8%A7%D8%B1%D8%AA-%D8%B5%D8%AF%D8%A7-%D9%85%D9%88%D8%AA%D9%88-%D9%85%D8%AF%D9%84-M4?utm_medium=PPC&utm_source=Torob")
 # print(rabi(item, None, None))

@@ -98,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://itarvand.com/product/%d9%85%db%8c%da%a9%d8%b1%d9%88%d9%81%d9%88%d9%86-akg-%d9%85%d8%af%d9%84-p120/?utm_medium=PPC&utm_source=Torob")
+# item = MyObject("https://itarvand.com/product/%d9%87%d8%af%d9%81%d9%88%d9%86-akg-%d9%85%d8%af%d9%84-k240-studio/?utm_medium=PPC&utm_source=Torob")
 # print(itarvand(item, None, None))

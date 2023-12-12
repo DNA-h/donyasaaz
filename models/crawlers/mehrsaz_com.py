@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def harmonicatools(link, headers, site):
+def mehrsaz(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -28,36 +28,50 @@ def harmonicatools(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
-        if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '#our_price_display')
+        try:
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-widget-wd_single_product_price .price")
             for element in elements:
-                try:
-                    price_text = element.text.strip()
-                    price_text = convert_to_english(price_text)
-                    if price_text != "":
-                        price_text = int(price_text)
-                        driver.close()
-                        return price_text
-                    else:
-                        driver.close()
-                        return -1
-
-                except NoSuchElementException:
+                ins = element.find_element(By.TAG_NAME, 'ins')
+                bdi = ins.find_element(By.TAG_NAME, 'bdi')
+                price_text = bdi.text.strip()
+                price_text = convert_to_english(price_text)
+                if price_text != "":
+                    price_text = int(price_text)
+                    driver.close()
+                    return price_text
+                else:
                     driver.close()
                     return -1
-
             driver.close()
             return -1
-        else:
-            driver.close()
-            return -1
+        except NoSuchElementException:
+            try:
+                elements = driver.find_elements(By.CSS_SELECTOR,
+                                                '.elementor-widget-wd_single_product_price .price')
+                if elements:
+                    for element in elements:
+                        bdi = element.find_element(By.TAG_NAME, 'bdi')
+                        price_text = bdi.text.strip()
 
-    except Exception as e:
-        print(e)
-        logger = logging.getLogger(__name__)
-        logger.info('%s :  %s,', site, e)
-        return None
+                        price_text = convert_to_english(price_text)
+                        if price_text != "":
+                            price_text = int(price_text)
+                            driver.close()
+                            return price_text
+                        else:
+                            driver.close()
+                            return -1
+                    driver.close()
+                    return -1
+                else:
+                    driver.close()
+                    return -1
+            except NoSuchElementException as e:
+                driver.close()
+                return -1
+
+    except Exception as ee:
+        return -1
 
 def convert_to_english(text):
     persian_to_english = {
@@ -79,11 +93,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://suntech.ir/dj-controller/3912-pioneer-ddj-400.html?utm_medium=PPC&utm_source=Torob")
-# print(suntech(item, None, None))
+# item = MyObject("https://mehrsaz.com/setar-mohammad-hashemi-pattern/?utm_medium=PPC&utm_source=Torob")
+# print(mehrsaz(item, None, None))

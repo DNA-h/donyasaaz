@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def harmonicatools(link, headers, site):
+def akampars(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -28,9 +28,9 @@ def harmonicatools(link, headers, site):
         driver.set_page_load_timeout(40)
         driver.get(link.url)
 
-        cart = driver.find_elements(By.CSS_SELECTOR, "#add_to_cart")
+        cart = driver.find_elements(By.CSS_SELECTOR, "#addcrt")
         if cart:
-            elements = driver.find_elements(By.CSS_SELECTOR, '#our_price_display')
+            elements = driver.find_elements(By.CSS_SELECTOR, '#sizeprice')
             for element in elements:
                 try:
                     price_text = element.text.strip()
@@ -85,5 +85,6 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://suntech.ir/dj-controller/3912-pioneer-ddj-400.html?utm_medium=PPC&utm_source=Torob")
-# print(suntech(item, None, None))
+# item = MyObject("https://aranil.ir/product/2/%D8%A7%D8%B3%D9%BE%DB%8C%DA%A9%D8%B1-%D9%85%D8%A7%D9%86%DB%8C%D8%AA%D9%88%D8%B1%DB%8C%D9%86%DA%AF-yamaha-hs80m/?utm_medium=PPC&utm_source=Torob")
+# print(aranil(item, None, None))
+

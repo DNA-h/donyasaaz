@@ -24,7 +24,8 @@ def darkuob(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
 
         cart = driver.find_elements(By.CSS_SELECTOR, ".single_add_to_cart_button")
@@ -108,5 +109,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.darkuob.com/product/%d9%87%d9%86%da%af-%d8%af%d8%b1%d8%a7%d9%85-%d8%a2%d8%b1%d8%b4%d8%a7-%d9%81%d9%88%d9%84%d8%a7%d8%af/")
+# item = MyObject("https://www.darkuob.com/product/%DA%AF%DB%8C%D8%AA%D8%A7%D8%B1-%DB%8C%D8%A7%D9%85%D8%A7%D9%87%D8%A7-c70/?utm_medium=PPC&utm_source=Torob")
 # print(darkuob(item, None, None))

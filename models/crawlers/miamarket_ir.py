@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def navakade(link, headers, site):
+def miamarket(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")

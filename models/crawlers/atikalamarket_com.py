@@ -9,14 +9,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
+import time
 
 
-def phonestore(link, headers, site):
+def atikalamarket(link, headers, site):
     try:
         chrome_options = Options()
-        #chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--follow-redirects")
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
 
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
@@ -24,41 +24,33 @@ def phonestore(link, headers, site):
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                                  options=chrome_options)
+                             options=chrome_options)
 
         driver.set_page_load_timeout(40)
-
         driver.get(link.url)
 
-
-
+        # CUSTOM
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, '.product-buttons .product-addtocart')
-            if elements :
-                elements = driver.find_elements(By.CSS_SELECTOR, '.product-price-wrap h5.product-price')
-                for element in elements:
+            elements = driver.find_elements(By.CSS_SELECTOR,  ".price .ywcrbp_sale_price  bdi")
+            final_price = -1
+            for element in elements:
                     price_text = element.text.strip()
                     price_text = convert_to_english(price_text)
                     if price_text != "":
                         price_text = int(price_text)
-                        driver.close()
-                        return price_text
-                    else:
-                        driver.close()
-                        return -1
-                driver.close()
-                return -1
-            else:
-                driver.close()
-                return -1
+                        if final_price > 0 and price_text < final_price:
+                            final_price = price_text
+                        else:
+                            if final_price == -1:
+                                final_price = price_text
+            driver.close()
+            return final_price
+
         except NoSuchElementException:
             driver.close()
             return -1
-
-
     except Exception as ee:
         return -1
-
 
 def convert_to_english(text):
     persian_to_english = {
@@ -80,11 +72,10 @@ def convert_to_english(text):
 
     return converted_text
 
-
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.phonestore.ir/%D9%87%D8%AF%D9%81%D9%88%D9%86-%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%DB%8C%D9%88%DB%8C%DB%8C-%D9%86%DB%8C%D9%88%D9%85%D9%86-%D9%85%D8%AF%D9%84-ndh-20?utm_medium=PPC&utm_source=Torob")
-# print(phonestore(item, None, None))
+# item = MyObject("https://www.atikalamarket.com/Product/AKP-25554/%D9%BE%DB%8C%D8%A7%D9%86%D9%88-%D8%AF%DB%8C%D8%AC%DB%8C%D8%AA%D8%A7%D9%84-%D9%85%D8%AF%D9%84-%D8%B1%D9%88%D9%84%DB%8C-49k/")
+# print(atikalamarket(item, None, None))

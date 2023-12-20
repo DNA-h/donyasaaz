@@ -108,7 +108,7 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://sowtazhang.ir/product/diffuser-foam/")
+# item = MyObject("https://sowtazhang.ir/product/beyerdynamic-dt-770-pro-250-ohm/")
 # print(sowtazhang(item, None, None))
 #
 # item = MyObject("https://sowtazhang.ir/product/%da%a9%d8%a7%d8%b1%d8%aa-%d8%b5%d8%af%d8%a7-%d8%a7%da%a9%d8%b3%d8%aa%d8%b1%d9%86%d8%a7%d9%84-%d8%a7%d8%b4%d8%aa%d8%a7%db%8c%d9%86%d8%a8%d8%b1%da%af-steinberg-ur12/")

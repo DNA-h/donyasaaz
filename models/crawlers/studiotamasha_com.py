@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def gilyamaha(link, headers, site):
+def studiotamasha(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -25,11 +25,11 @@ def gilyamaha(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                              options=chrome_options)
 
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
 
-        # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR, ".elementor-widget-wd_single_product_price .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -47,7 +47,7 @@ def gilyamaha(link, headers, site):
         except NoSuchElementException:
             try:
                 elements = driver.find_elements(By.CSS_SELECTOR,
-                                                'h1 ~ .price')
+                                                '.elementor-widget-wd_single_product_price .price')
                 if elements:
                     for element in elements:
                         bdi = element.find_element(By.TAG_NAME, 'bdi')
@@ -98,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.gilyamaha.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%db%8c%d8%a7%d9%85%d8%a7%d9%87%d8%a7-ydp-145-2/?utm_source=EmallsCompairingPrice&utm_medium=EmallsPPC&utm_campaign=Emalls")
-# print(gilyamaha(item, None, None))
+# item = MyObject("https://studiotamasha.com/product/%D8%AF%D8%B1%D8%A7%D9%85-%D8%B3%D8%AA-gm-ar504-mapex-shell?utm_medium=PPC&utm_source=Torob")
+# print(studiotamasha(item, None, None))

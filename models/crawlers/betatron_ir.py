@@ -11,7 +11,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from bs4 import BeautifulSoup
 
 
-def gilyamaha(link, headers, site):
+def betatron(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
@@ -29,7 +29,7 @@ def gilyamaha(link, headers, site):
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR,  "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')
@@ -98,5 +98,5 @@ def convert_to_english(text):
 #         self.url = url
 #
 #
-# item = MyObject("https://www.gilyamaha.com/product/%d9%be%db%8c%d8%a7%d9%86%d9%88-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%db%8c%d8%a7%d9%85%d8%a7%d9%87%d8%a7-ydp-145-2/?utm_source=EmallsCompairingPrice&utm_medium=EmallsPPC&utm_campaign=Emalls")
-# print(gilyamaha(item, None, None))
+# item = MyObject("https://aressystem.ir/product/shure-mv7x-xlr-podcast-microphone/?utm_medium=PPC_adv_click&utm_source=Torob")
+# print(aressystem(item, None, None))

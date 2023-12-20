@@ -29,7 +29,7 @@ def aressystem(link, headers, site):
 
         # FIXED WOOCOMMERCE PRO
         try:
-            elements = driver.find_elements(By.CSS_SELECTOR, "h1 ~ .price")
+            elements = driver.find_elements(By.CSS_SELECTOR,  "h1 ~ .price")
             for element in elements:
                 ins = element.find_element(By.TAG_NAME, 'ins')
                 bdi = ins.find_element(By.TAG_NAME, 'bdi')

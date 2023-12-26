@@ -262,15 +262,16 @@ def saveMusicItemCounter(music_item):
 
 
 def check_if_its_turn(counter:int, priority:int) -> bool:
-    """Check if it's ok to let a link continue to be be crawled"""
-    if priority == 0:
-        return False  # PRODUCT IGNORED FOR EVER!
-    if counter == 0:
-        return True  # Initial point
-    elif counter / priority > 1:
-        return False
-    else:
-        return True
+    return True;
+    # """Check if it's ok to let a link continue to be be crawled"""
+    # if priority == 0:
+    #     return False  # PRODUCT IGNORED FOR EVER!
+    # if counter == 0:
+    #     return True  # Initial point
+    # elif counter / priority > 1:
+    #     return False
+    # else:
+    #     return True
 
 
 def callCrawlerThread(link, site, statistic, total):

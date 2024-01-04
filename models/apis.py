@@ -289,7 +289,7 @@ def callCrawlerThread(link, site, statistic, total):
     link.last_run_started = timezone.now()
     link.save()
 
-    music_item = MusicItem.objects.filter(id=parent_id).first()
+    #music_item = MusicItem.objects.filter(id=parent_id).first()
     # print(music_item)
     # if music_item:
     #     if check_if_its_turn(music_item.counter, music_item.priority):

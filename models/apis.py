@@ -290,47 +290,47 @@ def callCrawlerThread(link, site, statistic, total):
     link.save()
 
     music_item = MusicItem.objects.filter(id=parent_id).first()
-    print(music_item)
-    if music_item:
-        if check_if_its_turn(music_item.counter, music_item.priority):
-            saveMusicItemCounter(music_item)
-            try:
-                print("site:")
-                print(crawlers[site[0]])
-                product = crawlers[site[0]](link, headers, site[0])
-            except Exception as e:
-                logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
-                link.last_run = -2
-                link.last_run_ended = timezone.now()
-                link.save()
-                return
+    # print(music_item)
+    # if music_item:
+    #     if check_if_its_turn(music_item.counter, music_item.priority):
+    #        saveMusicItemCounter(music_item)
+    try:
+        print("site:")
+        print(crawlers[site[0]])
+        product = crawlers[site[0]](link, headers, site[0])
+    except Exception as e:
+        logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
+        link.last_run = -2
+        link.last_run_ended = timezone.now()
+        link.save()
+        return
 
-            if product is None:
-                logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
-                link.last_run = -1
-                link.last_run_ended = timezone.now()
-                link.save()
-                return
-            duration = time.time() - start_time
+    if product is None:
+        logger.info('%s, null :  %s,', "{0:.2f}s".format((time.time() - start_time)), site[0])
+        link.last_run = -1
+        link.last_run_ended = timezone.now()
+        link.save()
+        return
+    duration = time.time() - start_time
 
-            if site[0] not in statistic:
-                statistic[site[0]] = {"count": 0, "total": duration}
-            else:
-                statistic[site[0]] = {
-                    "count": statistic[site[0]]["count"] + 1,
-                    "total": statistic[site[0]]["total"] + duration
-                }
-            if product == 0:
-                product = -1
-            print("price:")
-            print(product)
-            link.last_run = math.ceil(time.time() - start_time)
-            link.last_run_ended = timezone.now()
-            link.save()
-            updateLink(link, product, site[0])
-        else:
-            saveMusicItemCounter(music_item)
-            print("not turn")
+    if site[0] not in statistic:
+        statistic[site[0]] = {"count": 0, "total": duration}
+    else:
+        statistic[site[0]] = {
+            "count": statistic[site[0]]["count"] + 1,
+            "total": statistic[site[0]]["total"] + duration
+        }
+    if product == 0:
+        product = -1
+    print("price:")
+    print(product)
+    link.last_run = math.ceil(time.time() - start_time)
+    link.last_run_ended = timezone.now()
+    link.save()
+    updateLink(link, product, site[0])
+        # else:
+        #     saveMusicItemCounter(music_item)
+        #     print("not turn")
 
 
 

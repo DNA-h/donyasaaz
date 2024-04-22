@@ -73,7 +73,7 @@ if( $_POST && isset($_POST['product_name'])){
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    echo "<div class='row'>"."<h1>".$row['name']."</h1>"."</div>";
+                    echo "<div class='row'>"."<h1>".$row['name']."</h1>"."<a href='edit.php?id=".$row['id']."'>ویرایش</a></div>";
                     $sql2 = "SELECT * FROM models_link WHERE `parent_id` = ".$row['id']." ";
                     $result2 = $conn->query($sql2);
                     if ($result2->num_rows > 0) {

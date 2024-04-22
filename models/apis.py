@@ -148,8 +148,8 @@ crawlers = {"digiavl.com": digiavl_com.digiavl,
             "aref.ir": aref_ir.aref, "sedayenovin.ir": sedayenovin_ir.sedayenovin,
             "radek.ir": radek_ir.radek, "sazkhune.com": sazkhune_com.sazkhune,"notehashtom.com":notehashtom_com.notehashtom,
             "musicsheida.com": musicsheida_com.musicsheida, "bavandpiano.com": bavandpiano_com.bavandpiano,
-            "iransote.com": iransote_com.iransote, "benberg.ir":benberg_ir.benberg,"guitarpluss.ir": guitarpluss_ir.guitarpluss, "iranloop.ir": iranloop_ir.iranloop,
-            "www.iranloop.ir": iranloop_ir.iranloop, "melomini.com":melomini_com.melomini,"sollavaz_ir":sollavaz_ir.sollavaz, "behfee.com": behfee_com.behfee, "ajmankala.ir":ajmankala_ir.ajmankala ,"bikook.shop":bikook_shop.bikook , "tenzumusic.com": tenzumusic_com.tenzumusic, "phonestore.ir":phonestore_ir.phonestore , "virashot.com":virashot_com.virashot , "epasand.com":epasand_com.epasand ,  "123seda.com":f123seda_com.f123seda ,"delavazshop.com":delavazshop_com.delavazshop ,"sanadeltrading.com":sanadeltrading_com.sanadeltrading , "opalsaz.com":opalsaz_com.opalsaz ,"sazmazshop.com":sazmazshop_com.sazmazshop,"sazkadeh.com":sazkadeh_com.sazkadeh,"pianokadeh.com":pianokadeh_com.pianokadeh, "behinmedia.ir": behinmedia_ir.behinmedia,
+            "iransote.com": iransote_com.iransote, "benberg.ir":benberg_ir.benberg,"guitarpluss.ir": guitarpluss_ir.guitarpluss, "iranloop.com": iranloop_ir.iranloop,
+            "www.iranloop.com": iranloop_ir.iranloop, "melomini.com":melomini_com.melomini,"sollavaz_ir":sollavaz_ir.sollavaz, "behfee.com": behfee_com.behfee, "ajmankala.ir":ajmankala_ir.ajmankala ,"bikook.shop":bikook_shop.bikook , "tenzumusic.com": tenzumusic_com.tenzumusic, "phonestore.ir":phonestore_ir.phonestore , "virashot.com":virashot_com.virashot , "epasand.com":epasand_com.epasand ,  "123seda.com":f123seda_com.f123seda ,"delavazshop.com":delavazshop_com.delavazshop ,"sanadeltrading.com":sanadeltrading_com.sanadeltrading , "opalsaz.com":opalsaz_com.opalsaz ,"sazmazshop.com":sazmazshop_com.sazmazshop,"sazkadeh.com":sazkadeh_com.sazkadeh,"pianokadeh.com":pianokadeh_com.pianokadeh, "behinmedia.ir": behinmedia_ir.behinmedia,
             "www.sazforoosh.com": www_sazforoosh_com.sazforoosh, "sazkala.com": sazkala_com.sazkala,
             "sedastore.com": sedastore_com.sedastore, "djcenter.net": www_djcenter_net.djcenter, "www.djcenter.net": www_djcenter_net.djcenter,
             "digiseda.ir": digiseda_ir.digiseda, "saz-market.ir":saz_market_ir.saz_market ,"rayanseda.com": rayanseda_com.rayanseda,
@@ -335,7 +335,7 @@ def callCrawlerThread(link, site, statistic, total):
 
 
 crawlersFast = {"torob.com": torob_com.torob, "emalls.ir": emalls_ir.emalls,
-                "iranloop.ir": iranloop_ir.iranloop, "golhastore.ir": golhastore_ir.golhastore,
+                "iranloop.com": iranloop_ir.iranloop, "golhastore.ir": golhastore_ir.golhastore,
                 "www.sazforoosh.com": www_sazforoosh_com.sazforoosh}
 
 

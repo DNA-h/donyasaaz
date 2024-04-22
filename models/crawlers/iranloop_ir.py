@@ -17,12 +17,12 @@ def iranloop(link, headers, site):
         # chrome_options.add_argument("--headless")
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
-        # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
+        sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
+        driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
-        sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
-                             options=chrome_options)
+        # sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
+        # driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
+        #                      options=chrome_options)
 
         driver.set_page_load_timeout(40);
         driver.get(link.url);
@@ -86,9 +86,9 @@ def convert_to_english(text):
 # class MyObject:
 #     def __init__(self, url):
 #         self.url = url
-
-
-# item = MyObject("https://iranloop.ir/speaker-monitoring/KRK-V8-S4-used")
+#
+#
+# item = MyObject("https://iranloop.com/roland-rubix-44/")
 # print(iranloop(item, None, None))
 #
 # item = MyObject("https://iranloop.ir/speaker-monitoring/adam-t7v")

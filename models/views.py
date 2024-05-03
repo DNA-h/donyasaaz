@@ -432,7 +432,7 @@ def get_prices():
     links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('id')
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
-    print(links)
+    print(len(links))
     import random
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
@@ -440,8 +440,8 @@ def get_prices():
             try:
 
                 rnd = random.randint(1,99)
-                # if links[(i + 0) % len(links)]['importance'] < rnd:
-                #     continue
+                if links[(i + 0) % len(links)]['importance'] < rnd:
+                    continue
                 site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))

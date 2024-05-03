@@ -439,9 +439,9 @@ def get_prices():
         for i in range(0, len(links)):
             try:
 
-                rnd = random.randint(1,99)
-                if links[(i + 0) % len(links)]['importance'] < rnd:
-                    continue
+                # rnd = random.randint(1,99)
+                # if links[(i + 0) % len(links)]['importance'] < rnd:
+                #     continue
                 site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))

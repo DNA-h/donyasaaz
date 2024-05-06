@@ -441,7 +441,7 @@ def get_prices():
     links = list(links)
 
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for i in range(0, len(links)):
             try:
                 rnd = random.randint(1,99)

@@ -429,7 +429,7 @@ def get_prices():
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
-    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('id')
+    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')[:5000]
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     print(len(links));

@@ -304,11 +304,11 @@ def create_and_download_backup():
     import zipfile
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
-    with zipfile.ZipFile('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip', 'w') as zipf:
-        zipf.write('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
-    os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip')
-    os.system('git commit -m "automatic update"')
-    os.system('git push origin master')
+    # with zipfile.ZipFile('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip', 'w') as zipf:
+    #     zipf.write('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
+    # os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip')
+    # os.system('git commit -m "automatic update"')
+    # os.system('git push origin master')
 
 @csrf_exempt
 @api_view(['GET'])
@@ -435,10 +435,10 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     import random
-    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')[:5000]
+    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
-    print(len(links))
+
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
         for i in range(0, len(links)):

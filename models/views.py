@@ -301,8 +301,12 @@ def send_sms_to_user(number):
 
 def create_and_download_backup():
     import os
+    import zipfile
+
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
-    os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
+    with zipfile.ZipFile('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip', 'w') as zipf:
+        zipf.write('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
+    os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip')
     os.system('git commit -m "automatic update"')
     os.system('git push origin master')
 

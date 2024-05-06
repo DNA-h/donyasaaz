@@ -435,6 +435,7 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     import random
+
     links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)

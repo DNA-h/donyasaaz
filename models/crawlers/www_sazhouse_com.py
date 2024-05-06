@@ -26,6 +26,7 @@ def sazhouse(link, headers, site):
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                   options=chrome_options)
         driver.set_page_load_timeout(40);driver.get(link.url);
+
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)
@@ -35,6 +36,7 @@ def sazhouse(link, headers, site):
     except:
         return -1
     soup = BeautifulSoup(driver.page_source, "html.parser")
+    driver.close()
     if soup.find("span", attrs={"class": "addBasketText"}):
         p = soup.find(attrs={"id": "totlaPrice"})
         if p is None:

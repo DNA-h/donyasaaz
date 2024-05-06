@@ -32,6 +32,7 @@ def berozkala(link, headers, site):
 
     while(True):
         soup = BeautifulSoup(driver.page_source, "html.parser")
+        driver.close()
         div = soup.find("span", attrs={"class": "price"})
         img = div.find("img")
         if img is None:
@@ -43,6 +44,7 @@ def berozkala(link, headers, site):
     if soup.find("button", attrs={"class": "single_add_to_cart_button button"}):
         div = soup.find("p", attrs={"class": "price"})
         if div is None:
+
             return -1
         p = div.find_all("span", attrs={"id":"_showPriceInHomePage"})
         if len(p) == 0:

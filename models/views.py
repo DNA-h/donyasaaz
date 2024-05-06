@@ -434,7 +434,6 @@ def get_prices():
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     print(len(links))
-
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
         for i in range(0, len(links)):

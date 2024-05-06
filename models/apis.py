@@ -328,9 +328,9 @@ def callCrawlerThread(link, site, statistic, total):
     link.last_run_ended = timezone.now()
     link.save()
     updateLink(link, product, site[0])
-        # else:
-        #     saveMusicItemCounter(music_item)
-        #     print("not turn")
+    # else:
+    #     saveMusicItemCounter(music_item)
+    #     print("not turn")
 
 
 

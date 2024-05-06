@@ -429,13 +429,14 @@ def get_prices():
     Link.objects.all().update(last_run=None, last_run_started=None, last_run_ended=None)
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
+    import random
     links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')[:5000]
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     print(len(links));
-    import random
+
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
         for i in range(0, len(links)):
             try:
                 rnd = random.randint(1,99)

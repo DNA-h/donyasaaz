@@ -37,13 +37,16 @@ def torob(link, headers, site):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--log-level=3')
+        chrome_options.add_argument('--blink-settings=imagesEnabled=false')
+
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 
         sys.path.append("C:\\Users\\hamed\\donyasaaz\\chromedriver.exe")
         driver = webdriver.Chrome(executable_path="C:\\Users\\hamed\\donyasaaz\\chromedriver.exe",
                                 options=chrome_options)
-        driver.set_page_load_timeout(40);driver.get(link.url);
+        driver.set_page_load_timeout(40)
+        driver.get(link.url)
         elements = driver.find_elements(By.CSS_SELECTOR, '.seller-element.price')
 
     except Exception as e:
@@ -70,10 +73,14 @@ def torob(link, headers, site):
             else:
                 smallest = price_text
         if smallest > 0:
+            driver.close()
             return smallest
         else:
+            driver.close()
             return -1
-
+    else:
+        driver.close()
+        return -1
 
 
 

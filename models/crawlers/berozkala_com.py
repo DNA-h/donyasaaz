@@ -32,14 +32,14 @@ def berozkala(link, headers, site):
 
     while(True):
         soup = BeautifulSoup(driver.page_source, "html.parser")
-        driver.close()
+        driver.quit()
         div = soup.find("span", attrs={"class": "price"})
         img = div.find("img")
         if img is None:
             break
         else:
             time.sleep(1)
-    driver.close()
+    driver.quit()
 
     if soup.find("button", attrs={"class": "single_add_to_cart_button button"}):
         div = soup.find("p", attrs={"class": "price"})

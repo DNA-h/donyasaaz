@@ -40,13 +40,13 @@ def anemonemusic(link, headers, site):
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
-                            driver.close()
+                            driver.quit()
                             return price_text
                         else:
-                            driver.close()
+                            driver.quit()
                             return -1
                     else:
-                        driver.close()
+                        driver.quit()
                         return -1
                 except NoSuchElementException:
                     # variation-product
@@ -56,16 +56,16 @@ def anemonemusic(link, headers, site):
                     price_text = convert_to_english(price_text)
                     if price_text != "":
                         price_text = int(price_text)
-                        driver.close()
+                        driver.quit()
                         return price_text
                     else:
-                        driver.close()
+                        driver.quit()
                         return -1
 
-            driver.close()
+            driver.quit()
             return -1
         else:
-            driver.close()
+            driver.quit()
             return -1
     except Exception as e:
         print(e)

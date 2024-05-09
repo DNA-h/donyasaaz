@@ -43,11 +43,11 @@ def atikalamarket(link, headers, site):
                         else:
                             if final_price == -1:
                                 final_price = price_text
-            driver.close()
+            driver.quit()
             return final_price
 
         except NoSuchElementException:
-            driver.close()
+            driver.quit()
             return -1
     except Exception as ee:
         return -1

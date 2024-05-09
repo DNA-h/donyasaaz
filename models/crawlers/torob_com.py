@@ -73,13 +73,13 @@ def torob(link, headers, site):
             else:
                 smallest = price_text
         if smallest > 0:
-            driver.close()
+            driver.quit()
             return smallest
         else:
-            driver.close()
+            driver.quit()
             return -1
     else:
-        driver.close()
+        driver.quit()
         return -1
 
 

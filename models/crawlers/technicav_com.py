@@ -24,7 +24,7 @@ def technicav(link, headers, site):
         try:
             elements = driver.find_elements(By.CSS_SELECTOR, '.product-details .product-price .out-price')
             if elements:
-                driver.close()
+                driver.quit()
                 return -1
             else:
                 elements = driver.find_elements(By.CSS_SELECTOR, '.product-details .product-price .new-price')
@@ -34,13 +34,13 @@ def technicav(link, headers, site):
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
-                            driver.close()
+                            driver.quit()
                             return price_text
                         else:
-                            driver.close()
+                            driver.quit()
                             return -1
 
-                    driver.close()
+                    driver.quit()
                     return -1
                 else:
                     elements = driver.find_elements(By.CSS_SELECTOR, '.product-details .product-price')
@@ -50,15 +50,15 @@ def technicav(link, headers, site):
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
-                            driver.close()
+                            driver.quit()
                             return price_text
                         else:
-                            driver.close()
+                            driver.quit()
                             return -1
-                    driver.close()
+                    driver.quit()
                     return -1
         except NoSuchElementException:
-            driver.close()
+            driver.quit()
             return -1
     except Exception as ee:
         return -1

@@ -31,7 +31,7 @@ def violinkadeh(link, headers, site):
             text_status = out_stock.text.strip()
 
             if text_status == "ناموجود در انبار":
-                driver.close()
+                driver.quit()
                 return -1
             else:
                 elements = driver.find_elements(By.CSS_SELECTOR, ".price-add-to-cart .price.d-flex")
@@ -43,12 +43,12 @@ def violinkadeh(link, headers, site):
                     if price_text != "":
 
                         price_text = int(price_text)
-                        driver.close()
+                        driver.quit()
                         return price_text
                     else:
-                        driver.close()
+                        driver.quit()
                         return -1
-                driver.close()
+                driver.quit()
                 return -1
         except NoSuchElementException:
             try:
@@ -61,18 +61,18 @@ def violinkadeh(link, headers, site):
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
-                            driver.close()
+                            driver.quit()
                             return price_text
                         else:
-                            driver.close()
+                            driver.quit()
                             return -1
-                    driver.close()
+                    driver.quit()
                     return -1
                 else:
-                    driver.close()
+                    driver.quit()
                     return -1
             except NoSuchElementException as e:
-                driver.close()
+                driver.quit()
                 return -1
     except Exception as ee:
         return -1

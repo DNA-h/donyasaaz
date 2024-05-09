@@ -30,10 +30,10 @@ def royzkala(link, headers, site):
     try:
         WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
     except:
-        driver.close()
+        driver.quit()
         return -1
     soup = BeautifulSoup(driver.page_source, "html.parser")
-    driver.close()
+    driver.quit()
     if soup.find("button", attrs={"class": "single_add_to_cart_button button dk-button"}):
         div = soup.find(attrs={"class": "price"})
         if div is None:

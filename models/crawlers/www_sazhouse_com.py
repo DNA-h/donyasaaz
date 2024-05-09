@@ -36,7 +36,7 @@ def sazhouse(link, headers, site):
     except:
         return -1
     soup = BeautifulSoup(driver.page_source, "html.parser")
-    driver.close()
+    driver.quit()
     if soup.find("span", attrs={"class": "addBasketText"}):
         p = soup.find(attrs={"id": "totlaPrice"})
         if p is None:

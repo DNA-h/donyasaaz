@@ -20,7 +20,7 @@ def sazcenter(link, headers, site):
                                   options=chrome_options)
         driver.set_page_load_timeout(40);driver.get(link.url);
         soup = BeautifulSoup(driver.page_source, "html.parser")
-        driver.close()
+        driver.quit()
     except Exception as e:
         logger = logging.getLogger(__name__)
         logger.info('%s :  %s,', site, e)

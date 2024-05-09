@@ -32,7 +32,7 @@ def studiopaya(link, headers, site):
             try:
                 out_stock = driver.find_element(By.CSS_SELECTOR, ".stock.out-of-stock")
                 text_status = out_stock.text.strip()
-                driver.close()
+                driver.quit()
                 return -1
             except NoSuchElementException:
                 elements = driver.find_elements(By.CSS_SELECTOR, ".fusion-woo-price-tb .price")
@@ -43,12 +43,12 @@ def studiopaya(link, headers, site):
                     price_text = convert_to_english(price_text)
                     if price_text != "":
                         price_text = int(price_text)
-                        driver.close()
+                        driver.quit()
                         return price_text
                     else:
-                        driver.close()
+                        driver.quit()
                         return -1
-                driver.close()
+                driver.quit()
                 return -1
         except NoSuchElementException:
             try:
@@ -61,18 +61,18 @@ def studiopaya(link, headers, site):
                         price_text = convert_to_english(price_text)
                         if price_text != "":
                             price_text = int(price_text)
-                            driver.close()
+                            driver.quit()
                             return price_text
                         else:
-                            driver.close()
+                            driver.quit()
                             return -1
-                    driver.close()
+                    driver.quit()
                     return -1
                 else:
-                    driver.close()
+                    driver.quit()
                     return -1
             except NoSuchElementException as e:
-                driver.close()
+                driver.quit()
                 return -1
 
     except Exception as ee:

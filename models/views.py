@@ -400,7 +400,6 @@ def divar_PhoneNumber(request):
 @csrf_exempt
 @api_view(['GET', 'POST'])
 def divar_Code(request):
-
     config.divarCode = request.data['number']
     return JsonResponse({'success': True}, encoder=JSONEncoder)
 

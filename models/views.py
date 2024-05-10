@@ -414,7 +414,7 @@ def run_prices_fast(request):
 @api_view(['POST'])
 def run_reload_music_item_prices(request):
     Thread(target=reload_music_item_prices).start()
-    return JsonResponse({'success': True}, encoder=JSONEncoder);
+    return JsonResponse({'success': True}, encoder=JSONEncoder)
 
 
 @app.task

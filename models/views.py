@@ -422,7 +422,8 @@ def reload_music_item_prices():
     items = MusicItem.objects.all()
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as donyayesazz:
         for i in range(0, len(items)):
-            donyayesazz.submit(reloadMusicItemPrice, items[i], i)
+            donyayesazz.submit(reloadMusicItemPrice, items[i], i);
+
 
 
 @app.task

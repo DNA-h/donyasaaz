@@ -14,7 +14,7 @@ def dehkadedigital(link, headers, site):
     try:
         chrome_options = Options()
         # chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
+
         chrome_options.add_argument('--blink-settings=imagesEnabled=false')
 
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")

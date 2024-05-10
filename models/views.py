@@ -435,11 +435,9 @@ def get_prices():
     logger = logging.getLogger(__name__)
     statistic = {"TOTAL": 0}
     import random
-
-    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('?')
+    links = Link.objects.filter(parent__is_active=True).values('id', 'parent', 'url', 'importance').order_by('id')
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
-
     random.shuffle(links)
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         for i in range(0, len(links)):

@@ -14,7 +14,7 @@ def zoomlan(link, headers, site):
     try:
         chrome_options = Options()
         #chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--no-sandbox')
+         
         # sys.path.append("C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe")
         # driver = webdriver.Chrome(executable_path="C:\\MyBackups\\robot donyayesaaz\\chromedriver.exe",options=chrome_options)
 

@@ -427,7 +427,6 @@ def reload_music_item_prices():
 
 @app.task
 def get_prices():
-
     config.lastCrawlStarted = datetime.datetime.now(pytz.timezone('Asia/Tehran'))
     config.lastCrawlChanges = 0
     create_and_download_backup()

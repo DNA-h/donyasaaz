@@ -439,12 +439,12 @@ def get_prices():
     bookmarks = Link.objects.filter(is_bookmark=True).values('id', 'url', 'importance').order_by('id')
     links = list(links)
     random.shuffle(links)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:
         for i in range(0, len(links)):
             try:
-                rnd = random.randint(1,99)
-                if links[(i + 0) % len(links)]['importance'] < rnd:
-                    continue
+                # rnd = random.randint(1,99)
+                # if links[(i + 0) % len(links)]['importance'] < rnd:
+                #     continue
                 site = re.findall("//(.*?)/", links[(i + 0) % len(links)]['url'])
                 if not site:
                     logger.info('empty url :  %s,', str(links[(i + 0) % len(links)]['id']))

@@ -363,22 +363,34 @@ def updateLink(link, product, site):
         try:
             price = Price.objects.create(parent=link)
             price.value = product
-            if site != 'divar.ir':
-                link.unseen = True
+            try:
+                if site != 'divar.ir':
+                    link.unseen = True
+                    musicItem = MusicItem.objects.get(pk=link.parent_id)
+                    if price.value == -1:
+                        musicItem.out_of_stock += 1
+                    elif lastPrice is None or (lastPrice.value != -1 and lastPrice.value < price.value):
+                        musicItem.increase += 1
+                    elif lastPrice.value == -1:
+                        musicItem.in_stock += 1
+                    else:
+                        musicItem.decrease += 1
+                    musicItem.save()
+                    config.lastCrawlChanges += 1
+            except Exception as ex:
                 musicItem = MusicItem.objects.get(pk=link.parent_id)
-                if price.value == -1:
-                    musicItem.out_of_stock += 1
-                elif lastPrice is None or (lastPrice.value != -1 and lastPrice.value < price.value):
-                    musicItem.increase += 1
-                elif lastPrice.value == -1:
-                    musicItem.in_stock += 1
-                else:
-                    musicItem.decrease += 1
+                musicItem.out_of_stock = 0
+                musicItem.increase = 1
+                musicItem.decrease = 0
+                musicItem.in_stock = 1
                 musicItem.save()
-                config.lastCrawlChanges += 1
+                price.save()
+                link.save()
+        except Exception as e:
+            price = Price.objects.create(parent=link)
+            price.value = product
             price.save()
             link.save()
-        except Exception as e:
             logger = logging.getLogger(__name__)
             logger.info('%s', e)
 

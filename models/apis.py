@@ -387,12 +387,16 @@ def updateLink(link, product, site):
                 price.save()
                 link.save()
         except Exception as e:
-            price = Price.objects.create(parent=link)
-            price.value = product
-            price.save()
-            link.save()
-            logger = logging.getLogger(__name__)
-            logger.info('%s', e)
+            try:
+                price = Price.objects.create(parent=link)
+                price.value = product
+                price.save()
+                link.save()
+                logger = logging.getLogger(__name__)
+                logger.info('%s', e)
+            except Exception as q:
+                logger = logging.getLogger(__name__)
+                logger.info('%s', q)
 
 
 def reloadMusicItemPrice(item, i):

@@ -289,11 +289,6 @@ def callCrawlerThread(link, site, statistic, total):
     link.last_run_started = timezone.now()
     link.save()
 
-    #music_item = MusicItem.objects.filter(id=parent_id).first()
-    # print(music_item)
-    # if music_item:
-    #     if check_if_its_turn(music_item.counter, music_item.priority):
-    #        saveMusicItemCounter(music_item)
     try:
         print("site:")
         print(crawlers[site[0]])
@@ -328,9 +323,7 @@ def callCrawlerThread(link, site, statistic, total):
     link.last_run_ended = timezone.now()
     link.save()
     updateLink(link, product, site[0])
-    # else:
-    #     saveMusicItemCounter(music_item)
-    #     print("not turn")
+
 
 
 
@@ -359,12 +352,6 @@ def callCrawlerThreadFast(link, site, i):
 
 def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
-
-    print("readed_price:")
-    print(product)
-    print("readed_product_link:")
-    print(link.parent_id)
-
     if lastPrice is None or lastPrice.value != product:
         try:
             price = Price.objects.create(parent=link)
@@ -383,6 +370,8 @@ def updateLink(link, product, site):
                         musicItem.decrease += 1
                     musicItem.save()
                     config.lastCrawlChanges += 1
+                price.save()
+                link.save()
             except Exception as ex:
                 musicItem = MusicItem.objects.get(pk=link.parent_id)
                 musicItem.out_of_stock = 0
@@ -394,16 +383,9 @@ def updateLink(link, product, site):
                 price.save()
                 link.save()
         except Exception as e:
-            try:
-                price = Price.objects.create(parent=link)
-                price.value = product
-                price.save()
-                link.save()
-                logger = logging.getLogger(__name__)
-                logger.info('%s', e)
-            except Exception as q:
-                logger = logging.getLogger(__name__)
-                logger.info('%s', q)
+            logger = logging.getLogger(__name__)
+            logger.info('%s', e)
+
 
 
 def reloadMusicItemPrice(item, i):

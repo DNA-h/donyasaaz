@@ -312,7 +312,21 @@ def create_and_download_backup():
     with open('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql', 'rb') as f:
         ftp.storbinary('STOR dump.sql', f)
     ftp.quit()
+@csrf_exempt
+@api_view(['GET'])
+def backupp():
+    import os
+    import zipfile
 
+    os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
+    from ftplib import FTP
+
+    ftp = FTP('ftp.donyayesaaz.com')
+    ftp.login('ali@donyayesaaz.com', '(6Y=Uf7_TBl{')
+    ftp.cwd('/')
+    with open('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql', 'rb') as f:
+        ftp.storbinary('STOR dump.sql', f)
+    ftp.quit()
 @csrf_exempt
 @api_view(['GET'])
 def download_divar_all(request):

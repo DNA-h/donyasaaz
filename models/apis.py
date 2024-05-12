@@ -359,6 +359,10 @@ def callCrawlerThreadFast(link, site, i):
 
 def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
+    print("last_price")
+    print(lastPrice)
+    print('readed_price')
+    print(product)
     if lastPrice is None or lastPrice.value != product:
         try:
             price = Price.objects.create(parent=link)
@@ -384,6 +388,7 @@ def updateLink(link, product, site):
                 musicItem.decrease = 0
                 musicItem.in_stock = 1
                 musicItem.save()
+                price.value = product
                 price.save()
                 link.save()
         except Exception as e:

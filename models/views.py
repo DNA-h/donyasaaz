@@ -309,6 +309,23 @@ def create_and_download_backup():
     # os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip')
     # os.system('git commit -m "automatic update"')
     # os.system('git push origin master')
+    ## new save system
+    import requests
+
+    # Specify the file to upload
+    file_path = 'path/to/your/file.txt'
+    url = 'https://donyayesaaz.com/robot-backups/upload.php'
+
+    # Set your password
+    password = 'm@smzkaalxx1223ss';
+
+    # Open the file
+    with open(file_path, 'rb') as file:
+        # Send a POST request with password and file to the server
+        response = requests.post(url, files={'file': file}, data={'password': password})
+
+    # Print the server's response
+    print(response.text)
 
 @csrf_exempt
 @api_view(['GET'])

@@ -359,10 +359,10 @@ def callCrawlerThreadFast(link, site, i):
 
 def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
-    joined = "readed_price:" + product
-    print(joined)
-    joined ="parent_id:"+link.parent_id
-    print(joined)
+
+    print("readeqd_price:")
+    print(product)
+
     if lastPrice is None or lastPrice.value != product:
         try:
             price = Price.objects.create(parent=link)

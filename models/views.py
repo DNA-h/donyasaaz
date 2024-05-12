@@ -313,7 +313,7 @@ def create_and_download_backup():
     import requests
 
     # Specify the file to upload
-    file_path = 'path/to/your/file.txt'
+    file_path = 'C:\\Users\\hamed\\donyasaaz\\static\\dump.sql'
     url = 'https://donyayesaaz.com/robot-backups/upload.php'
 
     # Set your password

@@ -317,7 +317,7 @@ def create_and_download_backup():
     url = 'https://donyayesaaz.com/robot-backups/upload.php'
 
     # Set your password
-    password = 'm@smzkaalxx1223ss';
+    password = 'm@smzkaalxx1223ss'
 
     # Open the file
     with open(file_path, 'rb') as file:

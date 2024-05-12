@@ -322,8 +322,6 @@ def callCrawlerThread(link, site, statistic, total):
         }
     if product == 0:
         product = -1
-    print("price:")
-    print(product)
     link.last_run = math.ceil(time.time() - start_time)
     link.last_run_ended = timezone.now()
     link.save()
@@ -359,8 +357,6 @@ def callCrawlerThreadFast(link, site, i):
 
 def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
-    print("last_price")
-    print(lastPrice)
     print('readed_price')
     print(product)
     if lastPrice is None or lastPrice.value != product:

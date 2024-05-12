@@ -302,6 +302,7 @@ def callCrawlerThread(link, site, statistic, total):
         logger.info('%s %s :  %s,', "{0:.2f}s".format((time.time() - start_time)), str(link.id), e)
         link.last_run = -2
         link.last_run_ended = timezone.now()
+        print("exception-price")
         link.save()
         return
 
@@ -310,6 +311,7 @@ def callCrawlerThread(link, site, statistic, total):
         link.last_run = -1
         link.last_run_ended = timezone.now()
         link.save()
+        print("noone-price")
         return
     duration = time.time() - start_time
 
@@ -357,8 +359,10 @@ def callCrawlerThreadFast(link, site, i):
 
 def updateLink(link, product, site):
     lastPrice = Price.objects.filter(parent=link).order_by('-created').first()
-    print("readed_price:"+product)
-    print("parent_id:"+link.parent_id)
+    joined = "readed_price:" + product
+    print(joined)
+    joined ="parent_id:"+link.parent_id
+    print(joined)
     if lastPrice is None or lastPrice.value != product:
         try:
             price = Price.objects.create(parent=link)

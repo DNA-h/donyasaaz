@@ -304,28 +304,14 @@ def create_and_download_backup():
     import zipfile
 
     os.system('mysqldump -u root -pHolyDance donyasaaz > C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
-    # with zipfile.ZipFile('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip', 'w') as zipf:
-    #     zipf.write('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql')
-    # os.system('git add C:\\Users\\hamed\\donyasaaz\\static\\dump.sql.zip')
-    # os.system('git commit -m "automatic update"')
-    # os.system('git push origin master')
-    ## new save system
-    import requests
+    from ftplib import FTP
 
-    # Specify the file to upload
-    # file_path = 'C:\\Users\\hamed\\donyasaaz\\static\\dump.sql'
-    # url = 'https://donyayesaaz.com/robot-backups/upload.php'
-    #
-    # # Set your password
-    # password = 'm@smzkaalxx1223ss'
-    #
-    # # Open the file
-    # with open(file_path, 'rb') as file:
-    #     # Send a POST request with password and file to the server
-    #     response = requests.post(url, files={'file': file}, data={'password': password})
-    #
-    # # Print the server's response
-    # print(response.text)
+    ftp = FTP('ftp.donyayesaaz.com')
+    ftp.login('ali@donyayesaaz.com', '(6Y=Uf7_TBl{')
+    ftp.cwd('/')
+    with open('C:\\Users\\hamed\\donyasaaz\\static\\dump.sql', 'rb') as f:
+        ftp.storbinary('STOR dump.sql', f)
+    ftp.quit()
 
 @csrf_exempt
 @api_view(['GET'])
